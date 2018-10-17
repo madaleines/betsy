@@ -10,43 +10,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2018_10_17_223934) do
+ActiveRecord::Schema.define(version: 2018_10_17_225013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories_products", id: false, force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "category_id", null: false
+    t.index ["category_id", "product_id"], name: "index_categories_products_on_category_id_and_product_id"
+  end
+
+  create_table "merchants", force: :cascade do |t|
+    t.string "username"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.integer "quantity"
     t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-    create_table "categories", force: :cascade do |t|
-      t.string "name"
-      t.datetime "created_at", null: false
-      t.datetime "updated_at", null: false
-    end
+  create_table "orders", force: :cascade do |t|
+    t.string "email"
+    t.string "mailing_address"
+    t.integer "cc"
+    t.string "cc_name"
+    t.string "cc_expiration"
+    t.integer "cvv"
+    t.integer "zip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-    create_table "categories_products", id: false, force: :cascade do |t|
-      t.bigint "product_id", null: false
-      t.bigint "category_id", null: false
-      t.index ["category_id", "product_id"], name: "index_categories_products_on_category_id_and_product_id"
-    end
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.float "price"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-    create_table "products", force: :cascade do |t|
-      t.string "name"
-      t.float "price"
-      t.string "description"
-
-      create_table "orders", force: :cascade do |t|
-        t.string "email"
-        t.string "mailing_address"
-        t.integer "cc"
-        t.string "cc_name"
-        t.string "cc_expiration"
-        t.integer "cvv"
-        t.integer "zip"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
-      end
-
-    end
+end

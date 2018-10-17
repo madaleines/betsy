@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  mailing_address: MyString
+  cc: 1
+  cc_name: MyString
+  cc_expiration: MyString
+  cvv: 1
+  zip: 1
+
+two:
+  email: MyString
+  mailing_address: MyString
+  cc: 1
+  cc_name: MyString
+  cc_expiration: MyString
+  cvv: 1
+  zip: 1

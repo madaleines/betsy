@@ -3,10 +3,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
 require "minitest/rails"
 require "minitest/reporters"  # for Colorized output
-<<<<<<< HEAD
-=======
 
->>>>>>> e2266a2dd3d84c282ef83f0e6ae345026c66227c
 #  For colorful output!
 Minitest::Reporters.use!(
   Minitest::Reporters::SpecReporter.new,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_18_003057) do
+ActiveRecord::Schema.define(version: 2018_10_18_004819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,16 @@ ActiveRecord::Schema.define(version: 2018_10_18_003057) do
     t.index ["order_items_id"], name: "index_products_on_order_items_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "products_id"
+    t.index ["products_id"], name: "index_reviews_on_products_id"
+  end
+
   add_foreign_key "orders", "order_items", column: "order_items_id"
   add_foreign_key "products", "order_items", column: "order_items_id"
+  add_foreign_key "reviews", "products", column: "products_id"
 end

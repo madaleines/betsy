@@ -1,9 +1,37 @@
 require "test_helper"
 
 describe Order do
-  let(:order) { Order.new }
+  describe 'relations' do
+    it "has a list of order items" do
+      order = orders(:one)
+      order.must_respond_to :order_items
 
-  it "must be valid" do
-    value(order).must_be :valid?
+      order.order_items.each do |order_item|
+        order_item.must_be_kind_of  Order_item
+      end
+    end
+  end
+
+  describe 'validations' do
+    it 'is valid with an email' do
+
+    end
+
+    it 'is valid with a mailing address' do
+    end
+
+    it 'is valid with a cc' do
+
+    end
+
+    it 'is valid with an integer cc number' do
+
+    end
+
+    it 'is valid with a cc name' do
+    end
+
+    it 'is valid with ' do
+    end
   end
 end

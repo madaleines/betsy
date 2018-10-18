@@ -1,14 +1,16 @@
 require "test_helper"
 
 describe Merchant do
-  let(:merchant) { Merchant.new }
-
-  it "must be valid" do
-    value(merchant).must_be :valid?
-  end
 
   describe 'relations' do
     it 'has a product' do
+      merchant = Merchant.first
+
+      # Act
+      author = b.author
+
+      # Assert
+      expect(author).must_be_instance_of Author
     end
 
     it 'has some order_items through products' do

@@ -3,14 +3,10 @@ require "test_helper"
 describe Merchant do
 
   describe 'relations' do
-    it 'has a product' do
-      merchant = Merchant.first
-
-      # Act
-      author = b.author
-
-      # Assert
-      expect(author).must_be_instance_of Author
+    it 'has many products' do
+      m = Merchant.first
+      products = m.products
+      expect(products.first).must_be_instance_of Product
     end
 
     it 'has some order_items through products' do

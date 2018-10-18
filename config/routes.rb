@@ -11,4 +11,7 @@ Rails.application.routes.draw do
   end
 
   resources :reviews, only: [:new, :create]
+
+  resources :sessions, only: [:new, :create]
+  post '/sessions/logout', to: 'sessions#logout', as: 'logout'
 end

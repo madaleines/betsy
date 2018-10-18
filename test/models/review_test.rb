@@ -15,7 +15,7 @@ describe Review do
     describe 'validations' do
       before do
         @review = Review.new(
-          product_id: 1
+          product_id: 1,
           rating: 5,
           description: 'test-description'
         )

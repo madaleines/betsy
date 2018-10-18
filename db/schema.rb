@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_18_210913) do
+ActiveRecord::Schema.define(version: 2018_10_18_212924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,23 +62,23 @@ ActiveRecord::Schema.define(version: 2018_10_18_210913) do
     t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "merchants_id"
     t.integer "inventory"
     t.text "description"
-    t.index ["merchants_id"], name: "index_products_on_merchants_id"
+    t.bigint "merchant_id"
+    t.index ["merchant_id"], name: "index_products_on_merchant_id"
   end
 
   create_table "reviews", force: :cascade do |t|
     t.integer "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "products_id"
     t.text "description"
-    t.index ["products_id"], name: "index_reviews_on_products_id"
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_reviews_on_product_id"
   end
 
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
-  add_foreign_key "products", "merchants", column: "merchants_id"
-  add_foreign_key "reviews", "products", column: "products_id"
+  add_foreign_key "products", "merchants"
+  add_foreign_key "reviews", "products"
 end

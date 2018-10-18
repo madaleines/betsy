@@ -1,7 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+toys:
+  name: toys
 
-two:
-  name: MyString
+books:
+  name: boooks
+
+meditation:
+  name: meditation
+
+apparel:
+  name: apparel

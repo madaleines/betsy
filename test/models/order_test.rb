@@ -7,7 +7,7 @@ describe Order do
       order.must_respond_to :order_items
 
       order.order_items.each do |order_item|
-        order_item.must_be_kind_of  Order_item
+        order_item.must_be_kind_of  OrderItem
       end
     end
   end

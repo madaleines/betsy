@@ -1,28 +1,28 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 pending:
-  quanity: 1
+  quantity: 1
   status: :pending
   order: one
   product: plushie
   order: one
 
 paid:
-  quanity: 1
+  quantity: 1
   status: :paid
   order: one
   product: puzzle
   order: two
 
 complete:
-  quanity: 1
+  quantity: 1
   status: :complete
   order: two
   product: puddy
   order: one
 
 cancelled:
-  quanity: 1
+  quantity: 1
   status: :cancelled
   order: two
   product: plushie
@@ -33,4 +33,4 @@ many:
   status: :pending
   order: two
   product: puzzle
-  order: one 
+  order: one

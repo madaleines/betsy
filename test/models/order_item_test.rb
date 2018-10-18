@@ -27,23 +27,31 @@ describe OrderItem do
       end
 
       it 'is valid with product_id present' do
-
+        result = @order_item.valid?
+        expect( result ).must_equal true
       end
 
       it 'is valid with order_id present' do
-
+        result = @order_item.valid?
+        expect( result ).must_equal true
       end
 
       it 'is invalid without status' do
-
+        @order_item.status = nil
+        result = @order_item.valid?
+        expect( @order_item ).errors.messages_must_include :status
       end
 
       it 'is invalid if quantity is 0' do
-
+        @order_item.quantity = 0
+        result = @order_item.valid?
+        expect( @order_item ).errors.messages_must_include :quantity
       end
 
       it 'is invalid if quantity is nil' do
-
+        @order_item.quantity = nil
+        result = @order_item.valid?
+        expect( @order_item ).errors.messages_must_include :quantity
       end
 
     end

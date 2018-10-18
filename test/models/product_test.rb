@@ -1,5 +1,4 @@
 require "test_helper"
-require 'pry'
 
 describe Product do
   describe 'relations' do

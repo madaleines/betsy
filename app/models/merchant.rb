@@ -1,6 +1,6 @@
 class Merchant < ApplicationRecord
   has_many :products
-  has_many :order_items through :product
+  has_many :order_items, through: :product
 
     validates :username, presence: true, uniqueness: true
 

@@ -16,7 +16,7 @@ describe SessionsController do
 
     # Assert
     #Check that it redirects
-    must_redirect_to home_path
+    must_redirect_to root_path
     expect(session[:merchant_id]).must_equal merchant_one.id
   end
 end

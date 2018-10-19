@@ -8,9 +8,10 @@ describe CategoriesController do
       merchant = merchants(:one)
       perform_login(merchant)
 
-      get new_merchant_category_path(merchants(:one).id)
+      get new_category_path
       must_respond_with :success
     end
+
   end
 
   # describe "new" do

@@ -1,8 +1,10 @@
 require "test_helper"
 
 describe Category do
+
+  @CATEGORIES = %w[games toys books vitamins meditation]
+
   describe 'validations' do
-    @CATEGORIES = %w[games toys books vitamins meditation]
     before do
       @category = Category.new(name: 'candies')
     end

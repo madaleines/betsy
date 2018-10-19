@@ -3,11 +3,17 @@
 one:
   username: griffiam
   email: sesamestreet@yahoo.com
+  uid: 12345678
+  provider: github
 
 two:
   username: yggurlie
   email: yggurlie@yahoo.com
+  uid: 87654321
+  provider: github
 
 three:
   username: maddiemax
   email: maddiemaxwell@yahoo.com
+  uid: 23456789
+  provider: github

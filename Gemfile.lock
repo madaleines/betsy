@@ -48,7 +48,7 @@ GEM
     archive-zip (0.11.0)
       io-like (~> 0.3.0)
     arel (9.0.0)
-    autoprefixer-rails (9.2.1)
+    autoprefixer-rails (8.6.5)
       execjs
     better_errors (2.5.0)
       coderay (>= 1.0.0)
@@ -267,6 +267,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autoprefixer-rails (= 8.6.5)
   better_errors
   binding_of_caller
   bootsnap (>= 1.1.0)
@@ -302,4 +303,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.2
+   1.16.4

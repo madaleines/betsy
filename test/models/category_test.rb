@@ -1,28 +1,27 @@
 require "test_helper"
+require 'pry'
 
 describe Category do
-  let(:category) { Category.new }
+  @category = Category.first
 
   it "must be valid" do
-    value(category).must_be :valid?
+    result = @category.valid?
+    expect( result ).must_equal true
   end
 
   describe 'validations' do
     before do
-      @category = Category.new(
-        name: 'test_category_name'
+      @category = Category.create(
+        name: 'candies'
       )
     end
 
     @CATEGORIES = %w[games toys books vitamins meditation]
 
     it 'is valid when name is present and unique' do
-      @category.name = "apparel"
-
+binding.pry
       result = @category.valid?
-
-      expect(result).must_equal true
-      expect( @category ).errors.messages_must_include :name
+      expect( result ).must_equal true
     end
 
 
@@ -32,7 +31,7 @@ describe Category do
 
       result = @category.valid?
 
-      expect(result).wont_equal true
+      expect( result ).wont_equal true
       expect( @category ).errors.messages_must_include :name
     end
 
@@ -44,7 +43,7 @@ describe Category do
 
       result = @category.valid?
 
-      expect(result).wont_equal true
+      expect( result ).wont_equal true
       expect( @category ).errors.messages_must_include :name
     end
 

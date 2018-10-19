@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :current_merchant
   before_action :current_cart
-  skip_before_action :require_login, only: [:create]
+  before_action :require_login
 
   private
 

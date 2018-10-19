@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :orders only: [:show, :create, :update, :destroy] do
+  get "/auth/:provider/callback", to: "sessions#create"
+
+  resources :orders, only: [:show, :create, :update, :destroy] do
     resources :order_items, except: [:index, :show]
   end
 

@@ -6,7 +6,6 @@ describe Category do
     @CATEGORIES = %w[games toys books vitamins meditation]
 
     it 'is valid when name is present and unique' do
-      @category = Category.new(name: 'candies')
       result = @category.valid?
 
       expect( result ).must_equal true

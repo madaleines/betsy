@@ -1,8 +1,7 @@
 require "test_helper"
+require 'pry'
 
 describe Category do
-
-  @CATEGORIES = %w[games toys books vitamins meditation]
 
   describe 'validations' do
     before do
@@ -26,15 +25,14 @@ describe Category do
     end
 
 
-    CATEGORIES = %w(games toys books vitamins meditation)
+    CATEGORIES = %w(toys books meditation apparel)
 
     it 'is invalid with a non-unique name' do
-      @category.name = CATEGORIES.first
-
+      @category = Category.new(name: 'toys')
       result = @category.valid?
 
       expect( result ).wont_equal true
-      expect( @category ).errors.messages_must_include :name
+      expect( @category.errors.messages ).must_include :name
     end
 
   end

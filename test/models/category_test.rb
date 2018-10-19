@@ -2,28 +2,15 @@ require "test_helper"
 require 'pry'
 
 describe Category do
-  @category = Category.first
-
-  it "must be valid" do
-    result = @category.valid?
-    expect( result ).must_equal true
-  end
-
   describe 'validations' do
-    before do
-      @category = Category.create(
-        name: 'candies'
-      )
-    end
-
     @CATEGORIES = %w[games toys books vitamins meditation]
 
     it 'is valid when name is present and unique' do
-binding.pry
+      @category = Category.new(name: 'candies')
       result = @category.valid?
+
       expect( result ).must_equal true
     end
-
 
 
     it 'is invalid without a name' do

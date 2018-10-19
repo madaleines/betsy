@@ -4,5 +4,6 @@ class Category < ApplicationRecord
   CATEGORIES = %w(toys books meditation apparel)
 
   validates_associated :products
-  validates :name, presence: true, uniqueness: true
+  validates :category, presence: true
+  validates :category, inclusion: { in: CATEGORIES }
 end

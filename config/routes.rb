@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :order_items, except: [:index, :show]
   end
 
-  get '/cart', to: 'orders#index', as: 'cart'
+  get '/cart', to: 'orders#index', as: 'cart' 
 
   resources :merchants, except: [:index] do
     resources :products, except: [:destroy]

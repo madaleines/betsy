@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find_by(id: params[:id])
     if @product.nil?
-      head:not_found
+      head :not_found
     end
   end
 
@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to product_path(@product.id)
     else
-      render:new, status: :bad_request
+      render :new, status: :bad_request
     end
   end
 
@@ -32,7 +32,7 @@ class ProductsController < ApplicationController
     @product = Product.find_by(id: params[:id])
 
     if @product.update(product_params)
-      redirect_to product_path(@product.id)
+      redirect_to merchant_product_path(@product.id)
     end
   end
 
@@ -40,7 +40,7 @@ class ProductsController < ApplicationController
     @product = Product.find_by(id: params[:id])
     @product.destroy
 
-    redirect_to products_path
+    redirect_to merchant_products_path
   end
 
   private
@@ -51,4 +51,5 @@ class ProductsController < ApplicationController
       :inventory,
       :description
     )
+  end
 end

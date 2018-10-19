@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   has_many :order_items
 
-  validates :email, presence: true
+  validates :email, presence: true, uniqueness: true
   validates :mailing_address, presence: true
   validates :cc, presence: true
   validates :cc_name, presence: true

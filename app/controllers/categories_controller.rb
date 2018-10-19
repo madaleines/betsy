@@ -1,9 +1,10 @@
 class CategoriesController < ApplicationController
-  before_action :require_login, except [:index, :show]
+  before_action :require_login, except: [:index, :show]
+  skip_before_action :require_login, only: [:create]
 
   def new
-    puts params.to_h
-    @category = Category.new(params[:merchant_id])
+    # puts params.to_h
+    @category = Category.new
   end
 
   def create

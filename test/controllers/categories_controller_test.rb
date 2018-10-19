@@ -1,13 +1,25 @@
 require "test_helper"
+require 'pry'
 
 describe CategoriesController do
   describe "new" do
-    it "should get new category page" do
-      id = merchants(:one).id
-      get new_merchant_category_path(id)
+    # it "should get new category page for merchants that exist" do
+    #   get new_merchant_category_path(merchants(:one).id)
+    #
+    #   must_respond_with :success
+    # end
 
-      must_respond_with :success
+    it "should not get new category page for merchants that do not exist" do
+      merchant = merchants(:one)
+      merchant.products.destroy_all
+      merchant.categories.destroy_all
+
+      merchant.destroy
+      get new_merchant_category_path(merchant.id)
+
+      must_respond_with :not_found
     end
+
   end
 
   describe "create" do

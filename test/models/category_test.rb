@@ -19,7 +19,6 @@ describe Category do
     @CATEGORIES = %w[games toys books vitamins meditation]
 
     it 'is valid when name is present and unique' do
-binding.pry
       result = @category.valid?
       expect( result ).must_equal true
     end

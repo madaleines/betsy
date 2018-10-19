@@ -23,6 +23,12 @@ describe ProductsController do
 
     must_respond_with :not_found
   end
+
+  it 'should get a new form to add products' do
+    get new_product_path
+
+    must_respond_with :success
+  end
 end
 #
 #   it "should get new" do

@@ -4,7 +4,7 @@ describe ProductsController do
   it "should get index" do
     get products_path
 
-    must_response_with :success
+    must_respond_with :success
   end
 
   it "should get show" do
@@ -12,7 +12,7 @@ describe ProductsController do
 
     get product_path(id)
 
-    must_response_with :success
+    must_respond_with :success
   end
 
   it "should respond with not found for showing a non-existing product" do
@@ -21,7 +21,7 @@ describe ProductsController do
 
     get product_path(id)
 
-    must_response_with :not_found
+    must_respond_with :not_found
   end
 end
 #

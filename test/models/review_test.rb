@@ -14,6 +14,7 @@ describe Review do
         rating: 5,
         description: 'test-description'
       )
+
     end
 
     it "belongs to a product" do

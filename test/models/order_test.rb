@@ -15,71 +15,84 @@ describe Order do
 
   describe 'validations' do
     before do
-      @order = Order.new(
-        email: 'aaa@gmail.com',
-        mailing_address: '12345 A Street',
-        cc: 1234123412341234,
-        cc_name: 'Aaa Aaaaaa',
-        cc_expiration: '20/22',
-        cvv: 123,
-        zip: 12345
-      )
+      @order = orders(:one)
     end
 
-    it 'is valid when email is present and unique' do
+    it 'is valid when email, mailing, cc, cc_name, ccv and zip is present' do
       is_valid = @order.valid?
+
       expect( is_valid ).must_equal true
+    end
+
+    it 'is valid when email is unique' do
+      order1 = Order.last
+      order1.email = 'test@email.com'
+
+      is_valid = order1.valid?
+
+      expect ( is_valid ).must_equal true
     end
 
     it 'is invalid when email is missing' do
       @order.email = nil
+
       is_valid = @order.valid?
+
       expect( is_valid ).must_equal false
+
       expect( @order.errors.messages ).must_include :email
     end
 
     it 'is invalid when email is non-unique' do
       @order.email = Order.first.email
+
       is_valid = @order.valid?
       expect( is_valid ).must_equal false
-    end
-
-    it 'is valid when mailing address is present' do
-      is_valid = @order.valid?
-      expect( is_valid ).must_equal true
-
     end
 
     it 'is invalid when mailing address is missing' do
       @order.mailing_address = nil
+
       is_valid = @order.valid?
+
       expect( is_valid ).must_equal false
       expect( @order.errors.messages ).must_include :mailing_address
     end
 
-    it 'is valid when cc is present' do
-      is_valid = @order.valid?
-      expect( is_valid ).must_equal true
-    end
-
     it 'is invalid when cc is missing' do
       @order.cc = nil
+
       is_valid = @order.valid?
+
       expect( is_valid ).must_equal false
       expect( @order.errors.messages ).must_include :cc
-
     end
 
+    it 'is invalid when cc name is missing' do
+      @order.cc_name = nil
 
+      is_valid = @order.valid?
 
-    it 'is valid with an integer cc number' do
-
+      expect( is_valid ).must_equal false
+      expect( @order.errors.messages ).must_include :cc_name
     end
 
-    it 'is valid with a cc name' do
+    it 'is invalid when cvv name is missing' do
+      @order.cvv = nil
+
+      is_valid = @order.valid?
+
+      expect( is_valid ).must_equal false
+      expect( @order.errors.messages ).must_include :cvv
     end
 
-    it 'is valid with ' do
+    it 'is invalid when zip is missing' do
+      @order.zip = nil
+      
+      is_valid = @order.valid?
+
+      expect( is_valid ).must_equal false
+      expect( @order.errors.messages ).must_include :zip
     end
   end
 end

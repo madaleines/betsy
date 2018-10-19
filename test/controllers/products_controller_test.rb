@@ -2,7 +2,7 @@ require "test_helper"
 
 describe ProductsController do
   it "should get index" do
-    get merchant_products_path
+    get products_path
 
     must_response_with :success
   end
@@ -10,7 +10,7 @@ describe ProductsController do
   it "should get show" do
     id = products(:puzzle)
 
-    get merchant_product_path(id)
+    get product_path(id)
 
     must_response_with :success
   end
@@ -19,7 +19,7 @@ describe ProductsController do
     id = products(:puzzle)
     id.destroy
 
-    get merchant_product_path(id)
+    get product_path(id)
 
     must_response_with :not_found
   end

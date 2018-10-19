@@ -14,7 +14,6 @@ describe Category do
       )
     end
 
-
     @CATEGORIES = %w[games toys books vitamins meditation]
 
     it 'is valid when name is present and unique' do
@@ -38,7 +37,7 @@ describe Category do
     end
 
 
-    CATEGORIES = %w[games toys books vitamins meditation]
+    CATEGORIES = %w(games toys books vitamins meditation)
 
     it 'is invalid with a non-unique name' do
       @category.name = CATEGORIES.first

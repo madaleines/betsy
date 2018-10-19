@@ -4,13 +4,19 @@ plushie:
   name: Brain Plushie
   price: 15.0
   description: A beautiful integlligent brain plushie
+  merchant: one
+  inventory: 2
 
 puzzle:
   name: Brain Puzzle
   price: 100.0
   description: improve ur mind!
+  merchant: two
+  inventory: 2
 
 puddy:
   name: Brain Puddy
   price: 4.75
-  description: puddy for ur brain! 
+  description: puddy for ur brain!
+  merchant: one
+  inventory: 2

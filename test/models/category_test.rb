@@ -2,16 +2,17 @@ require "test_helper"
 
 describe Category do
   describe 'validations' do
+    @CATEGORIES = %w[games toys books vitamins meditation]
     before do
-      @category = Category.new(
-        name: 'candies'
-      )
+      @category = Category.new(name: 'candies')
     end
 
     it 'is valid when name is present and unique' do
       result = @category.valid?
+
       expect( result ).must_equal true
     end
+
 
     it 'is invalid without a name' do
       @category.name = nil

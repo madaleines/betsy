@@ -29,4 +29,15 @@ class ActiveSupport::TestCase
     # A request to /auth/provider will redirect immediately to /auth/provider/callback.
     OmniAuth.config.test_mode = true
   end
+
+  def mock_auth_hash(user)
+    return {
+      uid: user.id,
+      provider: user.provider,
+      info: {
+        nickname: user.username,
+        email: user.email
+      }
+    }
+  end
 end

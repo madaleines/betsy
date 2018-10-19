@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root 'products#index', as: 'home'
 
-  get "/auth/:provider/callback", to: "sessions#create"
+get "/auth/:provider/callback", to: "sessions#create", as: 'auth_callback'
 
   resources :orders, only: [:show, :create, :update, :destroy] do
     resources :order_items, except: [:index, :show]

@@ -58,7 +58,7 @@ describe OrderItemsController do
   end
 
   describe "update" do
-    it "succeeds in updating existing order_item" do
+    it "succeeds updates an existing order_item" do
       order = Order.first
       order_item = OrderItem.first
 
@@ -67,9 +67,37 @@ describe OrderItemsController do
         order_item: {quantity: 4}
       }
 
-      must_respond_with :success
       must_redirect_to cart_path
     end
+
+    it "renders a 404 not_found for bogus order item data" do
+      order = Order.first
+      order_item = OrderItem.first
+
+
+      patch order_order_item_path(order.id, order_item.id), params: {
+        order_item: {quantity: 'four'}
+      }
+
+      must_respond_with :bad_request
+    end
+
+  end
+
+  describe "delete" do
+    #   order_item = OrderItem.first
+    #   id = OrderItem.first.id
+    #
+    #   it "succeeds for an existing order_item ID" do
+    #     delete order_order_item_path(order_item.id, id)
+    #
+    #     must_respond_with :success
+    #     must_redirect_to order_path(id)
+    #   end
+    #
+    #   it "renders 404 not_found and does not delete the DB for a bogus order_item ID" do
+    #
+    #   end
   end
 end
 # describe "edit" do
@@ -114,17 +142,4 @@ end
 #
 # end
 #
-# describe "delete" do
-#   order_item = OrderItem.first
-#   id = OrderItem.first.id
 #
-#   it "succeeds for an existing order_item ID" do
-#     delete order_order_item_path(order_item.id, id)
-#
-#     must_respond_with :success
-#     must_redirect_to order_path(id)
-#   end
-#
-#   it "renders 404 not_found and does not delete the DB for a bogus order_item ID" do
-#
-#   end

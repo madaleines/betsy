@@ -24,11 +24,8 @@ describe Category do
       expect( @category.errors.messages ).must_include :name
     end
 
-
-    CATEGORIES = %w(toys books meditation apparel)
-
     it 'is invalid with a non-unique name' do
-      @category = Category.new(name: 'toys')
+      @category = Category.new(name: 'toy')
       result = @category.valid?
 
       expect( result ).wont_equal true

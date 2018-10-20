@@ -7,6 +7,7 @@ plushie:
   inventory: 10
   categories: toy
   merchant: one
+  categories: toy
 
 puzzle:
   name: Brain Puzzle

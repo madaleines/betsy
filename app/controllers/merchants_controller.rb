@@ -8,5 +8,4 @@ class MerchantsController < ApplicationController
 
   def order
   end
-
 end

@@ -5,7 +5,6 @@ plushie:
   price: 15
   description: A beautiful integlligent brain plushie
   inventory: 10
-  categories: toy
   merchant: one
   categories: toy
 

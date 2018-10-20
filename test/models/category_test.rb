@@ -9,7 +9,6 @@ describe Category do
 
     it 'is valid when name is present and unique' do
       result = @category.valid?
-binding.pry
       expect( result ).must_equal true
     end
 

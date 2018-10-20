@@ -100,10 +100,11 @@ describe OrderItemsController do
       order_item.status = "shipped"
 
       expect {
-        delete order_order_item_path(order.id, order_item.id)}.wont_change('order.order_items.count')
+        delete order_order_item_path(order.id, order_item.id)
+      }.wont_change('order.order_items.count')
 
-        must_respond_with :bad_request
-      end
+      must_respond_with :bad_request
     end
-
   end
+
+end

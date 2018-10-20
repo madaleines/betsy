@@ -4,5 +4,4 @@ class Category < ApplicationRecord
   validates_associated :products
   
   validates :name, presence: true, uniqueness: true
-
 end

@@ -2,6 +2,8 @@ require "test_helper"
 require 'pry'
 
 describe ProductsController do
+  let(:one) {merchants(:one)}
+
   it "should get index" do
     get products_path
 
@@ -26,17 +28,19 @@ describe ProductsController do
   end
 
   it 'should get a new form to add products' do
-    merchant = merchants(:one)
+    login(one)
+    # merchant = merchants(:one)
 
-    get new_merchant_product_path(merchant.id)
+    get new_merchant_product_path(one.id)
 
     must_respond_with :success
   end
 
   it 'it can create a product with valid data' do
+    login(one)
     product_info = {
       mazze: {
-        name: "Brain Puzzle",
+        name: "some toy",
         price: 25,
         description: "An integlligent brain plushie",
         inventory: 10,
@@ -46,13 +50,12 @@ describe ProductsController do
     }
 
     test_product = Product.new(product_info[:mazze])
-    # binding.pry
     valid = test_product.valid?
     valid.must_equal true, "Product data was invalid: #{test_product.errors.messages}, please come fix this test"
 
 
     expect{
-      post merchant_products_path(merchants(:one).id), params: product_info
+      post merchant_products_path(one.id), params: product_info
     }.must_change('Product.count', +1)
 
     must_redirect_to product_path(Product.last.id)

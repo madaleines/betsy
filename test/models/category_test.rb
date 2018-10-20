@@ -25,7 +25,7 @@ describe Category do
     end
 
     it 'is invalid with a non-unique name' do
-      @category = Category.new(name: 'toys')
+      @category = Category.new(name: 'toy')
       result = @category.valid?
 
       expect( result ).wont_equal true

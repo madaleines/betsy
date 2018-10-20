@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
   get '/cart', to: 'orders#index', as: 'cart'
 
-  resources :products, except: [:new, :create, :edit, :destroy] do
+  resources :products, except: [:new, :create, :edit, :update, :destroy] do
     resources :reviews, only: [:index, :new, :create]
   end
 
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :merchants, except: [:index] do
-    resources :products, only: [:new, :create, :edit]
+    resources :products, only: [:new, :create, :edit, :update]
   end
 
   resources :sessions, only: [:new, :create]

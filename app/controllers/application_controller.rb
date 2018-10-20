@@ -24,4 +24,8 @@ class ApplicationController < ActionController::Base
       session[:order_id] = @shopping_cart.id
     end
   end
+
+  def render_404
+    render file: "/public/404.html", status: 404
+  end
 end

@@ -2,13 +2,11 @@ class OrderItemsController < ApplicationController
   skip_before_action :require_login
 
   def new
-    @order_items = (OrderItem.all).sort_by do |order_item|
-      order_item.id
-    end
+    @order_items = OrderItem.new
   end
 
   def create
-    @order_item = OrderItem.new(order_items_params)
+    @order_item = OrderItem.new(params( order_item_params) )
     if @order_item.save
       flash[:status] = :success
       flash[:result_text] = "Successfully created #{@order_item.singularize} #{@order_item.id}"

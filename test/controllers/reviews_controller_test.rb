@@ -71,11 +71,13 @@ describe ReviewsController do
   end
 
   describe "delete" do
-    review = Review.first
-    id = Review.first.order_id
+    before do
+      review = Review.first
+      id = Review.first.order_id
+    end
 
     it "succeeds for an existing order_item ID" do
-      delete order_order_item_path(order_item.id, id)
+      delete order_order_item_path(id)
 
       must_respond_with :success
       must_redirect_to order_path(id)

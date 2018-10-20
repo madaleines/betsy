@@ -73,7 +73,7 @@ describe OrderItemsController do
 
   describe "delete" do
     order_item = OrderItem.first
-    id = OrderItem.first.order_id
+    id = OrderItem.first.id
 
     it "succeeds for an existing order_item ID" do
       delete order_order_item_path(order_item.id, id)

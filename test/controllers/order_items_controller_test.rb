@@ -12,16 +12,24 @@ describe OrderItemsController do
   end
 
   describe "create" do
-    @order = Order.first
-    @product = Product.first
-    @order_item = OrderItem.new(quantity: 5, status: 'pending', order_id: @order.id, product_id: @product.id)
+    before do
+      @order = Order.first
+      @product = Product.first
+    end
+    it "can existing order_item ID" do
+      order_item = OrderItem.new(quantity: 5, status: 'pending', order_id: @order.id, product_id: @product.id)
+      result = order_item.valid?
 
-    it "succeeds for an existing order_item ID" do
+      binding.pry
+
       order_item_count = OrderItem.count
 
       post order_order_items_path(@order.id)
+
+      expect( result ).must_equal true
       expect( order_item_count ).must_equal order_item_count + 1
       must_respond_with :success
+      must_redirect_to cart_path
     end
 
     it "renders 404 not_found for a bogus order_item data" do

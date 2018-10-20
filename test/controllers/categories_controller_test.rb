@@ -32,17 +32,36 @@ describe CategoriesController do
       must_respond_with :redirect
       must_redirect_to categories_path(Category.last)
     end
+
+    it "should be responded with a bad request for a non-unique category name" do
+      data = {category: {name: 'toy'}}
+
+      category = Category.new(data[:category])
+      expect {
+        post categories_path, params: data
+      }.wont_change('Category.count')
+
+      must_respond_with :bad_request
+    end
   end
 
   describe "guest users" do
+
     it "should not be able to access new category page" do
       get new_category_path
       must_respond_with :redirect
       must_redirect_to root_path
     end
+
+    it "should not be able to create a new category" do
+      data = {category: {name: 'toy'}}
+
+      category = Category.new(data[:category])
+      expect {
+        post categories_path, params: data
+      }.wont_change('Category.count')
+
+      must_respond_with :bad_request
+    end
   end
-
-
-
-
 end

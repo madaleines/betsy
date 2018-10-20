@@ -6,6 +6,7 @@ class MerchantsController < ApplicationController
   def show
   end
 
-  def order_
+  def order
+  end
 
 end

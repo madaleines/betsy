@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :current_merchant
   before_action :current_cart
+  before_action :require_login
 
   private
 

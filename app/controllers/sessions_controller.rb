@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-
   skip_before_action :require_login, only: [:create]
 
   def create
@@ -27,18 +26,18 @@ class SessionsController < ApplicationController
         # be to display error messages to make future
         # debugging easier.
         flash[:error] = "Could not create new user account: #{@merchant.errors.messages}"
-        redirect_to home_path
+        redirect_to root_path
         return
       end
     end
     # If we get here, we have a valid user instance
     session[:merchant_id] = @merchant.id
-    redirect_to home_path
+    redirect_to root_path
   end
 
   def logout
     session[:merchant_id] = nil
     flash[:success] = "Successfully logged out"
-    redirect_to home_path
+    redirect_to root_path
   end
 end

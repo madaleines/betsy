@@ -42,12 +42,12 @@ class ProductsController < ApplicationController
     end
   end
 
-  def destroy
-    @product = Product.find_by(id: params[:id])
-    @product.destroy
-
-    redirect_to merchant_products_path
-  end
+  # def destroy
+  #   @product = Product.find_by(id: params[:id])
+  #   @product.destroy
+  #
+  #   redirect_to merchant_products_path
+  # end
 
   private
   def product_params
@@ -55,7 +55,9 @@ class ProductsController < ApplicationController
       :name,
       :price,
       :inventory,
-      :description
+      :merchant_id,
+      :description,
+      :category_ids,
     )
   end
 end

@@ -14,14 +14,24 @@ describe OrderItemsController do
   describe "create" do
     order = Order.first
     product = Product.first
-    order_item = OrderItem.new(quantity: 5, status: 'pending', order_id: order.id, product_id: product.id)
+    order_item_data = {
+      order_item1: {
+        quantity: 5,
+        status: 'pending',
+        order_id: order.id,
+        product_id: product.id
+      }
+    }
 
-    it "succeeds for an existing order_item ID" do
+    it "creates an new order item" do
       order_item_count = OrderItem.count
 
-      post order_order_items_path(order.id)
-      expect( order_item_count ).must_equal order_item_count + 1
-      must_respond_with :success
+      expect {
+        post new_order_order_item_path, params: order_item_data
+      }.must_change('OrderItem.count', +1)
+
+      #Assert
+      must_redirect_to cart_path(OrderItem.last)
     end
 
     it "renders 404 not_found for a bogus order_item data" do
@@ -31,13 +41,9 @@ describe OrderItemsController do
 
   describe "edit" do
     order_item = OrderItem.first
-    id = OrderItem.first.order_id
+    id = order_item.id
 
     it "succeeds for an existing order_item ID" do
-      get edit_order_order_item_path(order_item.id, id)
-
-      must_respond_with :success
-      must_redirect_to order_order_item_path(order_item.id, id)
     end
 
     it "renders 404 not_found for a bogus order_item ID" do

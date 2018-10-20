@@ -6,17 +6,6 @@ class OrderItemsController < ApplicationController
   end
 
   def create
-    @order_item = OrderItem.new(params( order_item_params) )
-    if @order_item.save
-      flash[:status] = :success
-      flash[:result_text] = "Successfully created #{@order_item.singularize} #{@order_item.id}"
-      redirect_to order_item_path(@order_item)
-    else
-      flash[:status] = :failure
-      flash[:result_text] = "Could not create #{@order_item.singularize}"
-      flash[:messages] = @order_item.errors.messages
-      render :new, status: :bad_request
-    end
   end
 
   def edit

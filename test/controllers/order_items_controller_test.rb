@@ -81,7 +81,6 @@ describe OrderItemsController do
 
       must_respond_with :bad_request
     end
-
   end
 
   describe "delete" do
@@ -100,6 +99,7 @@ describe OrderItemsController do
     #   end
   end
 end
+
 # describe "edit" do
 #   order_item = OrderItem.first
 #   id = OrderItem.first.order_id

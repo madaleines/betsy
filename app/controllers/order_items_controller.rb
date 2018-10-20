@@ -38,6 +38,7 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
+<<<<<<< Updated upstream
     if @current_user.id == session[:user_id]
       @work.destroy
 
@@ -48,6 +49,17 @@ class OrderItemsController < ApplicationController
 
       redirect_back(fallback_location: root_path)
     end
+=======
+    @order_item = OrderItem.find_by(order_id: params[:id])
+    if @order_item.status == 'pending'
+      @order_item.destroy
+
+      flash[:status] = :success
+      flash[:result_text] = "Successfully deleted item from cart"
+      must_redirect_to cart_path
+    end
+
+>>>>>>> Stashed changes
   end
 
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_19_023824) do
+ActiveRecord::Schema.define(version: 2018_10_20_153054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2018_10_19_023824) do
     t.string "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "pending"
   end
 
   create_table "products", force: :cascade do |t|
@@ -67,6 +68,7 @@ ActiveRecord::Schema.define(version: 2018_10_19_023824) do
     t.integer "inventory"
     t.text "description"
     t.bigint "merchant_id"
+    t.boolean "is_active", default: true
     t.index ["merchant_id"], name: "index_products_on_merchant_id"
   end
 

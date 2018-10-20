@@ -3,6 +3,7 @@ require 'pry'
 
 describe ProductsController do
   let(:one) {merchants(:one)}
+  let(:bad_product_id) {Product.first.destroy.id}
 
   it "should get index" do
     get products_path
@@ -29,7 +30,6 @@ describe ProductsController do
 
   it 'should get a new form to add products' do
     login(one)
-    # merchant = merchants(:one)
 
     get new_merchant_product_path(one.id)
 
@@ -38,27 +38,57 @@ describe ProductsController do
 
   it 'it can create a product with valid data' do
     login(one)
+
+
     product_info = {
-      mazze: {
+      product: {
         name: "some toy",
         price: 25,
         description: "An integlligent brain plushie",
         inventory: 10,
-        category_ids: [Category.first.id],
-        merchant: merchants(:one)
+        merchant: merchants(:one),
+        category_ids: [categories(:toy).id]
       }
     }
 
-    test_product = Product.new(product_info[:mazze])
+    test_product = Product.new(product_info[:product])
+    # test_product.must_be :valid?, "Product data was invalid. fix this test"
+# binding.pry
     valid = test_product.valid?
     valid.must_equal true, "Product data was invalid: #{test_product.errors.messages}, please come fix this test"
 
-
     expect{
-      post merchant_products_path(one.id), params: product_info
+      post(merchant_products_path(one.id), params: product_info)
     }.must_change('Product.count', +1)
 
-    must_redirect_to product_path(Product.last.id)
+    must_redirect_to product_path(Product.last)
+  end
+
+  it 'does not create a new product with invalid data' do
+    login(one)
+
+    product_data = {
+      product: {
+        merchant: merchants(:one),
+        category_ids: [categories(:toy).id]
+      }
+    }
+
+    Product.new(product_data[:product]).wont_be :valid?
+
+    expect {
+      post(merchant_products_path(one.id), params: product_data)
+    }.wont_change('Product.count')
+
+    must_respond_with :bad_request
+  end
+
+  it 'responds with success for an existing product' do
+    login(one)
+
+    get edit_merchant_product_path(Product.first)
+
+    must_respond_with :success
   end
 end
 
@@ -78,9 +108,5 @@ end
 #     value(response).must_be :success?
 #   end
 #
-#   it "should get destroy" do
-#     get products_destroy_url
-#     value(response).must_be :success?
-#   end
 #
 # end

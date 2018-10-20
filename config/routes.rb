@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :order_items, except: [:index, :show]
   end
 
-  resources :products, except: [:new, :create, :destroy] do
+  resources :products, except: [:new, :create, :edit, :destroy] do
     resources :reviews, only: [:index, :new, :create]
   end
 
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   resources :merchants, except: [:index] do
-    resources :products, only: [:new, :create]
+    resources :products, only: [:new, :create, :edit]
   end
 
   resources :sessions, only: [:new, :create]

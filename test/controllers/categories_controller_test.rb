@@ -1,10 +1,10 @@
 require "test_helper"
-require 'pry'
 
 describe CategoriesController do
   let(:one) { merchants(:one) }
-  describe "logged in users" do
 
+
+  describe "logged in users" do
     it "should be able to access new category page" do
       login(one)
       get new_category_path
@@ -40,6 +40,7 @@ describe CategoriesController do
       must_respond_with :bad_request
     end
   end
+
 
   describe "guest users" do
     it "should not be able to access new category page" do

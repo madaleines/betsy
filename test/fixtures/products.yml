@@ -6,6 +6,7 @@ plushie:
   description: A beautiful integlligent brain plushie
   inventory: 10
   merchant: one
+  categories: toy
 
 puzzle:
   name: Brain Puzzle
@@ -13,6 +14,7 @@ puzzle:
   description: improve ur mind!
   merchant: two
   inventory: 2
+  categories: toy
 
 puddy:
   name: Brain Puddy
@@ -20,6 +22,7 @@ puddy:
   description: puddy for ur brain!
   inventory: 5
   merchant: two
+  categories: toy
 
 
 puddy:
@@ -28,3 +31,4 @@ puddy:
   description: puddy for ur brain!
   inventory: 100
   merchant: three
+  categories: toy

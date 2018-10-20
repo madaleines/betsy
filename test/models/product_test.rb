@@ -19,7 +19,7 @@ describe Product do
     it 'has many categories' do
       product = Product.first
       product.categories.each do |category|
-        category.must_be_instance_of Product
+        category.must_be_instance_of Category
       end
     end
 

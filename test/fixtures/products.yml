@@ -5,6 +5,7 @@ plushie:
   price: 15
   description: A beautiful integlligent brain plushie
   inventory: 10
+  categories: toy
   merchant: one
 
 puzzle:
@@ -13,18 +14,21 @@ puzzle:
   description: improve ur mind!
   merchant: two
   inventory: 2
+  categories: toy
 
 puddy:
   name: Brain Puddy
-  price: 4.75
+  price: 14
   description: puddy for ur brain!
   inventory: 5
   merchant: two
+  categories: toy
 
 
-puddy:
-  name: Brain Puddy
+yoga:
+  name: Yoga mat
   price: 475
   description: puddy for ur brain!
   inventory: 100
   merchant: three
+  categories: toy

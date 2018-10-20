@@ -1,10 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-toys:
-  name: toys
+toy:
+  name: toy
 
-books:
-  name: books
+book:
+  name: book
 
 meditation:
   name: meditation

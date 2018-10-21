@@ -52,28 +52,27 @@ puts "#{category_failures.length} categories failed to save"
 
 
 
-ORDERITEMS_FILE = Rails.root.join('db', 'seed_data', 'merchants.csv')
-puts "Loading raw merchant data from #{ORDERITEMS_FILE}"
+ORDERITEMS_FILE = Rails.root.join('db', 'seed_data', 'order_items.csv')
+puts "Loading raw order item data from #{ORDERITEMS_FILE}"
 
-merchant_failures = []
+order_items_failures = []
 
 CSV.foreach(ORDERITEMS_FILE, :headers => true) do |row|
-  merchant = Merchant.new
-  merchant.id = row['id']
-  merchant.username = row['username']
-  merchant.email = row['email']
-  merchant.uid = row['uid']
-  merchant.provider = row['provider']
+  order_item = OrderItem.new
+  order_item.order_id = row['order_id']
+  order_item.product_id = row['product_id']
+  order_item.quantity = row['quantity']
+  order_item.status = row['status']
 
-  succesful = merchant.save
+  succesful = order_item.save
   if !successful
-    merchant_failures << merchant
-  puts "Failed to save merchants: #{merchant.inspect}"
+    order_item_failures << order_item
+  puts "Failed to save order_items: #{order_item.inspect}"
 
   else
-    puts "Created merchant: #{merchant.inspect}"
+    puts "Created order_item: #{order_item.inspect}"
   end
 end
 
-puts "Added #{Merchant.count} merchant records"
-puts "#{merchant_failures.length} merchants failed to save"
+puts "Added #{OrderItem.count} order_item records"
+puts "#{order_item_failures.length} order_items failed to save"

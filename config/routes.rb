@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get '/cart', to: 'orders#index', as: 'cart'
 
   resources :products, except: [:new, :create, :edit, :update, :destroy] do
-    resources :reviews, only: [:new, :create]
+    resources :reviews, only: [:new, :create, :index]
   end
 
   resources :categories, except: [:destroy] do

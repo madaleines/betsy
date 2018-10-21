@@ -1,55 +1,23 @@
 <h1>Merchants#show</h1>
 <p>Find me in app/views/merchants/show.html.erb</p>
 
-<section class="merchant-detail-summary">
-  <div class="dasboard-container">
+<h2>Merchant details</h2>
 
-    <h2>Merchant Summary: <%= @merchant.username %></h2>
-    <p>Joined site on: <%= @merchant.created_at.strftime("%B %d, %Y") %></p>
-  </div>
+<%= @merchant.name %>
 
-  <div class="links-bar">
-    <%= link_to "Add new product", new_merchant_product_path(@merchant.id), class: "new_product" %>
-    <%= link_to "Add new category", new_category_path, class: "new_category" %>
-  </div>
+<section>
+  <h3>Genres</h3>
+  <p>
+    <strong>Products:</strong>
+    <% @merchant.products.each do |product| %>
+    <ul>
+      <li><%= product.name %></li>
+      <li><%= product.price %></li>
+      <li><%= product.inventory %></li>
+      <div class="links-bar">
+        <%= link_to "Add to Cart", new_merchant_product_path(@product.merchant_id) %>
+        <%= link_to "Product Reviews", product_reviews_path(@product.id), class: "homepage" %>
+      </div>
+    </ul>
+  </p>
 </section>
-
-<div class="merchant-table-container">
-
-  <table class="merchant_table">
-    <h3>Merchant <%= @merchant.username %>'s Dashboard</h3>
-    <tr>
-      <th>Order #s</th>
-      <th>Generated Order Revenue</th>
-      <th>Created on:</th>
-      <th>Order Status</th>
-    </tr>
-
-    <% @merchant.orders.each do |order| %>
-    <% i = 0 %>
-    <%= i += 1 %>
-    <tr>
-      <th><%= order.email %></th>
-      <th><%= order.id %></th>
-      <th><%= order.created_at.strftime("%B %d, %Y") %></th>
-      <th><%= order.status %></th>
-      <% end %>
-    </tr>
-  </table>
-</div>
-
-
-<div class="end-of-list-links">
-
-  <div class="return-to-merchants">
-    <h3>
-      <%= link_to "See All Merchants", merchants_path, class: "all-merchants" %>
-    </h3>
-  </div>
-
-  <div class="return-home">
-    <h3>
-      <%= link_to "Return Home", root_path, class: "homepage" %>
-    </h3>
-  </div>
-</div>

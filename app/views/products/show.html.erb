@@ -1,23 +1,20 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
+<%= image_tag "sherlock-game.jpg", alt: "sherlock game", class: "sherlock-cover-image" %>
 
-<div id="Home-container">
+<p>
+  <strong><%= @product.name %></strong>
+</p>
+<p><%= @product.description %></p>
 
-  <h2>List of All Products</h2>
+<p>
+  <strong>Price</strong>
+  <%= number_to_currency(@product.price) %>
+</p>
 
-  <ul>
-    <% @products.each do |product| %>
-    <li class="product-name">
-      <strong><h5>
-        <%= link_to image_tag('sherlock-game.jpg', alt: "display puzzle-game"), product_path(product.id) %>
-        <% end %>
-      </h5></strong>
-      <% end %>
-      <p>
-        from: <%= link_to product.merchant.username, merchant_path(product.merchant_id) %>
-      </p>
-    </li>
-    <% end %>
-  </ul>
-
+<div class="add-to-cart-button">
+  <section>
+    <h3><%= link_to "Add to Cart", new_merchant_product_path(@product.merchant_id) %></h3>
+  </section>
 </div>
+
+
+<%= link_to "Go Back to All Products", root_path, class: "homepage" %>

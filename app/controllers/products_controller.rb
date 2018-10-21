@@ -3,6 +3,8 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
+    @product = @products.map do |product|
+    end
   end
 
   def show

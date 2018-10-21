@@ -1,7 +1,9 @@
 require "test_helper"
 
 describe SessionsController do
-  describe "loggin" do
+  let(:one) { merchants(:one)}
+
+  describe "login" do
     it "can successfully log in with githun as an exisiting user and redirects to root path" do
 
       #Arrange
@@ -56,6 +58,17 @@ describe SessionsController do
       expect( Merchant.count ).must_equal start_merch_count
       expect( session[:merchant_id] ).must_equal nil
       expect( flash[:error] ).must_equal "Could not create new account: #{invalid_new_merchant.errors.messages}"
+    end
+  end
+  describe 'logout' do
+    login(one)
+
+    it 'can successfully logout by clearing the session' do
+      # session[:merchant_id]
+      # delete :logout
+      # session[:merchant_id].must_equal nil
+    end
+    it 'should redirect to the root page' do
     end
   end
 end

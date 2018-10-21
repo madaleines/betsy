@@ -25,4 +25,5 @@ Rails.application.routes.draw do
 
   resources :sessions, only: [:new, :create]
   post '/sessions/logout', to: 'sessions#logout', as: 'logout'
+  post '/merchants/:id/dashboard', to: 'merchants#dashboard', as: 'dashboard'
 end

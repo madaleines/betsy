@@ -10,11 +10,9 @@
       <strong><h5>
         <%= link_to image_tag('sherlock-game.jpg', alt: "display puzzle-game"), product_path(product.id) %>
       </h5></strong>
+      <p>from: <%= product.merchant.username %></p>
+      <h6>$<%= product.price.to_f %></h6>
       <% end %>
-      <p>
-        from: <%= link_to product.merchant.username, merchant_path(product.merchant_id) %>
-      </p>
     </div>
-    <% end %>
 
 </div>

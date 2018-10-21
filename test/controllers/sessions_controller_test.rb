@@ -60,13 +60,25 @@ describe SessionsController do
     end
   end
   describe 'logout' do
+    before do
+      merchant_one = merchants(:one)
 
+      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new( mock_auth_hash( merchant_one ) )
+
+      get auth_callback_path(:github)
+    end
     it 'can successfully logout by clearing the session' do
 
+      post logout_path(session[:merchant_id])
+
+      expect( session[:merchant_id]).must_equal nil
+      expect( flash[:success] ).must_equal "Successfully logged out"
     end
 
     it 'should redirect to the root page' do
+      post logout_path(session[:merchant_id])
 
+      must_redirect_to root_path
     end
   end
 end

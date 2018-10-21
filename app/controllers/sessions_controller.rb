@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
         # way we've configured GitHub. Our strategy will
         # be to display error messages to make future
         # debugging easier.
-        flash[:error] = "Could not create new user account: #{@merchant.errors.messages}"
+        flash[:error] = "Could not create new account: #{@merchant.errors.messages}"
         redirect_to root_path
         return
       end

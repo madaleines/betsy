@@ -1,7 +1,6 @@
 require "test_helper"
 
 describe SessionsController do
-  let(:one) { merchants(:one)}
 
   describe "login" do
     it "can successfully log in with githun as an exisiting user and redirects to root path" do
@@ -61,14 +60,13 @@ describe SessionsController do
     end
   end
   describe 'logout' do
-    login(one)
 
     it 'can successfully logout by clearing the session' do
-      # session[:merchant_id]
-      # delete :logout
-      # session[:merchant_id].must_equal nil
+
     end
+
     it 'should redirect to the root page' do
+
     end
   end
 end

@@ -2,6 +2,7 @@ require "test_helper"
 
 describe ReviewsController do
   let(:one) { merchants(:one)}
+  let (:two) {merchants(:two)}
   let(:plushie) { products(:plushie) }
 
   describe "new" do
@@ -41,8 +42,8 @@ describe ReviewsController do
     let (:bad_data2) { {review: {rating: 1, product: plushie, description: ''} } }
 
     describe "logged in users" do
-      it "can submit review" do
-        login(one)
+      it "can submit review for products they don't sell" do
+        login(two)
         expect{
           post product_reviews_path(plushie.id), params: good_data
         }.must_change('Review.count', +1)
@@ -51,7 +52,7 @@ describe ReviewsController do
       end
 
       it "can't submit review with invalid rating" do
-        login(one)
+        login(two)
         expect{
           post product_reviews_path(plushie.id), params: bad_data
         }.wont_change('Review.count')
@@ -59,11 +60,22 @@ describe ReviewsController do
       end
 
       it "can't submit review with invalid description" do
-        login(one)
+        login(two)
         expect{
           post product_reviews_path(plushie.id), params: bad_data2
         }.wont_change('Review.count')
         must_respond_with :bad_request
+      end
+
+      it "can't submit a review for products they sell" do
+        login(one)
+
+        expect{
+          post product_reviews_path(plushie.id), params: good_data
+        }.wont_change('Review.count')
+
+        must_respond_with :bad_request
+
       end
     end
 

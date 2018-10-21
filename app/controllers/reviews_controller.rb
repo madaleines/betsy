@@ -12,19 +12,24 @@ class ReviewsController < ApplicationController
 
   def create
     product = Product.find_by(id: params[:product_id])
-    @review = product.reviews.new(review_params)
-    
-    if @review.save
-      flash[:status] = :success
-      flash[:result_text] = "Successfully submitted review for: #{product.name}"
-      redirect_to products_path(product)
-    else
-      flash[:status] = :failure
-      flash[:result_text] = "Could not submit review for: #{product.name}"
-      flash[:messages] = @review.errors.messages
-      render :new, status: :bad_request
-    end
 
+    if @current_merchant == product.merchant
+      flash[:status] = :failure
+      flash[:result_text] = "You cannot submit a review for your own product: #{product.name}"
+      render :new, status: :bad_request
+    else
+      @review = product.reviews.new(review_params)
+      if @review.save
+        flash[:status] = :success
+        flash[:result_text] = "Successfully submitted review for: #{product.name}"
+        redirect_to products_path(product)
+      else
+        flash[:status] = :failure
+        flash[:result_text] = "Could not submit review for: #{product.name}"
+        flash[:messages] = @review.errors.messages
+        render :new, status: :bad_request
+      end
+    end
   end
 
   private

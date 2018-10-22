@@ -76,3 +76,30 @@ end
 
 puts "Added #{OrderItem.count} order_item records"
 puts "#{order_item_failures.length} order_items failed to save"
+
+
+
+REVIEWS_FILE = Rails.root.join('db', 'seed_data', 'reviews.csv')
+puts "Loading raw review data from #{REVIEWS_FILE}"
+
+review_failures = []
+
+CSV.foreach(REVIEWS_FILE, :headers => true) do |row|
+  review = Review.new
+  review.rating = row['rating']
+  review.product_id = row['product_id']
+  oreview.description = row['description']
+
+
+  succesful = review.save
+  if !successful
+    review_failures << review
+  puts "Failed to save reviews: #{review.inspect}"
+
+  else
+    puts "Created reviews: #{review.inspect}"
+  end
+end
+
+puts "Added #{Review.count} review records"
+puts "#{review_failures.length} reviews failed to save"

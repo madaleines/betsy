@@ -15,4 +15,5 @@ class Order < ApplicationRecord
   def cart_status
     return self.status != 'cart'
   end
+
 end

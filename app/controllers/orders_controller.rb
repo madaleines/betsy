@@ -51,19 +51,20 @@ class OrdersController < ApplicationController
         render :edit, status: :bad_request
       end
     end
-
-    def destroy
-    end
-
-    private
-
-    def valid_shopping_cart?
-      return !@shopping_cart.nil? && @shopping_cart.status == "pending"
-    end
-
-    def billing_params
-      params.require(:order).permit(:email, :mailing_address, :cc, :cc_name, :cc_expiration, :cvv, :zip)
-    end
-
-
   end
+
+  def destroy
+  end
+
+  private
+
+  def valid_shopping_cart?
+    return !@shopping_cart.nil? && @shopping_cart.status == "pending"
+  end
+
+  def billing_params
+    params.require(:order).permit(:email, :mailing_address, :cc, :cc_name, :cc_expiration, :cvv, :zip)
+  end
+
+  
+end

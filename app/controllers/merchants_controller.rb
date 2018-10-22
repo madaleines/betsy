@@ -30,10 +30,10 @@ class MerchantsController < ApplicationController
   def order_summary
     @merchant = Merchant.find_by(id: params[:id] )
     # if @merchant == nil
-      # flash[:status] = :failure
-      # flash[:result_text] = "Merchant could not be found"
-      # flash[:messages] = @merchant.errors.messages
-      # redirect_to root_path
+    # flash[:status] = :failure
+    # flash[:result_text] = "Merchant could not be found"
+    # flash[:messages] = @merchant.errors.messages
+    # redirect_to root_path
     # else
   end
 end

@@ -103,3 +103,34 @@ end
 
 puts "Added #{Review.count} review records"
 puts "#{review_failures.length} reviews failed to save"
+
+
+
+ORDERS_FILE = Rails.root.join('db', 'seed_data', 'orders.csv')
+puts "Loading raw order data from #{ORDERS_FILE}"
+
+order_failures = []
+
+CSV.foreach(ORDERS_FILE, :headers => true) do |row|
+  order = Order.new
+  order.email = row['email']
+  order.mailing_address = row['mailing_address']
+  order.cc = row['cc']
+  order.cc_name = row['cc_name']
+  order.cc_expiration = row['cc_expiration']
+  order.cvv = row['cvv']
+  order.zip = row['zip']
+  order.status = row['status']
+
+  succesful = order.save
+  if !successful
+    order_failures << order
+  puts "Failed to save order: #{order.inspect}"
+
+  else
+    puts "Created orders: #{order.inspect}"
+  end
+end
+
+puts "Added #{Order.count} order records"
+puts "#{order_failures.length} orders failed to save"

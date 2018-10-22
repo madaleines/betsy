@@ -50,60 +50,34 @@ end
 puts "Added #{Category.count} category records"
 puts "#{category_failures.length} categories failed to save"
 
+PRODUCTS_FILE = Rails.root.join('db', 'seed_data', 'products.csv')
+puts "Loading raw product data from #{PRODUCTS_FILE}"
+
+product_failures = []
+
+CSV.foreach(PRODUCTS_FILE, :headers => true) do |row|
+  product = Product.new
+
+  product.name = row['name']
+  product.price = row['price']
+  product.inventory = row['inventory']
+  product.description = row['description']
+  product.merchant_id = Merchant.all.sample.id
+  product.categories << Category.all.sample(rand(1..3))
 
 
-ORDERITEMS_FILE = Rails.root.join('db', 'seed_data', 'order_items.csv')
-puts "Loading raw order item data from #{ORDERITEMS_FILE}"
-
-order_items_failures = []
-
-CSV.foreach(ORDERITEMS_FILE, :headers => true) do |row|
-  order_item = OrderItem.new
-  order_item.order_id = row['order_id']
-  order_item.product_id = row['product_id']
-  order_item.quantity = row['quantity']
-  order_item.status = row['status']
-
-  succesful = order_item.save
+  succesful = product.save
   if !successful
-    order_item_failures << order_item
-  puts "Failed to save order_items: #{order_item.inspect}"
+    product_failures << product
+  puts "Failed to save product: #{product.inspect}"
 
   else
-    puts "Created order_item: #{order_item.inspect}"
+    puts "Created products: #{product.inspect}"
   end
 end
 
-puts "Added #{OrderItem.count} order_item records"
-puts "#{order_item_failures.length} order_items failed to save"
-
-
-
-REVIEWS_FILE = Rails.root.join('db', 'seed_data', 'reviews.csv')
-puts "Loading raw review data from #{REVIEWS_FILE}"
-
-review_failures = []
-
-CSV.foreach(REVIEWS_FILE, :headers => true) do |row|
-  review = Review.new
-  review.rating = row['rating']
-  review.product_id = row['product_id']
-  oreview.description = row['description']
-
-
-  succesful = review.save
-  if !successful
-    review_failures << review
-  puts "Failed to save reviews: #{review.inspect}"
-
-  else
-    puts "Created reviews: #{review.inspect}"
-  end
-end
-
-puts "Added #{Review.count} review records"
-puts "#{review_failures.length} reviews failed to save"
-
+puts "Added #{Product.count} product records"
+puts "#{product_failures.length} products failed to save"
 
 
 ORDERS_FILE = Rails.root.join('db', 'seed_data', 'orders.csv')
@@ -137,31 +111,62 @@ puts "#{order_failures.length} orders failed to save"
 
 
 
+ORDERITEMS_FILE = Rails.root.join('db', 'seed_data', 'order_items.csv')
+puts "Loading raw order item data from #{ORDERITEMS_FILE}"
 
-PRODUCTS_FILE = Rails.root.join('db', 'seed_data', 'products.csv')
-puts "Loading raw product data from #{PRODUCTS_FILE}"
+order_items_failures = []
 
-product_failures = []
-
-CSV.foreach(PRODUCTS_FILE, :headers => true) do |row|
-  product = Product.new
-
-  product.name = row['name']
-  product.price = row['price']
-  product.inventory = row['inventory']
-  product.description = row['description']
-  product.merchant_id = row['merchant_id']
+random_orders = Order.where.not(status:'cart') + Order.where(status:'cart').sample
 
 
-  succesful = product.save
-  if !successful
-    product_failures << product
-  puts "Failed to save product: #{product.inspect}"
 
-  else
-    puts "Created products: #{product.inspect}"
+random_orders.each do |order|
+  sample_products = Product.all.sample(rand(1..5))
+  sample_products.each do |product|
+    order_item = OrderItem.new
+    order_item.order_id = order.id
+    order_item.product_id = product.id
+    order_item.quantity = rand(1...10)
+    order_item.status = case order.status
+                        when "cart"; "pending"
+                        when "paid"; "paid"
+                        when "completed"; "shipped"
+                        end
+    succesful = order_item.save
+
+    if !successful
+      order_item_failures << order_item
+      puts "Failed to save order_items: #{order_item.inspect}"
+
+    else
+      puts "Created order_item: #{order_item.inspect}"
+    end
+
   end
 end
 
-puts "Added #{Product.count} product records"
-puts "#{product_failures.length} products failed to save"
+
+REVIEWS_FILE = Rails.root.join('db', 'seed_data', 'reviews.csv')
+puts "Loading raw review data from #{REVIEWS_FILE}"
+
+review_failures = []
+
+CSV.foreach(REVIEWS_FILE, :headers => true) do |row|
+  review = Review.new
+  review.rating = row['rating']
+  oreview.description = row['description']
+  review.product_id = Product.all.sample
+
+
+  succesful = review.save
+  if !successful
+    review_failures << review
+  puts "Failed to save reviews: #{review.inspect}"
+
+  else
+    puts "Created reviews: #{review.inspect}"
+  end
+end
+
+puts "Added #{Review.count} review records"
+puts "#{review_failures.length} reviews failed to save"

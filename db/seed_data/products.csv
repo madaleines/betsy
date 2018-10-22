@@ -1,6 +1,6 @@
-name,price,inventory,description,merchant_id
-Tic Tac Toe,20,50,Beloved childhood game making space in a 3x3 grid. Player wins when they succeeds in placing three of their marks in horizontal, vertical or diagonal row.,2
-Drink-Tac-Toe,45,50,Wine, beer play out the timeless classic game of tic tac toe.,1
-Otrio,50,20,This is an excellent 2-4 player head strategy game that will fire everyones competitive side,3
-Hasbro Monopoly Classic Game",15,50,Buy, sell, dream and scheme your way to riches,2
-Kanoodle - Brain Twisting Solitaire game,7,50,Perfect for developing problem solving and strategic thinking skills.,3
+name,price,inventory,description
+Tic Tac Toe,20,50,Beloved childhood game making space in a 3x3 grid. Player wins when they succeeds in placing three of their marks in horizontal, vertical or diagonal row.
+Drink-Tac-Toe,45,50,Wine, beer play out the timeless classic game of tic tac toe.
+Otrio,50,20,This is an excellent 2-4 player head strategy game that will fire everyones competitive side
+Hasbro Monopoly Classic Game,15,50,Buy, sell, dream and scheme your way to riches
+Kanoodle - Brain Twisting Solitaire game,7,50,Perfect for developing problem solving and strategic thinking skills.

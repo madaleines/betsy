@@ -5,9 +5,10 @@ Rails.application.routes.draw do
 
   get "/auth/:provider/callback", to: "sessions#create", as: 'auth_callback'
 
+  resources :order_items, only: [:create]
 
   resources :orders, only: [:index, :show, :create, :update, :destroy] do
-    resources :order_items, except: [:index, :show, :edit]
+    resources :order_items, except: [:index, :show, :edit, :new, :create]
   end
 
   get '/checkout', to: 'orders#edit', as: 'checkout'

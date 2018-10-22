@@ -1,0 +1,5 @@
+email,mailing_address,cc,cc_name,cc_expiration,cvv,zip,status
+someone@mail.com,1234 S main St Seattle WA 98134,1234567890123456,Samantha Smith,11/20,567,98134,cart
+secondone@mail.com,5432 S Republican St Seattle WA 98174,9876543212345678,Ben Tyler,11/22,765,98174,completed
+another@mail.com,5432 S Republican St Seattle WA 98174,9876543212345678,Ben Tyler,11/22,765,98174,paid
+fourthperson@mail.com,4564 S Roy St Seattle WA 98184,9876543212345678,Clementin Blue,12/22,509,98184,completed

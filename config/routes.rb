@@ -19,11 +19,10 @@ Rails.application.routes.draw do
     resources :products, only: [:index]
   end
 
-  resources :merchants, except: [:index] do
-    resources :products, only: [:new, :create, :edit, :update]
+  resources :merchants, only: [:show] do
+    resources :products, except: [:show, :destroy]
   end
 
   resources :sessions, only: [:new, :create]
   post '/sessions/logout', to: 'sessions#logout', as: 'logout'
-  post '/merchants/:id/dashboard', to: 'merchants#dashboard', as: 'dashboard'
 end

@@ -17,3 +17,9 @@ three:
   email: maddiemaxwell@yahoo.com
   uid: 23456789
   provider: github
+
+four:
+  username: boing
+  email: boing@yahoo.com
+  uid: 23456732
+  provider: github

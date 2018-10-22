@@ -6,6 +6,7 @@ class MerchantsController < ApplicationController
     if @merchant.id != session[:merchant_id]
       flash[:status] = :failure
       flash[:result_text] = "You are not authorized to view this dashboard"
+      redirect_to merchant_products_path(@merchant.id)
     elsif @merchant == nil
       flash[:status] = :failure
       flash[:result_text] = "Merchant could not be found"

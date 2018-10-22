@@ -3,6 +3,7 @@ require "test_helper"
 describe MerchantsController do
   describe "show" do
     let(:one) { merchants(:one) }
+    let(:two) { merchants(:two) }
 
     it "goes to merchant's dashboard view when logged in" do
       login(one)
@@ -13,6 +14,19 @@ describe MerchantsController do
       #if merchant is signed in, does it go to the dashboard page?
       #if merchant is signed in, does it respond with success?
       must_respond_with :success
+    end
+
+    it "redirects to homepage when not logged in" do
+
+    end
+
+    it "redirects when merchant tries to access other dashboards" do
+      login(two)
+
+      get merchant_path(one.id)
+
+      must_redirect_to merchant_products_path(one.id)
+      expect(flash[:result_text]).must_include "You are not authorized to view this dashboard"
     end
   end
 end

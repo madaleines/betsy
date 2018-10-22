@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :merchants, only: [:show] do
-    resources :products, only: [:new, :create, :edit, :update]
+    resources :products, except: [:show, :destroy]
   end
 
   resources :sessions, only: [:new, :create]

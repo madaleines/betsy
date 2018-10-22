@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   has_many :order_items
 
-  valid_is_cart? = %w(cart paid complete)
+  valid_status = %w(cart paid complete)
 
   validates :status, presence: true
   validates :email, presence: true, uniqueness: true, unless: :is_cart?

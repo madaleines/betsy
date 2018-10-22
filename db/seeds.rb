@@ -134,3 +134,34 @@ end
 
 puts "Added #{Order.count} order records"
 puts "#{order_failures.length} orders failed to save"
+
+
+
+
+PRODUCTS_FILE = Rails.root.join('db', 'seed_data', 'products.csv')
+puts "Loading raw product data from #{PRODUCTS_FILE}"
+
+product_failures = []
+
+CSV.foreach(PRODUCTS_FILE, :headers => true) do |row|
+  product = Product.new
+
+  product.name = row['name']
+  product.price = row['price']
+  product.inventory = row['inventory']
+  product.description = row['description']
+  product.merchant_id = row['merchant_id']
+
+
+  succesful = product.save
+  if !successful
+    product_failures << product
+  puts "Failed to save product: #{product.inspect}"
+
+  else
+    puts "Created products: #{product.inspect}"
+  end
+end
+
+puts "Added #{Product.count} product records"
+puts "#{product_failures.length} products failed to save"

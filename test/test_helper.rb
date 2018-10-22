@@ -1,11 +1,17 @@
 require 'simplecov'
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4103f6664a88a44aafe57a93e9f7225eb2701067
 SimpleCov.start 'rails' do
   add_filter '/bin/'
   add_filter '/db/'
   add_filter '/test/'
 end
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4103f6664a88a44aafe57a93e9f7225eb2701067
 
 ENV["RAILS_ENV"] = "test"
 require File.expand_path("../../config/environment", __FILE__)

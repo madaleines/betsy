@@ -1,13 +1,9 @@
 require 'simplecov'
-<<<<<<< HEAD
-SimpleCov.start 'rails'
-=======
 SimpleCov.start 'rails' do
   add_filter '/bin/'
   add_filter '/db/'
   add_filter '/test/'
 end
->>>>>>> a918f8c250f01472c3334d439550bb4661c420d0
 
 ENV["RAILS_ENV"] = "test"
 require File.expand_path("../../config/environment", __FILE__)

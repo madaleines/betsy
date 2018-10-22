@@ -27,7 +27,7 @@ class OrderItemsController < ApplicationController
     @order_item = OrderItem.find_by(id: params[:id])
 
     if @order_item.update(order_item_params)
-      # @order_item.save
+      @order_item.save
       flash[:status] = :success
       flash[:result_text] = "Successfully updated item"
       redirect_to cart_path

@@ -1,11 +1,18 @@
 class Order < ApplicationRecord
   has_many :order_items
 
-  validates :email, presence: true, uniqueness: true
-  validates :mailing_address, presence: true
-  validates :cc, presence: true
-  validates :cc_name, presence: true
-  validates :cc_expiration, presence: true
-  validates :cvv, presence: true
-  validates :zip, presence: true
+  valid_cart_status = %w(cart paid complete)
+
+  validates :status, presence: true
+  validates :email, presence: true, uniqueness: true, unless cart_status
+  validates :mailing_address, presence: true, unless cart_status
+  validates :cc, presence: true, unless cart_status
+  validates :cc_name, presence: true, unless cart_status
+  validates :cc_expiration, presence: true, unless cart_status
+  validates :cvv, presence: true, unless cart_status
+  validates :zip, presence: true, unless cart_status
+
+  def cart_status
+    return self.status != 'cart'
+  end
 end

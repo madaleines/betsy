@@ -14,7 +14,7 @@ class Product < ApplicationRecord
     return number_to_currency(price)
   end
 
-  def change_ineventory(quantity_ordered)
+  def change_inventory(quantity_ordered)
     current_inventory = self.inventory
     new_inventory = current_inevntory - quantity_ordered
     self.inventory = new_inventory

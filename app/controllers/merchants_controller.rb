@@ -1,34 +1,25 @@
 class MerchantsController < ApplicationController
+  skip_before_action :require_login
 
-  def dashboard
-    flash[:status] = :success
-    flash[:result_text] = "Successfully made it to the dashboard"
-  else
-    flash[:status] = :failure
-    flash[:result_text] = "Could not pull up your dashboard"
-    flash[:messages] = @merchant.errors.messages
-    redirect_to root_path
+  def show
+    @merchant = Merchant.find_by(id: params[:id] )
+
+    if @merchant == nil
+      flash[:status] = :failure
+      flash[:result_text] = "Merchant could not be found"
+      redirect_to root_path
+    elsif @merchant.id != session[:merchant_id]
+      flash[:status] = :failure
+      flash[:result_text] = "You are not authorized to view this dashboard"
+      redirect_to merchant_products_path(@merchant.id)
+    else
+      @products = @merchant.products
+      @order_items = []
+      @products.each do |product|
+        @order_items << OrderItem.find_by(product_id: product.id )
+        flash[:status] = :success
+      end
+    end
   end
-end
 
-def show
-  @merchant = Merchant.find_by(id: params[:id] )
-  if @merchant == nil
-    flash[:status] = :failure
-    flash[:result_text] = "Merchant could not be found"
-    flash[:messages] = @merchant.errors.messages
-    redirect_to root_path
-  else
-    @products = @merchants.products
-  end
-end
-
-def order_summary
-  @merchant = Merchant.find_by(id: params[:id] )
-  # if @merchant == nil
-  # flash[:status] = :failure
-  # flash[:result_text] = "Merchant could not be found"
-  # flash[:messages] = @merchant.errors.messages
-  # redirect_to root_path
-  # else
 end

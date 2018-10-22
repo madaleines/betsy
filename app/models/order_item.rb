@@ -10,8 +10,7 @@ class OrderItem < ApplicationRecord
 
   def quantity_validation
     if self.quantity > self.product.inventory
-      self.errors.add(:quantity, " - Please order only what's available")
+      self.errors.add(:quantity, "Please order only what's available")
     end
   end
-
 end

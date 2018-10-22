@@ -7,7 +7,6 @@ describe MerchantsController do
 
     it "goes to merchant's dashboard view when logged in" do
       login(one)
-
       get merchant_path(one.id)
       must_respond_with :success
     end
@@ -25,6 +24,17 @@ describe MerchantsController do
 
       must_redirect_to merchant_products_path(one.id)
       expect(flash[:result_text]).must_include "You are not authorized to view this dashboard"
+    end
+
+    it "redirects when merchant does not exit" do
+      deadmerch = merchants(:four)
+      deadmerch.destroy
+
+      get merchant_path(deadmerch)
+      must_respond_with :redirect
+      expect(flash[:result_text]).must_include "Merchant could not be found"
+      must_redirect_to root_path
+
     end
   end
 end

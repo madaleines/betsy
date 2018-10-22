@@ -1,4 +1,5 @@
 class MerchantsController < ApplicationController
+  skip_before_action :require_login
 
   def show
     @merchant = Merchant.find_by(id: params[:id] )
@@ -13,8 +14,11 @@ class MerchantsController < ApplicationController
       flash[:messages] = @merchant.errors.messages
       redirect_to root_path
     end
+
     @products = @merchant.products
+    flash[:status] = :success
   end
+
 
   def order_summary
     @merchant = Merchant.find_by(id: params[:id] )

@@ -9,15 +9,13 @@ describe MerchantsController do
       login(one)
 
       get merchant_path(one.id)
-
-      #if merchant is signed it...how does test know that?
-      #if merchant is signed in, does it go to the dashboard page?
-      #if merchant is signed in, does it respond with success?
       must_respond_with :success
     end
 
-    it "redirects to homepage when not logged in" do
-
+    it "redirects to merchant products when not logged in" do
+      get merchant_path(one.id)
+      must_redirect_to merchant_products_path(one.id)
+      expect(flash[:result_text]).must_include "You are not authorized to view this dashboard"
     end
 
     it "redirects when merchant tries to access other dashboards" do

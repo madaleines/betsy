@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get '/cart', to: 'orders#index', as: 'cart'
 
   resources :products, except: [:new, :create, :edit, :update, :destroy] do
-    resources :reviews, only: [:new, :create]
+    resources :reviews, only: [:new, :create, :index]
   end
 
   resources :categories, except: [:destroy] do
@@ -25,4 +25,5 @@ Rails.application.routes.draw do
 
   resources :sessions, only: [:new, :create]
   post '/sessions/logout', to: 'sessions#logout', as: 'logout'
+  post '/merchants/:id/dashboard', to: 'merchants#dashboard', as: 'dashboard'
 end

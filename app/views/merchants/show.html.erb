@@ -1,2 +1,23 @@
 <h1>Merchants#show</h1>
 <p>Find me in app/views/merchants/show.html.erb</p>
+
+<h2>Merchant details</h2>
+
+<%= @merchant.name %>
+
+<section>
+  <h3>Genres</h3>
+  <p>
+    <strong>Products:</strong>
+    <% @merchant.products.each do |product| %>
+    <ul>
+      <li><%= product.name %></li>
+      <li><%= product.price %></li>
+      <li><%= product.inventory %></li>
+      <div class="links-bar">
+        <%= link_to "Add to Cart", new_merchant_product_path(@product.merchant_id) %>
+        <%= link_to "Product Reviews", product_reviews_path(@product.id), class: "homepage" %>
+      </div>
+    </ul>
+  </p>
+</section>

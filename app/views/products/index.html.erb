@@ -1,17 +1,20 @@
-<h1>Products#index</h1>
-
 <div id="Home-container">
 
+  <% if params[:merchant_id] %>
+  <h2>Merchants Products</h2>
+  <% else %>
+  <h1>Products#index</h1>
   <h2>List of All Products</h2>
+  <% end %>
 
-    <% @products.each do |product| %>
-    <div class="product-name">
-      <strong><h5>
-        <%= link_to image_tag('sherlock-game.jpg', alt: "display puzzle-game"), product_path(product.id) %>
-      </h5></strong>
-      <p>from: <%= link_to product.merchant.username, merchant_path(product.merchant_id) %></p>
-      <h6><%= number_to_currency(product.price) %></h6>
-      <% end %>
-    </div>
+  <% @products.each do |product| %>
+  <div class="product-name">
+    <strong><h5>
+      <%= link_to image_tag('sherlock-game.jpg', alt: "display puzzle-game"), product_path(product.id) %>
+    </h5></strong>
+    <p>from: <%= link_to product.merchant.username, merchant_path(product.merchant_id) %></p>
+    <h6><%= number_to_currency(product.price) %></h6>
+    <% end %>
+  </div>
 
 </div>

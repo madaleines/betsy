@@ -1,17 +1,42 @@
 // Place all the styles related to the products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#home-container {
+  margin: 0;
+  border: 10px solid black;
+  padding: 5%;
+}
+
 .flex-container {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-between;
 }
 
 .image-tag {
-  border: 2px solid red;
-  width: 200px;
+  width: 300px;
   height: 200px;
 }
 
+.title-page {
+  padding: 5px;
+  color: rgb(128,128,128);
+  text-align: center;
+  text-decoration: underline;
+  text-transform: capitalize;
+}
+
 .product-info {
+  text-align: center;
+}
+
+.product-info  {
+}
+
+.product-thumbnail {
+  margin-top: 50px;
+  border: 1px solid green;
 
 }

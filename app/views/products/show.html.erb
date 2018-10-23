@@ -1,8 +1,11 @@
 <p>
   <strong><%= @product.name %></strong>
 </p>
-<p><%= link_to @product.merchant.username, merchant_path(@product.merchant_id) %></p>
-<p><%= @product.description %></p>
+<p>By <%= link_to @product.merchant.username, merchant_path(@product.merchant_id) %></p>
+<div class="image-tag">
+  <%= link_to image_tag("#{@product.image}", :class => 'image-tag'), product_path(@product.id) %>
+</div>
+<p class="product-descp"><%= @product.description %></p>
 
 <p>
   <strong>Price</strong>

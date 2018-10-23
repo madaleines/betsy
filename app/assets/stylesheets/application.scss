@@ -8,7 +8,7 @@
 }
 
 a{
-  color: rgb(93, 93, 93);
+  color: rgb(144, 144, 144);
 }
 
 a:hover{
@@ -81,10 +81,9 @@ header nav {
 
 footer{
   display: flex;
-  position: absolute;
-  bottom: 0;
   width: 100%;
   padding: 10px;
+  margin-top: 50px;
   justify-content: center;
   align-items: center;
   background-color: rgb(226, 226, 226);

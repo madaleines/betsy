@@ -1,31 +1,62 @@
-<h4>
-  <strong><%= @product.name %></strong>
-</h4>
-<p>By: <%= link_to @product.merchant.username, merchant_path(@product.merchant_id) %></p>
-<div class="image-tag">
-  <%= link_to image_tag("#{@product.image}", :class => 'image-tag'), product_path(@product.id) %>
+<div class="container">
+
+  <div class="row">
+    <div class="col">
+      <h2><strong><%= @product.name %></strong></h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <p>By: <%= link_to @product.merchant.username, merchant_path(@product.merchant_id) %></p>
+    </div>
+    <div class="col">
+      <h3>Product Reviews</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= link_to image_tag("#{@product.image}", :alt => 'product-img', :class => 'image-tag'), product_path(@product.id) %>
+    </div>
+    <div class="col">
+      <% @product.reviews.each do |review| %>
+      <h5><%= review.rating %> out of 5</h5>
+      <% end %>
+      <div>
+        <% @product.reviews.each do |review| %>
+        <p>"<%= review.description %>"</p>
+        <p><%= review.created_at.strftime("%B %d, %Y") %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <p><%= @product.description %></p>
+    </div>
+    <div class="col">
+      <% @product.reviews.each do |review| %>
+      <p>"<%= review.description %>"</p>
+      <p><%= review.created_at.strftime("%B %d, %Y") %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <p><strong>Price: </strong>
+        <%= number_to_currency(@product.price) %>
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <section>
+        <h3><%= button_to "Add to Cart", root_path %></h3>
+      </section>
+    </div>
+  </div>
 </div>
-<p class="product-descp"><%= @product.description %></p>
-
-<p>
-  <strong>Price</strong>
-  <%= number_to_currency(@product.price) %>
-</p>
-
-<div class="add-to-cart-button">
-  <section>
-    <h3><%= button_to "Add to Cart", root_path %></h3>
-  </section>
-</div>
-
-<div>
-  <h3>Product Reviews</h3>
-  <section class="reviews">
-    <% @product.reviews.each do |review| %>
-    <h5><%= review.rating %> out of 5</h5>
-    <p><%= review.description %></br><%= review.created_at.strftime("%B %d, %Y") %></p>
-    <% end %></br></br>
-  </section>
-</div>
-
-<%= link_to "Go Back to All Products", root_path, class: "homepage" %>

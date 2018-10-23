@@ -69,10 +69,22 @@ header nav {
   grid-row: 2 / 3;
 }
 
+
 #category{
   grid-column: 3 / 4;
   grid-row: 2 / 3;
 }
+
+.dropdown-menu{
+  background-color: rgb(42, 42, 42);
+  border: none;
+  padding: 15px;
+}
+
+.dropdown-menu li{
+  padding-top: 10px;
+}
+
 
 #merchants{
   grid-column: 4 / 5;

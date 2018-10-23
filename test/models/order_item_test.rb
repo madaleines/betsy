@@ -1,16 +1,6 @@
 require "test_helper"
-require 'pry'
 
 describe OrderItem do
-  before do
-    @order_item = OrderItem.first
-  end
-
-  it "must be valid" do
-    result = @order_item.valid?
-    expect( result ).must_equal true
-  end
-
   describe 'relations' do
     before do
       @order_item = OrderItem.first

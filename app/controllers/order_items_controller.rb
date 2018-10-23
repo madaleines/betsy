@@ -1,71 +1,91 @@
 class OrderItemsController < ApplicationController
   skip_before_action :require_login
-  before_action :load_order, only: [:create]
-
-
-  def new
-    @order_items = OrderItem.new
-  end
 
   def create
-    @order_item = OrderItem.new(product_id: params[:product_id])
-    @order_item.save
+    product_id = params[:order_item][:product_id]
 
-    if @order_item.save
-      flash[:status] = :success
-      flash[:result_text] = "Successfully added to cart"
-      redirect_to cart_path
-    else
-      flash[:status] = :failure
-      flash[:result_text] = "Could not add to cart"
-      flash[:messages] = @order_item.errors.messages
-      render :new, status: :bad_request
+    unless quantity_is_in_stock?(product_id)
+      cannot_order_more_than_stock
+      return
     end
+
+    @order_item = create_order_item(order_item_params)
+    is_successful_save = @order_item.save
+    is_successful_save ? added_to_cart : could_not_add_to_cart
   end
 
   def update
-    @order_item = OrderItem.find_by(id: params[:id])
-
-    if @order_item.update(order_item_params)
-      @order_item.save
-      flash[:status] = :success
-      flash[:result_text] = "Successfully updated item"
-      redirect_to cart_path
-    else
-      flash[:status] = :error
-      flash[:result_text] = "Invalid book data"
-      flash[:messages] = @order_item.errors.messages
-      render :new, status: :bad_request
-    end
+    @order_item = find_order_item
+    is_successful_update = @order_item.update(order_item_params)
+    is_successful_update ? order_item_updated : could_not_update
   end
 
   def destroy
-    @order_item = OrderItem.find_by(id: params[:id])
-
-    if @order_item.status == 'pending'
-      @order_item.destroy
-
-      flash[:status] = :success
-      flash[:result_text] = "Successfully deleted item from cart"
-      redirect_to cart_path
-    else
-      flash[:status] = :failure
-      flash[:result_text] = "Could not delete item from cart due to status being \'#{@order_item.status}\'"
-      render :new, status: :bad_request
-    end
+    @order_item = find_order_item
+    order_is_pending? ? order_item_destroyed : could_not_destroy
   end
-
 
   private
-  def order_item_params
-    params.require(:order_item).permit(:quantity, :status, :product_id, :order_id)
+
+  def could_not_destroy
+    flash[:failure] = "Could not delete item from cart due to status being \'#{@order_item.status}\'"
+    render :new, status: :bad_request
   end
 
-  def load_order
-      @order = Order.find(session[:order_id])
-    if @order
-      @order = Order.create(status: "unsubmitted")
-      session[:order_id] = @order.id
-    end
+  def order_item_destroyed
+    @order_item.destroy
+    flash[:success] = "Successfully deleted item from cart"
+    redirect_to cart_path
+  end
+
+  def order_is_pending?
+    return @order_item.status == 'pending'
+  end
+
+  def could_not_update
+    flash[:error] = @order_item.errors.messages
+    render :new, status: :bad_request
+  end
+
+  def order_item_updated
+    @order_item.save
+    flash[:success] = "Successfully updated item"
+    redirect_to cart_path
+  end
+
+  def could_not_add_to_cart
+    flash[:failure] = "Could not add to cart"
+    flash[:messages] = @order_item.errors.messages
+    render :new, status: :bad_request
+  end
+
+  def added_to_cart
+    flash[:success] = "Successfully added to cart"
+    redirect_to cart_path
+  end
+
+  def create_order_item(order_item_params)
+    return @shopping_cart.order_items.new(order_item_params)
+  end
+
+  def cannot_order_more_than_stock
+    flash[:error] = "Cannot order more than inventory"
+    render :new, status: :bad_request
+    return
+  end
+
+  def quantity_is_in_stock?(product_id)
+    product = find_order_item_product(product_id)
+    quantity = params[:order_item][:quantity].to_i
+    inventory = product.inventory
+    return quantity < inventory
+  end
+
+  def find_order_item_product(product_id)
+    return Product.find_by(id: product_id)
+  end
+
+  def order_item_params
+    params.require(:order_item).permit(:quantity, :product_id)
   end
 end

@@ -1,22 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Betsy</title>
+  <title>Braineaze</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+  <link rel="shortcut icon" href="images/brian.png" type="image/png" alt="brain emoji">
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 
 <body>
   <header>
-    <h1>BrainEAZE</h1>
-    <nav></nav>
+    <nav>
+      <div class="hello">
+        Hello, Guest
+      </div>
+
+      <div class="login">
+        Log In
+      </div>
+      <div class="braineaze">
+        <h1>braineaze</h1>
+      </div>
+
+      <div class="nav-option" id="products">
+        products
+      </div>
+
+      <div class="nav-option" id="category">
+        category
+      </div>
+
+      <div class="nav-option" id="merchants">
+        merchants
+      </div>
+
+      <div class="nav-option" id="cart">
+
+        <button type="button" class="btn btn-secondary">
+          cart <span class="badge badge-light">0</span>
+        </button>
+      </div>
+    </nav>
   </header>
+
+
   <main>
     <%= yield %>
   </main>
-  <footer><%= "\u00A9" %></footer>
+  <footer><%= "\u00A9" %> MAGS</footer>
 </body>
 </html>

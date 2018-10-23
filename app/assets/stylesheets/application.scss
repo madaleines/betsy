@@ -1,18 +1,92 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- */
-
-/* Custom bootstrap variables must be set or imported *before* bootstrap. */
 @import "bootstrap";
 /* Import scss content */
 @import "**/*";
+
+// SITE WIDE
+*{
+  font-family: 'Montserrat', sans-serif;
+}
+
+a{
+  color: rgb(93, 93, 93);
+}
+
+a:hover{
+  color: rgb(38, 38, 38);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+main{
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+
+// NAVIGATION BAR
+header nav {
+  display: grid;
+  grid-column: 35% 15% 15% 15% auto;
+  grid-rows: 20px auto;
+  padding: 20px;
+  margin-bottom: 100px;
+  grid-gap: 10px;
+  background-color: rgb(226, 226, 226);
+}
+
+.braineaze{
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+}
+
+.hello{
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.login{
+  grid-column: 5 / 6;
+  grid-row: 1 / 2;
+  text-align: right;
+}
+
+.nav-option{
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+#products{
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+#category{
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
+}
+
+#merchants{
+  grid-column: 4 / 5;
+  grid-row: 2 / 3;
+}
+
+#cart{
+  grid-column: 5 / 6;
+  grid-row: 2 / 3;
+}
+
+
+// FOOTER
+
+footer{
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(226, 226, 226);
+  font-weight: 100;
+}

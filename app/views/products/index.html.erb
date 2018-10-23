@@ -10,7 +10,7 @@
   <% @products.each do |product| %>
   <div class="product-name">
     <strong><h5>
-      <%= link_to image_tag('sherlock-game.jpg', alt: "display puzzle-game"), product_path(product.id) %>
+      <%= link_to product_path(product.id) %>
     </h5></strong>
     <p>from: <%= link_to product.merchant.username, merchant_path(product.merchant_id) %></p>
     <h6><%= number_to_currency(product.price) %></h6>

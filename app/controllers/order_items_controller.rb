@@ -9,27 +9,26 @@ class OrderItemsController < ApplicationController
       return
     end
 
-    @order_item = @shopping_cart.order_items.new(order_item_params)
+    @order_item = create_order_item(order_item_params)
     is_successful_save = @order_item.save
     is_successful_save ? added_to_cart : could_not_add_to_cart
   end
 
   def update
-    find_order_item
-    successful_update = @order_item.update(order_item_params)
-    successful_update ? order_item_updated : could_not_update
+    @order_item = find_order_item
+    is_successful_update = @order_item.update(order_item_params)
+    is_successful_update ? order_item_updated : could_not_update
   end
 
   def destroy
-    find_order_item
+    @order_item = find_order_item
     order_is_pending? ? order_item_destroyed : could_not_destroy
   end
 
   private
 
   def find_order_item
-    @order_item = OrderItem.find_by(id: params[:id])
-    return @order_item
+    return OrderItem.find_by(id: params[:id])
   end
 
   def could_not_destroy
@@ -67,6 +66,10 @@ class OrderItemsController < ApplicationController
   def added_to_cart
     flash[:success] = "Successfully added to cart"
     redirect_to cart_path
+  end
+
+  def create_order_item(order_item_params)
+    return @shopping_cart.order_items.new(order_item_params)
   end
 
   def cannot_order_more_than_stock

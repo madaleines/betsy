@@ -1,13 +1,14 @@
 require "test_helper"
-require 'pry'
 
 describe OrderItemsController do
+  let(:plushie) {products(:plushie)}
+
   describe "Create" do
     it "it can create an Order Item (add item to cart)" do
-      product = Product.first
+      product = plushie
       order_item_data = {
         order_item: {
-          quantity: 5,
+          quantity: 7,
           product_id: product.id
         }
       }
@@ -21,12 +22,10 @@ describe OrderItemsController do
 
     it "renders 404 not_found for a bogus order_item data when trying to add to cart" do
       order = Order.first
-      product = Product.first
+      product = plushie
       order_item_data = {
         order_item: {
           quantity: 0,
-          status: 'pending',
-          order_id: order.id,
           product_id: product.id
         }
       }

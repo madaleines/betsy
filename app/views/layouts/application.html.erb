@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="shortcut icon" href="app/assets/images/brain.png" type="image/png" >
   <title>Braineaze</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  <link rel="shortcut icon" href="images/brian.png" type="image/png" alt="brain emoji">
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -50,7 +50,8 @@
         </div>
 
         <div class="nav-option" id="cart">
-          <%= link_to image_tag("cart.png", :class => 'cart-photo', :alt => 'cart photo'), root_path %> 0
+          <%= link_to image_tag("cart.png", :class => 'cart-photo', :alt => 'cart photo'), root_path %>
+          <%= @shopping_cart.order_items.length %>
         </div>
       </nav>
     </header>

@@ -45,10 +45,6 @@ class ProductsController < ApplicationController
     redirect_to product_path(@product.id)
   end
 
-  def find_product
-    return Product.find_by(id: params[:id])
-  end
-
   def cannot_create_product
     flash.now[:error] = "Invalid product data"
     render :new, status: :bad_request
@@ -61,10 +57,6 @@ class ProductsController < ApplicationController
 
   def create_product(product_params)
     return Product.new(product_params)
-  end
-
-  def find_merchant
-    return Merchant.find_by(id: params[:merchant_id])
   end
 
   def product_params

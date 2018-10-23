@@ -27,10 +27,6 @@ class OrderItemsController < ApplicationController
 
   private
 
-  def find_order_item
-    return OrderItem.find_by(id: params[:id])
-  end
-
   def could_not_destroy
     flash[:failure] = "Could not delete item from cart due to status being \'#{@order_item.status}\'"
     render :new, status: :bad_request
@@ -79,10 +75,14 @@ class OrderItemsController < ApplicationController
   end
 
   def quantity_is_in_stock?(product_id)
-    product = Product.find_by(id: product_id)
+    product = find_order_item_product(product_id)
     quantity = params[:order_item][:quantity].to_i
     inventory = product.inventory
     return quantity < inventory
+  end
+
+  def find_order_item_product(product_id)
+    return Product.find_by(id: product_id)
   end
 
   def order_item_params

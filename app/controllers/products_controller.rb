@@ -2,16 +2,18 @@ class ProductsController < ApplicationController
   skip_before_action :require_login, only: [:index, :show]
 
   def index
-    if params[:merchant_id]
-      merchant = Merchant.find_by(id: params[:merchant_id])
+    merchant_params = params[:merchant_id]
+    if merchant_params
+      merchant = find_merchant
       @products = merchant.products
     else
       @products = Product.all
+      @shopping_cart = find_shopping_cart
     end
   end
 
   def show
-    @product = Product.find_by(id: params[:id])
+    @product = find_product
     render_404 if @product.nil?
   end
 

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:show, :create, :update, :destroy]
 
-  get '/checkout', to: 'orders#edit', as: 'checkout'
+  get 'checkout', to: 'orders#edit', as: 'checkout'
 
   get '/cart', to: 'orders#index', as: 'cart'
 

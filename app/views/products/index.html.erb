@@ -8,15 +8,14 @@
 
   <div class="flex-container">
     <% @products.each do |product| %>
-    <div class="product-details">
-      <div class="product-thumbnail">
-        <strong><h5>
-          <%= link_to image_tag("#{product.image}", :alt => 'product-img', :class => 'image-tag'), product_path(product.id) %>
-        </h5></strong>
-        <p class="product-info">by: <%= link_to product.merchant.username, merchant_path(product.merchant_id) %></p>
-        <p class="product-info"><%= number_to_currency(product.price) %></p>
+    <div class="card">
+      <%= link_to image_tag("#{product.image}", :alt => 'product-img', :class => 'image-tag'), product_path(product.id) %>
+      <div class="card-body">
+        <p class="card-text text-center">from: <%= link_to product.merchant.username, merchant_path(product.merchant_id) %> </p>
+        <p class="card-text text-center"><%= number_to_currency(product.price) %></p>
       </div>
     </div>
     <% end %>
   </div>
+  
 </div>

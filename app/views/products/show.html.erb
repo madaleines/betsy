@@ -1,8 +1,11 @@
 <div class="container">
 
   <div class="row">
-    <div class="col">
+    <div class="col-8">
       <h2><strong><%= @product.name %></strong></h2>
+    </div>
+    <div class="col-4">
+      <h3>Product Reviews</h3>
     </div>
   </div>
 
@@ -10,37 +13,27 @@
     <div class="col">
       <p>By: <%= link_to @product.merchant.username, merchant_path(@product.merchant_id) %></p>
     </div>
-    <div class="col">
-      <h3>Product Reviews</h3>
-    </div>
   </div>
 
   <div class="row">
     <div class="col">
-      <%= link_to image_tag("#{@product.image}", :alt => 'product-img', :class => 'image-tag'), product_path(@product.id) %>
-    </div>
-    <div class="col">
-      <% @product.reviews.each do |review| %>
-      <h5><%= review.rating %> out of 5</h5>
-      <% end %>
-      <div>
-        <% @product.reviews.each do |review| %>
-        <p>"<%= review.description %>"</p>
-        <p><%= review.created_at.strftime("%B %d, %Y") %></p>
-        <% end %>
+      <div class="col-12 text-left">
+        <%= link_to image_tag("#{@product.image}", :alt => 'product-img', :class => 'image-show-tag'), product_path(@product.id) %>
       </div>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <p><%= @product.description %></p>
-    </div>
-    <div class="col">
-      <% @product.reviews.each do |review| %>
-      <p>"<%= review.description %>"</p>
-      <p><%= review.created_at.strftime("%B %d, %Y") %></p>
-      <% end %>
+    <div class="col-4">
+      <div class="rating">
+        <% @product.reviews.each do |review| %>
+        <h5><%= review.rating %> out of 5</h5>
+      </div>
+      <div class="review-descrip">
+        <p>"<%= review.description %>"</p>
+      </div>
+      <div class="created-at">
+        <p><%= review.created_at.strftime("%B %d, %Y") %></p>
+        <br>
+        <% end %>
+      </div>
     </div>
   </div>
 
@@ -51,6 +44,14 @@
       </p>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-8" class="product-desription">
+      <h5><strong>Product Description:</strong></h5>
+      <p class="text-capitalize"><%= @product.description %></p>
+    </div>
+  </div>
+
 
   <div class="row">
     <div class="col">

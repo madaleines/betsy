@@ -16,6 +16,11 @@
   align-content: space-between;
 }
 
+.card {
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+
 .image-tag {
   width: 300px;
   height: 200px;
@@ -43,8 +48,8 @@
   border: 1px solid black;
 }
 
-// .product-dscrip {
-//   border: 1px solid red;
-//   width: 45%;
-//   padding: 2%;
-// }
+.image-show-tag {
+  padding-bottom: 8%;
+  width: 500px;
+  height: 400px;
+}

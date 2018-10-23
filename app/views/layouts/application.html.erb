@@ -15,45 +15,55 @@
 <body>
   <header>
     <nav>
+
       <div class="hello">
+        <% if @current_merchant %>
+        Hello, <%= @current_mercant.username %>
+        <% else %>
         Hello, Guest
+        <% end %>
       </div>
 
       <div class="login">
-        Log In
+        <% if @current_merchant %>
+        <%= link_to "Log Out", '/sessions/logout' %>
+        <% else %>
+        <%= link_to "Log In", auth_callback_path('github') %>
+        <% end %>
       </div>
+
       <div class="braineaze">
         <h1>
-             <%=link_to "braineaze", products_path %></h1>
-      </div>
+          <%=link_to "braineaze", products_path %></h1>
+        </div>
 
-      <div class="nav-option" id="products">
-        <%=link_to "products", products_path %>
-      </div>
+        <div class="nav-option" id="products">
+          <%=link_to "products", products_path %>
+        </div>
 
-      <div class="nav-option" id="category">
-        <%=link_to "categories", categories_path %>
-      </div>
+        <div class="nav-option" id="category">
+          <%=link_to "categories", categories_path %>
+        </div>
 
-      <div class="nav-option" id="merchants">
-        merchants
-      </div>
+        <div class="nav-option" id="merchants">
+          merchants
+        </div>
 
-      <div class="nav-option" id="cart">
+        <div class="nav-option" id="cart">
 
-        <button type="button" class="btn btn-secondary">
-          cart <span class="badge badge-light">0</span>
-        </button>
-      </div>
-    </nav>
-  </header>
+          <button type="button" class="btn btn-secondary">
+            cart <span class="badge badge-light">0</span>
+          </button>
+        </div>
+      </nav>
+    </header>
 
 
-  <main>
-    <%= yield %>
-  </main>
-  <footer>
-    <%= "\u00A9" %> MAGS
-  </footer>
-</body>
-</html>
+    <main>
+      <%= yield %>
+    </main>
+    <footer>
+      <%= "\u00A9" %> MAGS
+    </footer>
+  </body>
+  </html>

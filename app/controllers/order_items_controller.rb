@@ -1,18 +1,15 @@
 class OrderItemsController < ApplicationController
   skip_before_action :require_login
 
-  def new
-    @order_items = OrderItem.new
-  end
-
   def create
-    @order_item = OrderItem.new(order_item_params)
-    @order_item.save
+    @order_item = @shopping_cart.order_items.new(order_item_params)
 
-    if @order_item.save
+    is_successful_save = @order_item.save
+
+    if is_successful_save
       flash[:status] = :success
       flash[:result_text] = "Successfully added to cart"
-      redirect_to cart_path
+      redirect_to orders_path
     else
       flash[:status] = :failure
       flash[:result_text] = "Could not add to cart"
@@ -25,7 +22,7 @@ class OrderItemsController < ApplicationController
     @order_item = OrderItem.find_by(id: params[:id])
 
     if @order_item.update(order_item_params)
-      # @order_item.save
+      @order_item.save
       flash[:status] = :success
       flash[:result_text] = "Successfully updated item"
       redirect_to cart_path
@@ -53,9 +50,9 @@ class OrderItemsController < ApplicationController
     end
   end
 
-
   private
+
   def order_item_params
-    params.require(:order_item).permit(:quantity, :status, :product_id, :order_id)
+    params.require(:order_item).permit(:quantity, :product_id)
   end
 end

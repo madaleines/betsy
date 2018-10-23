@@ -8,6 +8,7 @@
 /.bundle
 
 # Ignore all logfiles and tempfiles.
+coverage
 /log/*
 /tmp/*
 !/log/.keep
@@ -28,9 +29,6 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-<<<<<<< HEAD
-.env
-=======
+
 * Ignore .env file
 /.env
->>>>>>> master

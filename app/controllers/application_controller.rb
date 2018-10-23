@@ -20,7 +20,9 @@ class ApplicationController < ActionController::Base
     if session[:order_id]
       @shopping_cart = Order.find_by(id: session[:order_id])
     else
-      @shopping_cart = Order.create
+      # If we can't create the cart, that's a bug and
+      # a developer needs to fix it. Use create!
+      @shopping_cart = Order.create!
       session[:order_id] = @shopping_cart.id
     end
   end

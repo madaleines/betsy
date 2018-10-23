@@ -113,14 +113,14 @@ puts "#{order_failures.length} orders failed to save"
 
 
 
-ORDERITEMS_FILE = Rails.root.join('db', 'seed_data', 'order_items.csv')
-puts "Loading raw order item data from #{ORDERITEMS_FILE}"
+# ORDERITEMS_FILE = Rails.root.join('db', 'seed_data', 'order_items.csv')
+# puts "Loading raw order item data from #{ORDERITEMS_FILE}"
 
 order_items_failures = []
 
-random_orders = Order.where.not(status:'cart') + Order.where(status:'cart').sample
-
-
+# random_orders = []
+# random_orders << Order.where.not(status:'cart')
+random_orders = Order.all.sample(5)
 
 random_orders.each do |order|
   sample_products = Product.all.sample(rand(1..5))
@@ -137,7 +137,7 @@ random_orders.each do |order|
     successful = order_item.save
 
     if !successful
-      order_item_failures << order_item
+      order_items_failures << order_item
       puts "Failed to save order_items: #{order_item.inspect}"
 
     else
@@ -148,27 +148,27 @@ random_orders.each do |order|
 end
 
 
-# REVIEWS_FILE = Rails.root.join('db', 'seed_data', 'reviews.csv')
-# puts "Loading raw review data from #{REVIEWS_FILE}"
-#
-# review_failures = []
-#
-# CSV.foreach(REVIEWS_FILE, :headers => true) do |row|
-#   review = Review.new
-#   review.rating = row['rating']
-#   oreview.description = row['description']
-#   review.product_id = Product.all.sample
-#
-#
-#   successful = review.save
-#   if !successful
-#     review_failures << review
-#   puts "Failed to save reviews: #{review.inspect}"
-#
-#   else
-#     puts "Created reviews: #{review.inspect}"
-#   end
-# end
-#
-# puts "Added #{Review.count} review records"
-# puts "#{review_failures.length} reviews failed to save"
+REVIEWS_FILE = Rails.root.join('db', 'seed_data', 'reviews.csv')
+puts "Loading raw review data from #{REVIEWS_FILE}"
+
+review_failures = []
+
+CSV.foreach(REVIEWS_FILE, :headers => true) do |row|
+  review = Review.new
+  review.rating = row['rating']
+  review.description = row['description']
+  review.product_id = (Product.all.sample).id
+
+
+  successful = review.save
+  if !successful
+    review_failures << review
+  puts "Failed to save reviews: #{review.inspect}"
+
+  else
+    puts "Created reviews: #{review.inspect}"
+  end
+end
+
+puts "Added #{Review.count} review records"
+puts "#{review_failures.length} reviews failed to save"

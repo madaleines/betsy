@@ -18,6 +18,14 @@ class MerchantsController < ApplicationController
       @products.each do |product|
         @order_items << OrderItem.find_by(product_id: product.id )
         flash[:status] = :success
+        @revenue = 0.0
+        @shopping_cart.each do |order_item|
+          @merchant.products.each do |product|
+            if order_item.product == product
+              @revenue += product.price
+            end
+          end
+        end
       end
     end
   end

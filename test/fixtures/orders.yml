@@ -8,6 +8,7 @@ one:
   cc_expiration: 10/22
   cvv: 123
   zip: 12345
+  status: paid
 
 two:
   email: z@zmail.com
@@ -17,12 +18,14 @@ two:
   cc_expiration: 12/20
   cvv: 100
   zip: 50100
+  status: completed
 
 three:
-  email: s@zmail.com
-  mailing_address: 1120 Z Ave
-  cc: 1111222233334444
-  cc_name: Lion Zee
-  cc_expiration: 10/23
-  cvv: 100
-  zip: 50100
+  email: nil
+  mailing_address: nil
+  cc: nil
+  cc_name: nil
+  cc_expiration: nil
+  cvv: nil
+  zip: nil
+  status: cart

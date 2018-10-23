@@ -13,14 +13,6 @@ describe OrdersController do
       end
     end
 
-    describe "new" do
-      it "can get the new page" do
-        get new_order_path
-
-        must_respond_with :success
-      end
-    end
-
     describe "create" do
       it "can create a order with valid data" do
         # Arrange

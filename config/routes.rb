@@ -5,14 +5,13 @@ Rails.application.routes.draw do
 
   get "/auth/:provider/callback", to: "sessions#create", as: 'auth_callback'
 
+  resources :order_items, only: [:create, :update, :destroy]
 
-  resources :orders, only: [:show, :create, :update, :destroy] do
-    resources :order_items, except: [:create, :index, :show, :edit]
-  end
+  resources :orders, only: [:show, :create, :update, :destroy]
 
   get '/checkout', to: 'orders#edit', as: 'checkout'
 
-  # get '/cart', to: 'orders#index', as: 'cart'
+  get '/cart', to: 'orders#index', as: 'cart'
 
   resources :products, except: [:new, :create, :edit, :update, :destroy] do
     resources :order_items, only: [:create]

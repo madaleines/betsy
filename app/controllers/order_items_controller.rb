@@ -1,17 +1,12 @@
 class OrderItemsController < ApplicationController
   skip_before_action :require_login
-  before_action :load_order, only: [:create]
-
-
-  def new
-    @order_items = OrderItem.new
-  end
 
   def create
-    @order_item = OrderItem.new(product_id: params[:product_id], order_id: @order.id)
-    @order_item.save
+    @order_item = @shopping_cart.order_items.new(order_item_params)
 
-    if @order_item.save
+    is_successful_save = @order_item.save
+
+    if is_successful_save
       flash[:status] = :success
       flash[:result_text] = "Successfully added to cart"
       redirect_to orders_path
@@ -55,17 +50,9 @@ class OrderItemsController < ApplicationController
     end
   end
 
-
   private
-  def order_item_params
-    params.require(:order_item).permit(:quantity, :status, :product_id, :order_id)
-  end
 
-  def load_order
-      @order = Order.find(session[:order_id])
-    if !@order
-      @order = Order.create(status: "unsubmitted")
-      session[:order_id] = @order.id
-    end
+  def order_item_params
+    params.require(:order_item).permit(:quantity, :product_id)
   end
 end

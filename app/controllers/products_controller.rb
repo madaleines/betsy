@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
       @products = merchant.products
     else
       @products = Product.all
+      @shopping_cart = find_shopping_cart
     end
   end
 

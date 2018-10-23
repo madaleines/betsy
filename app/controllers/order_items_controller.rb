@@ -8,13 +8,13 @@ class OrderItemsController < ApplicationController
   end
 
   def create
-    @order_item = OrderItem.new(product_id: params[:product_id])
+    @order_item = OrderItem.new(product_id: params[:product_id], order_id: @order.id)
     @order_item.save
 
     if @order_item.save
       flash[:status] = :success
       flash[:result_text] = "Successfully added to cart"
-      redirect_to cart_path
+      redirect_to orders_path
     else
       flash[:status] = :failure
       flash[:result_text] = "Could not add to cart"
@@ -63,7 +63,7 @@ class OrderItemsController < ApplicationController
 
   def load_order
       @order = Order.find(session[:order_id])
-    if @order
+    if !@order
       @order = Order.create(status: "unsubmitted")
       session[:order_id] = @order.id
     end

@@ -7,14 +7,15 @@ Rails.application.routes.draw do
 
 
   resources :orders, only: [:show, :create, :update, :destroy] do
-    resources :order_items, except: [:index, :show, :edit]
+    resources :order_items, except: [:create, :index, :show, :edit]
   end
 
   get '/checkout', to: 'orders#edit', as: 'checkout'
 
-  get '/cart', to: 'orders#index', as: 'cart'
+  # get '/cart', to: 'orders#index', as: 'cart'
 
   resources :products, except: [:new, :create, :edit, :update, :destroy] do
+    resources :order_items, only: [:create]
     resources :reviews, only: [:new, :create, :index]
   end
 

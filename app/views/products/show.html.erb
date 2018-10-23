@@ -3,6 +3,7 @@
 <p>
   <strong><%= @product.name %></strong>
 </p>
+<p><%= link_to @product.merchant.username, merchant_path(@product.merchant_id) %></p>
 <p><%= @product.description %></p>
 
 <p>
@@ -12,9 +13,18 @@
 
 <div class="add-to-cart-button">
   <section>
-    <h3><%= button_to "Add to Cart", root_path%></h3>
+    <h3><%= button_to "Add to Cart", product_order_items_path( @product.id ) %></h3>
   </section>
 </div>
 
+<div>
+  <h3>Product Reviews</h3>
+  <section class="reviews">
+    <% @product.reviews.each do |review| %>
+    <h5><%= review.rating %> out of 5</h5>
+    <p><%= review.description %></br><%= review.created_at.strftime("%B %d, %Y") %></p>
+    <% end %></br></br>
+  </section>
+</div>
 
 <%= link_to "Go Back to All Products", root_path, class: "homepage" %>

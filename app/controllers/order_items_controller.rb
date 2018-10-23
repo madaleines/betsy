@@ -9,28 +9,23 @@ class OrderItemsController < ApplicationController
       return
     end
 
-    @order_item = @shopping_cart.order_items.new(order_item_params)
+    @order_item = create_order_item(order_item_params)
     is_successful_save = @order_item.save
     is_successful_save ? added_to_cart : could_not_add_to_cart
   end
 
   def update
-    find_order_item
-    successful_update = @order_item.update(order_item_params)
-    successful_update ? order_item_updated : could_not_update
+    @order_item = find_order_item
+    is_successful_update = @order_item.update(order_item_params)
+    is_successful_update ? order_item_updated : could_not_update
   end
 
   def destroy
-    find_order_item
+    @order_item = find_order_item
     order_is_pending? ? order_item_destroyed : could_not_destroy
   end
 
   private
-
-  def find_order_item
-    @order_item = OrderItem.find_by(id: params[:id])
-    return @order_item
-  end
 
   def could_not_destroy
     flash[:failure] = "Could not delete item from cart due to status being \'#{@order_item.status}\'"
@@ -69,6 +64,10 @@ class OrderItemsController < ApplicationController
     redirect_to cart_path
   end
 
+  def create_order_item(order_item_params)
+    return @shopping_cart.order_items.new(order_item_params)
+  end
+
   def cannot_order_more_than_stock
     flash[:error] = "Cannot order more than inventory"
     render :new, status: :bad_request
@@ -76,10 +75,14 @@ class OrderItemsController < ApplicationController
   end
 
   def quantity_is_in_stock?(product_id)
-    product = Product.find_by(id: product_id)
+    product = find_order_item_product(product_id)
     quantity = params[:order_item][:quantity].to_i
     inventory = product.inventory
     return quantity < inventory
+  end
+
+  def find_order_item_product(product_id)
+    return Product.find_by(id: product_id)
   end
 
   def order_item_params

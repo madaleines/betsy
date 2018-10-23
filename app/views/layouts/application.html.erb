@@ -27,6 +27,8 @@
       <div class="login">
         <% if @current_merchant %>
         <%= link_to "Log Out", '/sessions/logout' %>
+        <% else %>
+        <%= link_to "Log In", auth_callback_path %>
         <% end %>
       </div>
 

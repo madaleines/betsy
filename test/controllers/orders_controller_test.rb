@@ -1,12 +1,15 @@
 require "test_helper"
+require 'pry'
 
 describe OrdersController do
-  let(:bad_order_id) { Order.first.destroy.id }
+  let(:order_one) {orders(:one)}
+  let(:order_three) {orders(:three)}
+
 
     describe "index" do
       it "should get index" do
         # Act
-        get orders_path
+        get cart_path
 
         # Assert
         must_respond_with :success
@@ -64,46 +67,39 @@ describe OrdersController do
 
     describe "show" do
 
-      it "should respond with success for showing an existing order" do
-        # Arrange
+      it "should respond with success for showing an existing order with order_items  " do
         existing_order = orders(:one)
-
-        # Act
         get order_path(existing_order.id)
-
-        # Assert
         must_respond_with :success
       end
 
+
       it "should respond with not found for showing a non-existing order" do
-        # Arrange
-        # order = orders(:poodr)
-        # id = order.id
+        order = orders(:two)
+        
+        order.order_items.destroy_all
+        order.destroy
 
-        # get order_path(id)
-        # must_respond_with :success
-        #
-        #
-        # order.destroy
-
-        # Act
-        get order_path(bad_order_id)
-
-        # Assert
-        must_respond_with :missing
+        get order_path(order.id)
+        must_respond_with :not_found
       end
+
+
 
     end
 
     describe "edit" do
+
       it "responds with success for an existing order" do
-        get edit_order_path(Order.first)
+        get checkout_path(Order.first)
+
         must_respond_with :success
       end
 
       it "responds with not_found for a order that D.N.E." do
-        get edit_order_path(bad_order_id)
-        must_respond_with :not_found
+        get checkout_path(bad_order)
+
+        must_respond_with :redirect
       end
     end
 
@@ -132,14 +128,14 @@ describe OrdersController do
         # )
       end
 
-      it "responds with not_found if the order doesn't exist" do
-        id = bad_order_id
-        expect {
-          delete order_path(id)
-        }.wont_change('Book.count')
-
-        must_respond_with :not_found
-      end
+      # it "responds with not_found if the order doesn't exist" do
+      #   id = bad_order_id
+      #   expect {
+      #     delete order_path(id)
+      #   }.wont_change('Book.count')
+      #
+      #   must_respond_with :not_found
+      # end
     end
 
 

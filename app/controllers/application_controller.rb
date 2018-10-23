@@ -44,6 +44,10 @@ class ApplicationController < ActionController::Base
     return Product.find_by(id: params[:id])
   end
 
+  def find_order
+    return Order.find_by(id: params[:id])
+  end
+
   def render_404
     render file: "/public/404.html", status: 404
   end

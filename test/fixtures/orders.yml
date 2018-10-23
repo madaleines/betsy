@@ -5,7 +5,7 @@ one:
   mailing_address: 12345 A Street
   cc: 1234123412341234
   cc_name: Aaa Aaaaaa
-  cc_expiration: 22/22
+  cc_expiration: 10/22
   cvv: 123
   zip: 12345
 
@@ -14,6 +14,15 @@ two:
   mailing_address: 90 Z Ave
   cc: 1111222233334444
   cc_name: Zebra Zee
-  cc_expiration: 99/99
+  cc_expiration: 12/20
+  cvv: 100
+  zip: 50100
+
+three:
+  email: s@zmail.com
+  mailing_address: 1120 Z Ave
+  cc: 1111222233334444
+  cc_name: Lion Zee
+  cc_expiration: 10/23
   cvv: 100
   zip: 50100

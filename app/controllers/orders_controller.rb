@@ -1,28 +1,35 @@
 class OrdersController < ApplicationController
-
+  skip_before_action :require_login
   def index
-    order_items = []
-    if @shopping_cart
-      @shopping_cart.order_items.each do |order_item|
-        order_items  << order_item
-      end
-    end
-    return order_items
+    # # @orders = Order.all
+    # order_items = []
+    # if @shopping_cart
+    #   @shopping_cart.order_items.each do |order_item|
+    #     order_items  << order_item
+    #   end
+    # end
+    # return order_items
   end
 
 
   def show
-    order_items = []
-    paid_order = Order.find_by(id: params[:id])
-    paid_order.order_items.each do |order_item|
-      order_items << order_item
+    @order = find_order
+    if @order.nil?
+      render_404
     end
-    return order_items
   end
 
 
   def edit
-    return @shopping_cart
+    @shopping_cart = find_shopping_cart
+    if @order.order_items.nil?
+      redirect_to cart_path
+      return
+    end
+
+    if @order.nil?
+      render_404
+    end
   end
 
 
@@ -66,5 +73,5 @@ class OrdersController < ApplicationController
     params.require(:order).permit(:email, :mailing_address, :cc, :cc_name, :cc_expiration, :cvv, :zip)
   end
 
-  
+
 end

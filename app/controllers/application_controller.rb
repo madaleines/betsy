@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
   def current_cart
     existing_cart = session[:order_id]
     existing_cart ? find_shopping_cart : create_shopping_cart
-    end
   end
 
   def find_shopping_cart

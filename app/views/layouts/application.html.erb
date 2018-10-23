@@ -18,7 +18,7 @@
 
       <div class="hello">
         <% if @current_merchant %>
-        Hello, <%= @current_mercant.username %>
+        Hello, <%= @current_merchant.username %>
         <% else %>
         Hello, Guest
         <% end %>
@@ -26,9 +26,9 @@
 
       <div class="login">
         <% if @current_merchant %>
-        <%= link_to "Log Out", '/sessions/logout' %>
+        <%= link_to "Log Out", '/sessions/logout', method: "post" %>
         <% else %>
-        <%= link_to "Log In", auth_callback_path('github') %>
+        <%= link_to "Log In", '/auth/github' %>
         <% end %>
       </div>
 

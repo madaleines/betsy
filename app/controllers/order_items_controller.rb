@@ -4,7 +4,7 @@ class OrderItemsController < ApplicationController
   def create
     product_id = params[:order_item][:product_id]
 
-    if !check_quantity_is_in_stock(product_id)
+    if !quantity_is_in_stock?(product_id)
       cannot_order_more_than_stock
       return
     end
@@ -75,7 +75,7 @@ class OrderItemsController < ApplicationController
     return
   end
 
-  def check_quantity_is_in_stock(product_id)
+  def quantity_is_in_stock?(product_id)
     product = Product.find_by(id: product_id)
     quantity = params[:order_item][:quantity].to_i
     inventory = product.inventory

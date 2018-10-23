@@ -3,7 +3,7 @@
 pending:
   quantity: 1
   status: pending
-  order: one
+  order: three
   product: plushie
 
 paid:

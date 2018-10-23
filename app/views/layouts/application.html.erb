@@ -23,15 +23,16 @@
         Log In
       </div>
       <div class="braineaze">
-        <h1>braineaze</h1>
+        <h1>
+             <%=link_to "braineaze", products_path %></h1>
       </div>
 
       <div class="nav-option" id="products">
-        products
+        <%=link_to "products", products_path %>
       </div>
 
       <div class="nav-option" id="category">
-        category
+        <%=link_to "categories", categories_path %>
       </div>
 
       <div class="nav-option" id="merchants">
@@ -51,6 +52,8 @@
   <main>
     <%= yield %>
   </main>
-  <footer><%= "\u00A9" %> MAGS</footer>
+  <footer>
+    <%= "\u00A9" %> MAGS
+  </footer>
 </body>
 </html>

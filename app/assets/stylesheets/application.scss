@@ -7,6 +7,16 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+a{
+  color: rgb(93, 93, 93);
+}
+
+a:hover{
+  color: rgb(38, 38, 38);
+  text-decoration: none;
+  font-weight: bold;
+}
+
 main{
   padding-left: 15%;
   padding-right: 15%;

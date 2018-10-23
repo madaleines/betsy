@@ -34,27 +34,28 @@ class OrdersController < ApplicationController
 
 
   def update
+    @order = find_order
     if valid_shopping_cart?
-      @shopping_cart.update_attributes(billing_params)
-      @shopping_cart.update_attributes(status: "paid")
 
-      if @shopping_cart.update(billing_params)
-        @shopping_cart.order_items.each do
+      @order.update_attributes(status: "paid")
+      @order.update_attributes(billing_params)
+
+      if @order.update(billing_params)
+        @order.order_items.each do
           order_item.update_attributes(status: "paid")
         end
       end
 
-      if @shopping_cart.save
-        @shopping_cart.order_items.each do |order_item|
+      if @order.save
+        @order.order_items.each do |order_item|
           product = Product.find(order_item.product_id)
           product.change_inventory(item.quantity)
         end
-        redirect_to order_path(@shopping_cart.id)
+        redirect_to order_path(@order.id)
       else
-        flash.now[:status] = :failure
-        flash.now[:result_text] = "Sorry, could not update your order!"
-        flash.now[:messages] = @shopping_cart.errors.messages
-        render :edit, status: :bad_request
+
+        flash.now[:error] = @order.errors
+        render :edit, status: :error
       end
     end
   end

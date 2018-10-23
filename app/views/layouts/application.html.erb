@@ -34,26 +34,23 @@
 
       <div class="braineaze">
         <h1>
-          <%=link_to "braineaze", products_path %></h1>
+          <%=link_to "Braineaze", products_path %></h1>
         </div>
 
         <div class="nav-option" id="products">
-          <%=link_to "products", products_path %>
+          <%=link_to "Products", products_path %>
         </div>
 
         <div class="nav-option" id="category">
-          <%=link_to "categories", categories_path %>
+          <%=link_to "Categories", categories_path %>
         </div>
 
         <div class="nav-option" id="merchants">
-          merchants
+          Merchants
         </div>
 
         <div class="nav-option" id="cart">
-
-          <button type="button" class="btn btn-secondary">
-            cart <span class="badge badge-light">0</span>
-          </button>
+          <%= link_to image_tag("cart.png", :class => 'cart-photo', :alt => 'cart photo'), root_path %> 0
         </div>
       </nav>
     </header>

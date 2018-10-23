@@ -1,6 +1,7 @@
 // Place all the styles related to the products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
 #home-container {
   margin: 0;
   border: 10px solid black;
@@ -32,16 +33,18 @@
   text-align: center;
 }
 
-.product-info  {
-}
-
 .product-thumbnail {
   margin-top: 50px;
   border: 1px solid green;
 }
 
-.product-descp {
-  border: 1px solid red;
-  width: 45%;
-  padding: 2%;
+
+.page-container {
+  border: 1px solid black;
 }
+
+// .product-dscrip {
+//   border: 1px solid red;
+//   width: 45%;
+//   padding: 2%;
+// }

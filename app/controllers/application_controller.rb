@@ -17,14 +17,31 @@ class ApplicationController < ActionController::Base
   end
 
   def current_cart
-    if session[:order_id]
-      @shopping_cart = Order.find_by(id: session[:order_id])
-    else
-      # If we can't create the cart, that's a bug and
-      # a developer needs to fix it. Use create!
-      @shopping_cart = Order.create!
-      session[:order_id] = @shopping_cart.id
-    end
+    existing_cart = session[:order_id]
+    existing_cart ? find_shopping_cart : create_shopping_cart
+  end
+
+  def find_shopping_cart
+    @shopping_cart = Order.find_by(id: session[:order_id])
+    return @shopping_cart
+  end
+
+  def create_shopping_cart
+    @shopping_cart = Order.create!
+    session[:order_id] = @shopping_cart.id
+    return @shopping_cart
+  end
+
+  def find_merchant
+    return Merchant.find_by(id: params[:merchant_id])
+  end
+
+  def find_order_item
+    return OrderItem.find_by(id: params[:id])
+  end
+
+  def find_product
+    return Product.find_by(id: params[:id])
   end
 
   def render_404

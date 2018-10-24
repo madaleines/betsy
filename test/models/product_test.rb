@@ -40,6 +40,8 @@ describe Product do
 
   describe 'change inventory method' do
     it 'changes inventory stock on a product' do
+      products(:plushie).change_inventory(2)
+      products(:plushie).inventory.must_equal 8
     end
   end
 

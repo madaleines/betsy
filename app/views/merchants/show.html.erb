@@ -4,8 +4,8 @@
 <section class="merchant-detail-summary">
   <div class="dasboard-container">
 
-    <h2>Merchant Summary: <%= @merchant.username %></h2>
-    <h4>Joined Site at: <%= @merchant.created_at.strftime("%B %d, %Y") %> | <%= @merchant.products.count %></h4>
+    <h2>Merchant Summary: <%= @current_merchant.username %></h2>
+    <h4>Joined Site at: <%= @current_merchant.created_at.strftime("%B %d, %Y") %> | <%= @products.count %></h4>
     <h5>Total Revenue: <%= @revenue %></h5>
 
     <table>

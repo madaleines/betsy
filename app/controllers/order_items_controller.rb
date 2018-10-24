@@ -16,6 +16,13 @@ class OrderItemsController < ApplicationController
 
   def update
     @order_item = find_order_item
+    product_id = @order_item.product_id
+
+    unless quantity_is_in_stock?(product_id)
+      cannot_order_more_than_stock
+      return
+    end
+
     successful_update = @order_item.update(order_item_params)
     successful_update ? order_item_updated : could_not_update
   end
@@ -63,7 +70,6 @@ class OrderItemsController < ApplicationController
   def cannot_order_more_than_stock
     flash[:error] = "Cannot order more than inventory"
     render :new, status: :bad_request
-    return
   end
 
   def quantity_is_in_stock?(product_id)

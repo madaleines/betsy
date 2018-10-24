@@ -5,14 +5,22 @@
 <section class="merchant-detail-summary">
 <div class="dasboard-container">
 
-  <h3>Account Summary:</h3>
+  <h4>Account Summary:</h4>
 
-  <h4>Name: <%= @merchant.username %></h4>
+  <h5>Name: <%= @merchant.username %></h5>
   <p>Joined site on: <%= @merchant.created_at.strftime("%B %d, %Y") %></p>
 </div>
 
     <h5>Total Revenue to-date: $<%= @revenue %></h5>
-
+<div>
+  <button type="button" class="btn btn-info"> <%=link_to "New Product", new_merchant_product_path(@merchant.id)%>
+</div>
+<div>
+</br>
+<button type="button" class="btn btn-info"> <%=link_to "Add Category", new_category_path%>
+</div>
+</br>
+</br>
     <table class="table">
       <h3>Products</h3>
       <thead>
@@ -29,7 +37,7 @@
       <td scope="row"><%=product.price%></td>
       <td scope="row"><%=product.inventory%></td>
       <td scope="row"><%=link_to product.is_active%></td>
-      <td scope="row"><button type="button" class="btn btn-info"><%=link_to "Edit", edit_marchant_product_path%></button></td>
+      <td scope="row"><button type="button" class="btn btn-info"><%=link_to "Edit", edit_marchant_product_path(@merchant.id)%></button></td>
       <%end%>
     </tr>
     </table>

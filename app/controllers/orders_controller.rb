@@ -1,5 +1,3 @@
-require 'pry'
-
 class OrdersController < ApplicationController
   skip_before_action :require_login
   def index
@@ -23,7 +21,7 @@ class OrdersController < ApplicationController
   end
 
 
-  def edit
+  def edit #checkout form
     if @shopping_cart.order_items.empty?
       flash[:alert] = "Cart - empty"
       redirect_to cart_path

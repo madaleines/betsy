@@ -1,5 +1,4 @@
 require "test_helper"
-require 'pry'
 
 describe OrdersController do
   let(:order_one) {orders(:one)}

@@ -15,8 +15,7 @@ class Product < ApplicationRecord
   end
 
   def change_inventory(quantity_ordered)
-    current_inventory = self.inventory
-    new_inventory = current_inevntory - quantity_ordered
+    new_inventory = self.inventory - quantity_ordered
     self.inventory = new_inventory
     self.save
   end

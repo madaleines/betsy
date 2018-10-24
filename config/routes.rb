@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     resources :products, except: [:show, :destroy]
   end
 
-  get '/dashbord' to: 'merchant#show', as 'dashboard'
+  get '/dashboard', to: 'merchants#show', as: 'dashboard'
 
   resources :sessions, only: [:new, :create]
   post '/sessions/logout', to: 'sessions#logout', as: 'logout'

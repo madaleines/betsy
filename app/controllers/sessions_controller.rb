@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
 
   def create
     auth_hash = request.env['omniauth.auth']
-    @merchant = Merchant.find_by(uid: auth_hash[:uid], provider: 'auth_hash[:provider]')
+    @merchant = Merchant.find_by(uid: auth_hash[:uid], provider: auth_hash[:provider])
 
     if @merchant
       # User was found in the database
@@ -31,6 +31,7 @@ class SessionsController < ApplicationController
       end
     end
     # If we get here, we have a valid user instance
+    # binding.pry
     session[:merchant_id] = @merchant.id
     redirect_to root_path
   end
@@ -40,4 +41,5 @@ class SessionsController < ApplicationController
     flash[:success] = "Successfully logged out"
     redirect_to root_path
   end
+
 end

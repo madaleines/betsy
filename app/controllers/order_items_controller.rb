@@ -9,20 +9,20 @@ class OrderItemsController < ApplicationController
       return
     end
 
-    @order_item = create_order_item(order_item_params)
-    is_successful_save = @order_item.save
-    is_successful_save ? added_to_cart : could_not_add_to_cart
+    @order_item = @shopping_cart.order_items.new(order_item_params)
+    successful_save = @order_item.save
+    successful_save ? added_to_cart : could_not_add_to_cart
   end
 
   def update
     @order_item = find_order_item
-    is_successful_update = @order_item.update(order_item_params)
-    is_successful_update ? order_item_updated : could_not_update
+    successful_update = @order_item.update(order_item_params)
+    successful_update ? order_item_updated : could_not_update
   end
 
   def destroy
     @order_item = find_order_item
-    order_is_pending? ? order_item_destroyed : could_not_destroy
+    @order_item.status == 'pending' ? order_item_destroyed : could_not_destroy
   end
 
   private
@@ -36,10 +36,6 @@ class OrderItemsController < ApplicationController
     @order_item.destroy
     flash[:success] = "Successfully deleted item from cart"
     redirect_to cart_path
-  end
-
-  def order_is_pending?
-    return @order_item.status == 'pending'
   end
 
   def could_not_update
@@ -62,10 +58,6 @@ class OrderItemsController < ApplicationController
   def added_to_cart
     flash[:success] = "Successfully added to cart"
     redirect_to cart_path
-  end
-
-  def create_order_item(order_item_params)
-    return @shopping_cart.order_items.new(order_item_params)
   end
 
   def cannot_order_more_than_stock

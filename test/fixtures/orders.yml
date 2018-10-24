@@ -31,11 +31,4 @@ three:
   status: cart
 
 four:
-  email: nil
-  mailing_address: nil
-  cc: nil
-  cc_name: nil
-  cc_expiration: nil
-  cvv: nil
-  zip: nil
   status: cart

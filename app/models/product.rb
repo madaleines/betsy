@@ -9,9 +9,9 @@ class Product < ApplicationRecord
   validates_numericality_of :inventory, :only_integer => true, :greater_than_or_equal_to => 0
   validates :is_active, presence: true
 
-  def self.currency(price)
-    price *= 0.01
-    return number_to_currency(price)
+  def currency
+    self.price *= 1.00
+    return self.price.round(2)
   end
 
   def change_inventory(quantity_ordered)

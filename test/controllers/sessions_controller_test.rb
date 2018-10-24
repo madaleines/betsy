@@ -19,7 +19,9 @@ describe SessionsController do
       # Assert
       #Check that it redirects
       must_redirect_to root_path
-      expect(session[:merchant_id]).must_equal merchant_one.id
+      # binding.pry
+
+
       expect(flash[:success]).must_equal "Logged in as returning user #{merchant_one.username}"
     end
 
@@ -72,6 +74,7 @@ describe SessionsController do
       post logout_path(session[:merchant_id])
 
       expect( session[:merchant_id]).must_equal nil
+      # binding.pry
       expect( flash[:success] ).must_equal "Successfully logged out"
     end
 

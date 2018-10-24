@@ -1,2 +1,38 @@
 <h1>Products#new</h1>
-<p>Find me in app/views/products/new.html.erb</p>
+<section>
+  <%= form_with model: @product do |f| %>
+    <div class="form-group">
+      <%= f.label :category %>
+      <%= f.select :category, Product::CATEGORIES, {}, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :merchant %>
+      <%= f.text_field :merchant, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :price %>
+      <%= f.text_field :price, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :quantity %>
+      <%= f.text_field :inventory, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</section>

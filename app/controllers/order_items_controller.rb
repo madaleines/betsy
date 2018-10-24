@@ -23,7 +23,8 @@ class OrderItemsController < ApplicationController
       return
     end
 
-    successful_update = @order_item.update(order_item_params)
+    @order_item.update(order_item_params)
+    successful_update = @order_item.save
     successful_update ? order_item_updated : could_not_update
   end
 
@@ -36,7 +37,7 @@ class OrderItemsController < ApplicationController
 
   def could_not_destroy
     flash[:failure] = "Could not delete item from cart due to status being \'#{@order_item.status}\'"
-    render :new, status: :bad_request
+    render_400
   end
 
   def order_item_destroyed
@@ -47,11 +48,10 @@ class OrderItemsController < ApplicationController
 
   def could_not_update
     flash[:error] = @order_item.errors.messages
-    render :new, status: :bad_request
+    render_400
   end
 
   def order_item_updated
-    @order_item.save
     flash[:success] = "Successfully updated item"
     redirect_to cart_path
   end
@@ -59,7 +59,7 @@ class OrderItemsController < ApplicationController
   def could_not_add_to_cart
     flash[:failure] = "Could not add to cart"
     flash[:messages] = @order_item.errors.messages
-    render :new, status: :bad_request
+    render_400
   end
 
   def added_to_cart
@@ -69,7 +69,7 @@ class OrderItemsController < ApplicationController
 
   def cannot_order_more_than_stock
     flash[:error] = "Cannot order more than inventory"
-    render :new, status: :bad_request
+    render_400
   end
 
   def quantity_is_in_stock?(product_id)

@@ -1,23 +1,45 @@
-<h1>Merchant Dashboard</h1>
-<p>aka merchant show html</p>
+<h2>Your Dashboard</h2>
+
+
 
 <section class="merchant-detail-summary">
-  <div class="dasboard-container">
+<div class="dasboard-container">
 
-    <h2>Merchant Summary: <%= @merchant.username %></h2>
-    <h4>Joined Site at: <%= @merchant.created_at.strftime("%B %d, %Y") %> | <%= @merchant.products.count %></h4>
-    <h5>Total Revenue: <%= @revenue %></h5>
+  <h4>Account Summary:</h4>
 
-    <table>
+  <h5>Name: <%= @current_merchant.username %></h5>
+  <p>Joined site on: <%= @current_merchant.created_at.strftime("%B %d, %Y") %></p>
+</div>
+
+    <h5>Total Revenue to-date: $<%= @revenue %></h5>
+<div>
+  <button type="button" class="btn btn-info"> <%=link_to "New Product", new_merchant_product_path(@current_merchant.id)%>
+</div>
+<div>
+</br>
+<button type="button" class="btn btn-info"> <%=link_to "Add Category", new_category_path%>
+</div>
+</br>
+</br>
+    <table class="table">
+      <h3>Products</h3>
       <thead>
         <tr>
-          <th>Orders</th>
-          <th>Order_Item</th>
-          <th>Quantity</th>
-          <th>Gross Revenue</th>
-          <th>Status</th>
+          <th scope="col">Name</th>
+          <th scope="col">Stock</th>
+          <th scope="col">Price</th>
+          <th scope="col">Status</th>
+          <th scope="col"> </th>
         </tr>
       </thead>
+      <%@products.each do |product| %>
+      <td scope="row"><%=product.name%></td>
+      <td scope="row"><%=product.price%></td>
+      <td scope="row"><%=product.inventory%></td>
+      <td scope="row"><%=link_to product.is_active%></td>
+      <td scope="row"><button type="button" class="btn btn-info"><%=link_to "Edit", edit_marchant_product_path(@current_merchant.id)%></button></td>
+      <%end%>
+    </tr>
     </table>
   </div>
 </section>

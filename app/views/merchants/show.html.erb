@@ -7,13 +7,13 @@
 
   <h4>Account Summary:</h4>
 
-  <h5>Name: <%= @merchant.username %></h5>
-  <p>Joined site on: <%= @merchant.created_at.strftime("%B %d, %Y") %></p>
+  <h5>Name: <%= @current_merchant.username %></h5>
+  <p>Joined site on: <%= @current_merchant.created_at.strftime("%B %d, %Y") %></p>
 </div>
 
     <h5>Total Revenue to-date: $<%= @revenue %></h5>
 <div>
-  <button type="button" class="btn btn-info"> <%=link_to "New Product", new_merchant_product_path(@merchant.id)%>
+  <button type="button" class="btn btn-info"> <%=link_to "New Product", new_merchant_product_path(@current_merchant.id)%>
 </div>
 <div>
 </br>
@@ -37,7 +37,7 @@
       <td scope="row"><%=product.price%></td>
       <td scope="row"><%=product.inventory%></td>
       <td scope="row"><%=link_to product.is_active%></td>
-      <td scope="row"><button type="button" class="btn btn-info"><%=link_to "Edit", edit_marchant_product_path(@merchant.id)%></button></td>
+      <td scope="row"><button type="button" class="btn btn-info"><%=link_to "Edit", edit_marchant_product_path(@current_merchant.id)%></button></td>
       <%end%>
     </tr>
     </table>

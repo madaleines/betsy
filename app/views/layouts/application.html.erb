@@ -16,7 +16,7 @@
     <nav>
       <div class="hello">
         <% if @current_merchant %>
-        Hello, <%= link_to @current_merchant.username, merchant_path(@current_merchant.id) %>
+        Hello, <%= link_to @current_merchant.username, dashboard_path %>
         <% else %>
         Hello, Guest
         <% end %>
@@ -24,7 +24,7 @@
 
       <div class="login">
         <% if @current_merchant %>
-        <%= link_to "My Account", merchant_path(@current_merchant.id)%>
+        <%= link_to "My Account", dashboard_path%>
         <%= link_to "Log Out", '/sessions/logout', method: "post" %>
         <% else %>
         <%= link_to "Log In", '/auth/github' %>

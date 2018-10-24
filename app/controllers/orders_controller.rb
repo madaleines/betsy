@@ -4,14 +4,6 @@ class OrdersController < ApplicationController
     if @shopping_cart.order_items.empty?
       flash[:alert] = "Your cart is empty"
     end
-    # # @orders = Order.all
-    # order_items = []
-    # if @shopping_cart
-    #   @shopping_cart.order_items.each do |order_item|
-    #     order_items  << order_item
-    #   end
-    # end
-    # return order_items
   end
 
 

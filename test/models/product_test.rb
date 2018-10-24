@@ -32,6 +32,18 @@ describe Product do
     end
   end
 
+  describe 'currency' do
+    it 'converts price to float' do
+      products(:plushie).currency.must_equal 15.00
+    end
+  end
+
+  describe 'change inventory method' do
+    it 'changes inventory stock on a product' do
+    end
+  end
+
+
   describe 'validations' do
     before do
       @product = Product.new(

@@ -11,14 +11,14 @@ class Merchant < ApplicationRecord
 
   def revenue
     revenue = 0.0
-
-    self.products.each do |product|
-      product.each do |order_item|
-        if order_item.status != 'pending'
-          revenue += order_item.product.price
-        end
-      end
-    end
+    # REVENUE FUNCTION NEEDS TO BE FIXED
+    # self.products.each do |product|
+    #   product.each do |order_item|
+    #     if order_item.status != 'pending'
+    #       revenue += order_item.product.price
+    #     end
+    #   end
+    # end
 
     return revenue
   end

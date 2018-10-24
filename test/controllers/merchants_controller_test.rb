@@ -3,38 +3,18 @@ require "test_helper"
 describe MerchantsController do
   describe "show" do
     let(:one) { merchants(:one) }
-    let(:two) { merchants(:two) }
+    let(:four) { merchants(:four) }
 
-    it "goes to merchant's dashboard view when logged in" do
+    it "goes to dashboard view when logged in" do
       login(one)
-      get merchant_path(one.id)
+      get dashboard_path
       must_respond_with :success
     end
 
-    it "redirects to merchant products when not logged in" do
-      get merchant_path(one.id)
-      must_redirect_to merchant_products_path(one.id)
-      expect(flash[:result_text]).must_include "You are not authorized to view this dashboard"
-    end
-
-    it "redirects when merchant tries to access other dashboards" do
-      login(two)
-
-      get merchant_path(one.id)
-
-      must_redirect_to merchant_products_path(one.id)
-      expect(flash[:result_text]).must_include "You are not authorized to view this dashboard"
-    end
-
-    it "redirects when merchant does not exit" do
-      deadmerch = merchants(:four)
-      deadmerch.destroy
-
-      get merchant_path(deadmerch)
-      must_respond_with :redirect
-      expect(flash[:result_text]).must_include "Merchant could not be found"
+    it "redirects to homepage when not logged in" do
+      get dashboard_path
+      # expect(flash[:result_text]).must_include "You are not authorized to view merchant dashboard"
       must_redirect_to root_path
-
     end
   end
 end

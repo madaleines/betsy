@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:show, :create, :update, :destroy]
 
-  get 'checkout', to: 'orders#edit', as: 'checkout'
+  get '/checkout', to: 'orders#edit', as: 'checkout'
 
   get '/cart', to: 'orders#index', as: 'cart'
 
@@ -22,9 +22,11 @@ Rails.application.routes.draw do
     resources :products, only: [:index]
   end
 
-  resources :merchants, only: [:show] do
+  resources :merchants, only: [:index] do
     resources :products, except: [:show, :destroy]
   end
+
+  get '/dashbord' to: 'merchant#show', as 'dashboard'
 
   resources :sessions, only: [:new, :create]
   post '/sessions/logout', to: 'sessions#logout', as: 'logout'

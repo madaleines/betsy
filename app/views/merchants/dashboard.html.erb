@@ -1,7 +1,9 @@
 <section class="merchant-detail-summary">
   <div class="dasboard-container">
 
-    <h2>Merchant Summary: <%= @merchant.username %></h2>
+    <h2>Merchant Summary:</h2>
+
+    <h3>Name: <%= @merchant.username %></h3>
     <p>Joined site on: <%= @merchant.created_at.strftime("%B %d, %Y") %></p>
   </div>
 
@@ -36,17 +38,17 @@
 </div>
 
 
-<div class="end-of-list-links">
+<!-- <div class="end-of-list-links">
 
   <div class="return-to-merchants">
     <h3>
       <%= link_to "See All Merchants", merchants_path, class: "all-merchants" %>
     </h3>
-  </div>
+  </div> -->
 
-  <div class="return-home">
+  <!-- <div class="return-home">
     <h3>
       <%= link_to "Return Home", root_path, class: "homepage" %>
     </h3>
   </div>
-</div>
+</div> -->

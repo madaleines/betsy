@@ -24,6 +24,7 @@
 
       <div class="login">
         <% if @current_merchant %>
+        <%= link_to "My Account", merchant_path(@current_merchant.id)%>
         <%= link_to "Log Out", '/sessions/logout', method: "post" %>
         <% else %>
         <%= link_to "Log In", '/auth/github' %>

@@ -8,7 +8,7 @@
     <div class="card">
       <%= link_to image_tag("#{product.image}", :alt => 'product-img', :class => 'image-tag'), product_path(product.id) %>
       <div class="card-body">
-        <p class="card-text text-center">from: <%= link_to product.merchant.username, merchant_products_path(product.merchant_id) %> </p>
+        <p class="card-text text-center">from: <%= link_to product.merchant.username, merchant_products_path(product.merchant_id) %></p>
         <p class="card-text text-center"><%= number_to_currency(product.price) %></p>
       </div>
     </div>

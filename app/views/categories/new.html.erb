@@ -1,2 +1,19 @@
 <h1>Categories#new</h1>
 <p>Find me in app/views/categories/new.html.erb</p>
+
+<%= render partial: 'layouts/form_errors',
+locals: {
+  model: @book
+}
+%>
+
+<%= form_with model: @book, class: 'book-form' do |f| %>
+
+<h3><%= form_title %></h3>
+
+<%= f.label :category %>
+<%= f.text_field :category %>
+
+<%= f.submit action_type, class: "book-form-submit-button" %>
+
+<% end %>

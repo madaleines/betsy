@@ -16,7 +16,7 @@
     <nav>
       <div class="hello">
         <% if @current_merchant %>
-        Hello, <%= @current_merchant.username %>
+        Hello, <%= link_to @current_merchant.username, merchant_products_path(@current_merchant.id) %>
         <% else %>
         Hello, Guest
         <% end %>

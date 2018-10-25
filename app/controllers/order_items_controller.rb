@@ -1,13 +1,17 @@
 class OrderItemsController < ApplicationController
   skip_before_action :require_login
 
+  # def new
+  #   @order_item = @shopping_cart.order_items.new
+  # end
+
   def create
     product_id = params[:order_item][:product_id]
-
-    unless quantity_is_in_stock?(product_id)
-      cannot_order_more_than_stock
-      return
-    end
+    #
+    # unless quantity_is_in_stock?(product_id)
+    #   cannot_order_more_than_stock
+    #   return
+    # end
 
     @order_item = @shopping_cart.order_items.new(order_item_params)
     successful_save = @order_item.save

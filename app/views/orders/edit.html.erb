@@ -1,37 +1,48 @@
 <h1>Orders#edit</h1>
 <p>Find me in app/views/orders/edit.html.erb</p>
 
-<%= form_with model: @order, url: checkout_path do |f| %>
+<%= form_with model: @shopping_cart, url: order_path(@shopping_cart.id) do |f| %>
+
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="cc_name">Name of Cardholder</label>
-      <input type="text" class="form-control" placeholder="Ada Lovelace">
+      <%= f.label "Cardholder's Name" %>
+      <%= f.text_field :cc_name, class: "form-control" %>
     </div>
     <div class="form-group col-md-6">
-      <label for="mailing_address">Mailing Address</label>
-      <input type="text" class="form-control" placeholder="1234 Main St">
+
+      <%= f.label :mailing_address %>
+      <%= f.text_field :mailing_address, class: "form-control" %>
     </div>
+
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" placeholder="yggurlie@yahoo.com">
+        <%= f.label :email %>
+        <%= f.text_field :email, class: "form-control" %>
+
       </div>
+
       <div class="form-group col-md-2">
-        <label for="cc">Credit Card Number</label>
-        <input type="text" class="form-control" placeholder="1234123412341234">
+        <%= f.label :cc %>
+        <%= f.text_field :cc, class: "form-control" %>
       </div>
+
       <div class="form-group col-md-4">
-        <label for="cc_expiration">Expiration Date</label>
-        <input type="text" class="form-control" placeholder="10/20">
+        <%= f.label :cc_expiration %>
+        <%= f.text_field :cc_expiration, class: "form-control" %>
       </div>
+
     </div>
+
+
     <div class="form-group col-md-2">
-      <label for="cvv">CVV</label>
-      <input type="text" class="form-control" placeholder="10/20">
+      <%= f.label :cvv %>
+      <%= f.text_field :cvv, class: "form-control" %>
+
     </div>
+
     <div class="form-group col-md-2">
-      <label for="zip">Zip</label>
-      <input type="text" class="form-control" placeholder="90210">
+      <%= f.label :zip %>
+      <%= f.text_field :zip, class: "form-control" %>
     </div>
   </div>
 </div>

@@ -23,11 +23,15 @@ Rails.application.routes.draw do
   end
 
   resources :merchants, only: [:index] do
-    resources :products, except: [:show, :destroy]
+    resources :products, except: [:show, :destroy] do
+      member do
+        post :change_status
+      end
+    end
   end
 
-  get '/dashboard', to: 'merchants#show', as: 'dashboard'
+    get '/dashboard', to: 'merchants#show', as: 'dashboard'
 
-  resources :sessions, only: [:new, :create]
-  post '/sessions/logout', to: 'sessions#logout', as: 'logout'
-end
+    resources :sessions, only: [:new, :create]
+    post '/sessions/logout', to: 'sessions#logout', as: 'logout'
+  end

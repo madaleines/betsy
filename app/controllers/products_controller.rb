@@ -38,6 +38,23 @@ class ProductsController < ApplicationController
     is_successful_update ? updated_product : cannot_update_product
   end
 
+  def change_status
+    @product = find_product
+    if @product.is_active == true
+      @product.update(is_active: false)
+    else
+      @product.update(is_active: true)
+    end
+
+    redirect_to dashboard_path
+    #
+    # flash[:status] = "I'm product #{@product.id}, my status is: #{@product.is_active}"
+    #
+    # if @product.update(product_params)
+    # end
+  end
+
+
   private
 
   def cannot_update_product
@@ -76,6 +93,8 @@ class ProductsController < ApplicationController
       :inventory,
       :merchant_id,
       :description,
+      :is_active,
+      :image,
       category_ids: [],
     )
   end

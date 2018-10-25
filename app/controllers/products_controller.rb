@@ -52,7 +52,11 @@ class ProductsController < ApplicationController
 
   def cannot_create_product
     flash.now[:error] = "Invalid product data"
-    flash.now[:error] = @product.errors.messages
+
+    flash[:error] = @product.errors.messages
+    # @product.errors.each do |error|
+    #   flash.now[:error] = error
+    # end
     render :new, status: :bad_request
   end
 

@@ -58,9 +58,10 @@ describe OrderItemsController do
   end
 
   describe "Update" do
-    it "successfully updates the Order Item quantity" do
-      order_item = OrderItem.first
-      updated_qty = order_item.quantity + 1
+    it "successfully updates the Order Item quantity with a pending status" do
+      order_item = order_items(:pending)
+      original_qty = order_item.quantity
+      updated_qty = original_qty + 1
 
       patch order_item_path(order_item.id), params: {
         order_item: {
@@ -73,7 +74,7 @@ describe OrderItemsController do
     end
 
     it "renders a 404 not_found for bogus order item data" do
-      order_item = OrderItem.first
+      order_item = order_items(:pending)
       original_qty = order_item.quantity
 
       patch order_item_path(order_item.id), params: {
@@ -86,7 +87,7 @@ describe OrderItemsController do
     end
 
     it "renders a bad request if the quantity updated is more than the product inventory" do
-      order_item = OrderItem.first
+      order_item = order_items(:pending)
       original_qty = order_item.quantity
       bad_qty = original_qty + 100
 
@@ -99,11 +100,56 @@ describe OrderItemsController do
       order_item.quantity.must_equal original_qty
       must_respond_with :bad_request
     end
+
+    it "renders a bad request if the quantity updated is good but the status is paid" do
+      paid_order_item = order_items(:paid)
+      original_qty = paid_order_item.quantity
+      good_qty = original_qty + 1
+
+      patch order_item_path(paid_order_item.id), params: {
+        order_item: {
+          quantity: good_qty
+        }
+      }
+
+      paid_order_item.quantity.must_equal original_qty
+      must_respond_with :bad_request
+    end
+
+    it "renders a bad request if the quantity updated is good but the status is cancelled" do
+      paid_order_item = order_items(:cancelled)
+      original_qty = paid_order_item.quantity
+      good_qty = original_qty + 1
+
+      patch order_item_path(paid_order_item.id), params: {
+        order_item: {
+          quantity: good_qty
+        }
+      }
+
+      paid_order_item.quantity.must_equal original_qty
+      must_respond_with :bad_request
+    end
+
+    it "renders a bad request if the quantity updated is good but the status is shipped" do
+      paid_order_item = order_items(:shipped)
+      original_qty = paid_order_item.quantity
+      good_qty = original_qty + 1
+
+      patch order_item_path(paid_order_item.id), params: {
+        order_item: {
+          quantity: good_qty
+        }
+      }
+
+      paid_order_item.quantity.must_equal original_qty
+      must_respond_with :bad_request
+    end
   end
 
   describe "Destroy" do
     it "deletes an order item when status is pending" do
-      order_item = OrderItem.find_by(status: "pending")
+      order_item = order_items(:pending)
       order = order_item.order
 
       expect{
@@ -114,11 +160,31 @@ describe OrderItemsController do
       must_redirect_to cart_path
     end
 
-    it "does not delete order item if status not pending" do
-      order_item = OrderItem.first
+    it "does not delete order item if status is paid" do
+      order_item = order_items(:paid)
       order = order_item.order
 
-      order_item.status = "shipped"
+      expect {
+        delete order_item_path(order_item.id)
+      }.wont_change('order.order_items.count')
+
+      must_respond_with :bad_request
+    end
+
+    it "does not delete order item if status is cancelled" do
+      order_item = order_items(:cancelled)
+      order = order_item.order
+
+      expect {
+        delete order_item_path(order_item.id)
+      }.wont_change('order.order_items.count')
+
+      must_respond_with :bad_request
+    end
+
+    it "does not delete order item if status is shipped" do
+      order_item = order_items(:shipped)
+      order = order_item.order
 
       expect {
         delete order_item_path(order_item.id)

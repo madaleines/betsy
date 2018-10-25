@@ -18,8 +18,9 @@ class OrderItemsController < ApplicationController
     @order_item = find_order_item
     product_id = @order_item.product_id
 
-    unless @order_item.status == 'pending'
-
+    unless pending_status?
+      cannot_update_paid_order_item
+      return
     end
 
     unless quantity_is_in_stock?(product_id)
@@ -34,10 +35,19 @@ class OrderItemsController < ApplicationController
 
   def destroy
     @order_item = find_order_item
-    @order_item.status == 'pending' ? order_item_destroyed : could_not_destroy
+    pending_status? ? order_item_destroyed : could_not_destroy
   end
 
   private
+
+  def cannot_update_paid_order_item
+    flash[:error] = "Cannot update an order item that is not pending"
+    render_400
+  end
+
+  def pending_status?
+    return @order_item.status == 'pending'
+  end
 
   def could_not_destroy
     flash[:failure] = "Could not delete item from cart due to status being \'#{@order_item.status}\'"

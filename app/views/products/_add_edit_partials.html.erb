@@ -1,4 +1,6 @@
-<%= form_with model: @product do |f| %>
+Is this the view I'm looking for?
+
+<%= form_with model: @product, url: merchant_products_path do |f| %>
 
     <div class="form-group">
       <%= f.label :name %>

@@ -37,7 +37,7 @@
       <td scope="row"><%=product.price%></td>
       <td scope="row"><%=product.inventory%></td>
       <td scope="row"><%=link_to product.is_active%></td>
-      <td scope="row"><button type="button" class="btn btn-info"><%=link_to "Edit", edit_marchant_product_path(@current_merchant.id)%></button></td>
+      <td scope="row"><button type="button" class="btn btn-info"><%=link_to "Edit", edit_merchant_product_path(@current_merchant.id, product.id)%></button></td>
       <%end%>
     </tr>
     </table>

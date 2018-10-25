@@ -9,16 +9,17 @@ class Merchant < ApplicationRecord
     return Merchant.new(provider: auth_hash[:provider], uid: auth_hash[:uid], email: auth_hash[:info][:email], username: auth_hash[:info][:nickname])
   end
 
-  def revenue
+
+  def self.revenue
     revenue = 0.0
-    # REVENUE FUNCTION NEEDS TO BE FIXED
-    # self.products.each do |product|
-    #   product.each do |order_item|
-    #     if order_item.status != 'pending'
-    #       revenue += order_item.product.price
-    #     end
-    #   end
-    # end
+
+    self.products.each do |product|
+      product.each do |order_item|
+        if order_item.status != 'pending'
+          revenue += order_item.product.price
+        end
+      end
+    end
 
     return revenue
   end

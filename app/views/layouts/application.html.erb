@@ -16,71 +16,80 @@
     <nav>
       <% if @current_merchant %>
       <div>
-          Hello, <%= link_to @current_merchant.username, dashboard_path %>
+        Hello, <%= link_to @current_merchant.username, dashboard_path %>
+        <% else %>
+        Hello, Guest
+        <% end %>
+      </div>
+
+      <div class="login">
+        <% if @current_merchant %>
+        <button type="button" class="btn btn-info">
+          <%= link_to "My Account", dashboard_path%>
+          <%= link_to "| Log Out", '/sessions/logout', method: "post" %>
           <% else %>
-          Hello, Guest
+          <%= link_to "| Log In", '/auth/github' %>
+        </button>
+        <% end %>
+      </div>
+
+      <div class="braineaze">
+        <h1><%=link_to "Braineaze", products_path %></h1>
+      </div>
+
+      <div class="nav-option" id="products">
+        <%=link_to "Products", products_path %>
+      </div>
+
+      <div class="nav-option" id="category">
+        <class="dropdown">
+        <a href="#" data-toggle="dropdown" role="button" aria-haspopup="falsed" aria-expanded="false">Categories <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <% Category.all.each do |category| %>
+          <li><a href="/category/category.id"></a>
+            <%=link_to category.name, category_products_path(category.id) %>
+          </li>
           <% end %>
-        </div>
+        </ul>
+      </class>
+    </div>
 
-        <div class="login">
-          <% if @current_merchant %>
-          <button type="button" class="btn btn-info">
-            <%= link_to "My Account", dashboard_path%>
-            <%= link_to "| Log Out", '/sessions/logout', method: "post" %>
-            <% else %>
-            <%= link_to "| Log In", '/auth/github' %>
-            <% end %>
-          </div>
+    <div class="nav-option" id="merchants">
+      <class="dropdown">
+      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="falsed" aria-expanded="false">Merchants <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <% Merchant.all.each do |merchant| %>
+        <li><a href="/category/category.id"></a>
+          <%=link_to merchant.username, merchant_products_path(merchant.id) %>
+        </li>
+        <% end %>
+      </ul>
+    </class>
+  </div>
 
-          <div class="braineaze">
-            <h1><%=link_to "Braineaze", products_path %></h1>
-          </div>
+  <div class="nav-option" id="cart">
+    <%= @shopping_cart.order_items.length %>
+    <%= link_to image_tag("cart.png", :class => 'cart-photo', :alt => 'cart photo'), root_path %>
 
-          <div class="nav-option" id="products">
-            <%=link_to "Products", products_path %>
-          </div>
+  </div>
+</nav>
+</header>
 
-          <div class="nav-option" id="category">
-            <class="dropdown">
-            <a href="#" data-toggle="dropdown" role="button" aria-haspopup="falsed" aria-expanded="false">Categories <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <% Category.all.each do |category| %>
-              <li><a href="/category/category.id"></a>
-                <%=link_to category.name, category_products_path(category.id) %>
-              </li>
-              <% end %>
-            </ul>
-          </class>
-        </div>
+<section class="flash-messages">
+  <% flash.each do |key, message| %>
+  <% alert_class = key == "error" ? "danger" : key %>
+  <p class="alert alert-<%= alert_class %>">
+    <%= message %>
+  </p>
+  <% end %>
+</section>
 
-        <div class="nav-option" id="merchants">
-          <class="dropdown">
-          <a href="#" data-toggle="dropdown" role="button" aria-haspopup="falsed" aria-expanded="false">Merchants <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <% Merchant.all.each do |merchant| %>
-            <li><a href="/category/category.id"></a>
-              <%=link_to merchant.username, merchant_products_path(merchant.id) %>
-            </li>
-            <% end %>
-          </ul>
-        </class>
-      </div>
+<main>
+  <%= yield %>
+</main>
 
-      <div class="nav-option" id="cart">
-        <%= @shopping_cart.order_items.length %>
-        <%= link_to image_tag("cart.png", :class => 'cart-photo', :alt => 'cart photo'), root_path %>
-
-      </div>
-    </nav>
-  </header>
-
-
-  <main>
-    <%= yield %>
-  </main>
-
-  <footer>
-    <%= "\u00A9" %> MAGS
-  </footer>
+<footer>
+  <%= "\u00A9" %> MAGS
+</footer>
 </body>
 </html>

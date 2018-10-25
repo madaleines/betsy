@@ -18,6 +18,10 @@ class OrderItemsController < ApplicationController
     @order_item = find_order_item
     product_id = @order_item.product_id
 
+    unless @order_item.status == 'pending'
+
+    end
+
     unless quantity_is_in_stock?(product_id)
       cannot_order_more_than_stock
       return

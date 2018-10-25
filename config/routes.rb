@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root 'products#index', as: 'root'
+  # root 'products#index', as: 'root'
+
+  root 'products#root', as:'root'
 
   get "/auth/:provider/callback", to: "sessions#create", as: 'auth_callback'
 
@@ -23,11 +25,15 @@ Rails.application.routes.draw do
   end
 
   resources :merchants, only: [:index] do
-    resources :products, except: [:show, :destroy]
+    resources :products, except: [:show, :destroy] do
+      member do
+        post :change_status
+      end
+    end
   end
 
-  get '/dashboard', to: 'merchants#show', as: 'dashboard'
+    get '/dashboard', to: 'merchants#show', as: 'dashboard'
 
-  resources :sessions, only: [:new, :create]
-  post '/sessions/logout', to: 'sessions#logout', as: 'logout'
-end
+    resources :sessions, only: [:new, :create]
+    post '/sessions/logout', to: 'sessions#logout', as: 'logout'
+  end

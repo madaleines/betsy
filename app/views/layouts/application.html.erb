@@ -33,8 +33,10 @@
         <% end %>
       </div>
 
+
+
       <div class="braineaze">
-        <h1><%=link_to "Braineaze", products_path %></h1>
+        <h1><%=link_to "Braineaze", root_path %></h1>
       </div>
 
       <div class="nav-option" id="products">
@@ -69,9 +71,13 @@
 
   <div class="nav-option" id="cart">
     <%= @shopping_cart.order_items.length %>
-    <%= link_to image_tag("cart.png", :class => 'cart-photo', :alt => 'cart photo'), checkout_path %>
+    <%= link_to image_tag("cart.png", :class => 'cart-photo', :alt => 'cart photo'), cart_path %>
 
   </div>
+  <!-- <form class="form-inline my-2 my-lg-0">
+  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form> -->
 </nav>
 </header>
 
@@ -83,6 +89,7 @@
   </p>
   <% end %>
 </section>
+
 
 <main>
 

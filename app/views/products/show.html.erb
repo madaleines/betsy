@@ -52,12 +52,19 @@
     </div>
   </div>
 
-
   <div class="row">
     <div class="col">
       <section>
-        <h3><%= button_to "Add to Cart", root_path %></h3>
-      </section>
-    </div>
-  </div>
+        <%= form_with model: @shopping_cart.order_items, url: order_items_path do |f| %>
+
+        <%= f.hidden_field :product_id, value: @product.id %>
+        <%= f.select(:quantity, (1..@product.inventory)) %>
+
+        <button type="submit" class="btn btn-info">Add to Cart</button>
+        <% end %>
+      </form>
+    </button>
+  </section>
+</div>
+</div>
 </div>

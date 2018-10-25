@@ -73,8 +73,18 @@
 </nav>
 </header>
 
+<section class="flash-messages">
+  <% flash.each do |key, message| %>
+  <% alert_class = key == "error" ? "danger" : key %>
+  <p class="alert alert-<%= alert_class %>">
+    <%= message %>
+  </p>
+  <% end %>
+</section>
 
 <main>
+
+
   <%= yield %>
 </main>
 

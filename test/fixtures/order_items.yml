@@ -12,9 +12,9 @@ paid:
   order: two
   product: puzzle
 
-complete:
+shipped:
   quantity: 1
-  status: complete
+  status: shipped
   order: one
   product: puddy
 
@@ -27,5 +27,11 @@ cancelled:
 many:
   quantity: 20
   status: pending
+  order: two
+  product: puzzle
+
+paid2:
+  quantity: 10
+  status: paid
   order: two
   product: puzzle

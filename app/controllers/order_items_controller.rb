@@ -4,6 +4,22 @@ class OrderItemsController < ApplicationController
   def create
     product_id = params[:order_item][:product_id]
 
+    @shopping_cart.order_items.each do |order_item|
+      if order_item.product.id == product_id.to_i
+        old_qty = order_item.quantity.to_i
+        requested_qty = params[:order_item][:quantity].to_i
+        new_qty = old_qty + requested_qty
+
+        if order_item.update(quantity: new_qty)
+          flash[:success] = "Successfully updated quantity"
+          redirect_to cart_path
+        end
+        return
+      end
+
+
+    end
+
     unless quantity_is_in_stock?(product_id)
       cannot_order_more_than_stock
       return

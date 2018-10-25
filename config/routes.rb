@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root 'products#index', as: 'root'
+  # root 'products#index', as: 'root'
+
+  root 'products#root'
 
   get "/auth/:provider/callback", to: "sessions#create", as: 'auth_callback'
 

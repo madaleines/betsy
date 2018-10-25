@@ -3,7 +3,7 @@ class OrderItemsController < ApplicationController
 
   def create
     product_id = params[:order_item][:product_id]
-    #
+
     unless quantity_is_in_stock?(product_id)
       cannot_order_more_than_stock
       return

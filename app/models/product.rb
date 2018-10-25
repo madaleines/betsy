@@ -31,5 +31,5 @@ class Product < ApplicationRecord
   #
   #   if self.update(product_params)
   #   end
-  end
+  # end
 end

@@ -1,29 +1,32 @@
-<h2>Your Dashboard</h2>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"><h4>Your Dashboard</h4></a>
+</nav>
+<div>
 
-
+<button type="button" class="btn btn-info"> <%=link_to "New Product", new_merchant_product_path(@current_merchant.id)%>
+</button>
+</div>
+</br>
+<div>
+<button type="button" class="btn btn-info"> <%=link_to "Add Category", new_category_path%>
+</button>
+</div>
 
 <section class="merchant-detail-summary">
-<div class="dasboard-container">
-
-  <h4>Account Summary:</h4>
-
-  <h5>Name: <%= @current_merchant.username %></h5>
-  <p>Joined site on: <%= @current_merchant.created_at.strftime("%B %d, %Y") %></p>
-</div>
-
-    <h5>Total Revenue to-date: $<%= @revenue %></h5>
-<div>
-  <button type="button" class="btn btn-info"> <%=link_to "New Product", new_merchant_product_path(@current_merchant.id)%>
-</div>
-<div>
-</br>
-<button type="button" class="btn btn-info"> <%=link_to "Add Category", new_category_path%>
-</div>
-</br>
-</br>
+  <div class="dasboard-container">
+    <div class="card" style="width: 18rem;">
+      <h4>Account Summary</h4>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Name: <%= @current_merchant.username %></li>
+        <li class="list-group-item">Joined site on: <%= @current_merchant.created_at.strftime("%B %d, %Y")%></li>
+        <li class="list-group-item">Total Revenue to-date: $<%= @revenue %></li>
+      </ul>
+    </div>
+  </div>
+<hr />
     <table class="table">
-      <h3>Products</h3>
-      <thead>
+      <h3>Merchandise</h3>
+      <thead class="thead-dark">
         <tr>
           <th scope="col">Name</th>
           <th scope="col">Stock</th>

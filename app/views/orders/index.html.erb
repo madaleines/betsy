@@ -5,6 +5,7 @@
     <table class="table">
       <thead>
         <tr>
+          <th></th>
           <th class="border-0 font-weight-bold">Quantity</th>
           <th class="border-0 font-weight-bold">Product_ID</th>
           <th class="border-0 font-weight-bold">Item</th>
@@ -18,11 +19,18 @@
         <% product = Product.find_by(id: order_item.product_id) %>
         <% total += product.price %>
         <tr>
-          <td><%= order_item.quantity %></td>
+          <td><section class="remove"><%= link_to "x", order_item_path(order_item.id), method: :delete, class: "remove-btn", data: {confirm: 'Are you sure you want remove this item from your cart?' } %></section>
+          </td>
+          <td>
+            <%= form_with model: order_item do |f| %>
+            <%= f.select(:quantity, (1..order_item.product.inventory)) %>
+            <%= f.submit "Update Quantity", class: "button" %>
+            <% end %>
+          </td>
           <td><%= order_item.product.id %></td>
           <td><%= order_item.product.name %></td>
           <td><%= order_item.product.price %></td>
-          <td><%= order_item.product.status %></td>
+          <td><%= order_item.status %></td>
         </tr>
         <% end %>
       </tbody>
@@ -32,7 +40,16 @@
 
 <div class="d-flex flex-row-reverse bg-dark text-white p-4">
   <div class="py-3 px-5 text-right">
+    <div class="">
+    </div>
     <div class="mb-2">Grand Total</div>
     <div class="h2 font-weight-light"><%= number_to_currency(total) %></div>
+    <section class="remove">
+      <%= link_to "Clear Cart", order_path(@shopping_cart.id), method: :delete, class: "remove-btn", data: {confirm: 'Are you sure you wan to clear your cart?' } %>
+    </section>
+    
+    <section>
+        <%= link_to "Checkout", checkout_path %>
+    </section>
   </div>
 </div>

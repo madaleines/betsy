@@ -1,5 +1,8 @@
 class ProductsController < ApplicationController
-  skip_before_action :require_login, only: [:index, :show]
+  skip_before_action :require_login, only: [:index, :show, :root]
+
+  def root
+  end
 
   def index
     merchant_params = params[:merchant_id]
@@ -37,6 +40,23 @@ class ProductsController < ApplicationController
     is_successful_update = @product.update(product_params)
     is_successful_update ? updated_product : cannot_update_product
   end
+
+  def change_status
+    @product = find_product
+    if @product.is_active == true
+      @product.update(is_active: false)
+    else
+      @product.update(is_active: true)
+    end
+
+    redirect_to dashboard_path
+    #
+    # flash[:status] = "I'm product #{@product.id}, my status is: #{@product.is_active}"
+    #
+    # if @product.update(product_params)
+    # end
+  end
+
 
   private
 
@@ -76,6 +96,8 @@ class ProductsController < ApplicationController
       :inventory,
       :merchant_id,
       :description,
+      :is_active,
+      :image,
       category_ids: [],
     )
   end

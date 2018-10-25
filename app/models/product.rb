@@ -9,6 +9,8 @@ class Product < ApplicationRecord
   validates_numericality_of :inventory, :only_integer => true, :greater_than_or_equal_to => 0
   validates :is_active, presence: true
 
+
+
   def currency
     self.price *= 1.00
     return self.price.round(2)
@@ -19,4 +21,15 @@ class Product < ApplicationRecord
     self.inventory = new_inventory
     self.save
   end
+
+  # def change_status
+  #   if self.is_active == true
+  #     self.update(is_active: false)
+  #   else
+  #     self.update(is_active: true)
+  #   end
+  #
+  #   if self.update(product_params)
+  #   end
+  # end
 end

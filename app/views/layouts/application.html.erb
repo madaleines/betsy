@@ -14,8 +14,8 @@
 <body>
   <header>
     <nav>
-      <div class="hello">
-        <% if @current_merchant %>
+      <% if @current_merchant %>
+      <div>
         Hello, <%= link_to @current_merchant.username, dashboard_path %>
         <% else %>
         Hello, Guest
@@ -24,10 +24,12 @@
 
       <div class="login">
         <% if @current_merchant %>
-        <%= link_to "My Account", dashboard_path%>
-        <%= link_to "Log Out", '/sessions/logout', method: "post" %>
-        <% else %>
-        <%= link_to "Log In", '/auth/github' %>
+        <button type="button" class="btn btn-info">
+          <%= link_to "My Account", dashboard_path%>
+          <%= link_to "| Log Out", '/sessions/logout', method: "post" %>
+          <% else %>
+          <%= link_to "| Log In", '/auth/github' %>
+        </button>
         <% end %>
       </div>
 
@@ -67,7 +69,7 @@
 
   <div class="nav-option" id="cart">
     <%= @shopping_cart.order_items.length %>
-    <%= link_to image_tag("cart.png", :class => 'cart-photo', :alt => 'cart photo'), root_path %>
+    <%= link_to image_tag("cart.png", :class => 'cart-photo', :alt => 'cart photo'), checkout_path %>
 
   </div>
 </nav>

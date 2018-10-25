@@ -41,6 +41,8 @@ class OrdersController < ApplicationController
           product = Product.find(order_item.product_id)
           product.change_inventory(order_item.quantity)
         end
+
+        create_shopping_cart
         redirect_to order_path(@order.id)
       else
 

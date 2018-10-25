@@ -92,10 +92,10 @@ describe OrdersController do
     it "will change the status of each order item from 'pending' to 'paid'" do
 
       @order.order_items.each do |order_item|
-        order_item.must_equal 'pending'
+        order_item.status.must_equal 'pending'
       end
 
-      put order_path(@order.id), params:{
+      patch order_path(@order.id), params:{
         order: {
           email: "bbb@gmail.com",
           mailing_address: '2334 B Street',
@@ -107,11 +107,37 @@ describe OrdersController do
         }
       }
 
-      updated_order = Order.find_by(id: @order.id)
-
-      updated_order.order_items.each do |order_item|
-        order_item.must_equal 'paid'
+      @order.reload
+      @order.order_items.each do |order_item|
+        order_item.status.must_equal 'paid'
       end
+    end
+
+    it "will change the inventory for each product placed in the order after it has been updated as paid" do
+
+      first_order_item = @order.order_items.first
+      first_product = first_order_item.product
+      original_inventory = first_product.inventory
+      requested_qty = first_order_item.quantity
+
+      patch order_path(@order.id), params:{
+        order: {
+          email: "bbb@gmail.com",
+          mailing_address: '2334 B Street',
+          cc: 1234123412341234,
+          cc_name: 'Some Name',
+          cc_expiration: '10/23',
+          cvv: 987,
+          zip: 98123,
+        }
+      }
+
+      @order.reload
+      first_order_item = @order.order_items.first
+      first_product = first_order_item.product
+      updated_inventory = first_product.inventory
+      updated_inventory.must_equal original_inventory - requested_qty
+
     end
 
     it "will render a bad request if there is missing data" do
@@ -142,37 +168,25 @@ describe OrdersController do
   end
   #
   #
-  # describe "destroy" do
-  #   it "can destroy an existing order" do
-  #     # Arrange
-  #     order = orders(:one)
-  #     # before_order_count = Book.count
-  #
-  #     # Act
-  #     expect {
-  #       delete order_path(order)
-  #     }.must_change('puts "inside the must_change argument"; Order.count', -1)
-  #
-  #     # Assert
-  #     must_respond_with :redirect
-  #     must_redirect_to orders_path
-  #
-  #     # expect(Book.count).must_equal(
-  #     #   before_order_count - 1,
-  #     #   "order count did not decrease"
-  #     # )
-  #   end
-  #
-  #   # it "responds with not_found if the order doesn't exist" do
-  #   #   id = bad_order_id
-  #   #   expect {
-  #   #     delete order_path(id)
-  #   #   }.wont_change('Book.count')
-  #   #
-  #   #   must_respond_with :not_found
-  #   # end
-  # end
+  describe "destroy" do
+    it "can clear the cart successfully" do
+      order = orders(:three)
+      before_order_items_count = order.order_items.count
 
+      expect {
+        delete order_path(order)
+      }.must_change('puts "inside the must_change argument"; OrderItem.count', -1)
+      must_redirect_to cart_path
+    end
 
+    # it "renders a bad request if the order is not found" do
+    #   order_three.destroy
+    #
+    #   expect {
+    #     delete order_path(order_three)
+    #   }.must_change('puts "inside the must_change argument"; OrderItem.count', -1)
+    #   must_respond_with :bad_request
+    # end
 
+  end
 end

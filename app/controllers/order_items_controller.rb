@@ -38,6 +38,15 @@ class OrderItemsController < ApplicationController
     pending_status? ? order_item_destroyed : could_not_destroy
   end
 
+  def ship_order_item
+    @order_item.update(status: 'shipped')
+  end
+
+  def cancel_order_item
+    @order_item.update(status: 'cancelled')
+
+  end
+
   private
 
   def cannot_update_paid_order_item

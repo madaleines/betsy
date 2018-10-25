@@ -5,3 +5,63 @@
 </p>
 
 <h3>Order Details</h3>
+
+<div class="container">
+  <div class="row">
+    <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+          <address>
+            <strong><%= @order.cc_name %></strong>
+            <br>
+            <%= @order.mailing_address %>
+          </address>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+          <p>
+            <em><%= @order.created_at.strftime("%b %e, %Y") %></em>
+          </p>
+          <p>
+            <em>#<%= rand(1000..2000) %></em>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="text-center">
+          <h1>Receipt</h1>
+        </div>
+      </span>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th class="text-center">Price</th>
+            <th class="text-center">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% subtotal = 0 %>
+          <% total = 0 %>
+          <% @order.order_items.each do |order_item| %>
+          <% total += subtotal %>
+          <% product = order_item.product %>
+          <% subtotal = product.price * order_item.quantity %>
+          <tr>
+            <td class="col-md-9"><em><%= product.name %></em></h4></td>
+            <td class="col-md-1" style="text-align: center"><%= order_item.quantity %></td>
+            <td class="col-md-1 text-center"><%= product.price %></td>
+            <td class="col-md-1 text-center">$<%= subtotal %></td>
+          </tr>
+          <% end %>
+          <tr>
+            <td class="text-right"><h4><strong>Total: </strong></h4></td>
+            <td class="text-center text-danger"><h4><strong>$<%= total %></strong></h4></td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-success btn-lg btn-block"><%= link_to 'Return Home', root_path, :class => "btn"%><span class="glyphicon glyphicon-chevron-right"></span>
+      </button>
+    </div>
+  </div>
+</div>

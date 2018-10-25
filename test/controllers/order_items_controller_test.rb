@@ -160,11 +160,31 @@ describe OrderItemsController do
       must_redirect_to cart_path
     end
 
-    it "does not delete order item if status is not pending" do
+    it "does not delete order item if status is paid" do
       order_item = order_items(:paid)
       order = order_item.order
 
-      order_item.status = "shipped"
+      expect {
+        delete order_item_path(order_item.id)
+      }.wont_change('order.order_items.count')
+
+      must_respond_with :bad_request
+    end
+
+    it "does not delete order item if status is cancelled" do
+      order_item = order_items(:cancelled)
+      order = order_item.order
+
+      expect {
+        delete order_item_path(order_item.id)
+      }.wont_change('order.order_items.count')
+
+      must_respond_with :bad_request
+    end
+
+    it "does not delete order item if status is shipped" do
+      order_item = order_items(:shipped)
+      order = order_item.order
 
       expect {
         delete order_item_path(order_item.id)

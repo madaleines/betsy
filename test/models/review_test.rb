@@ -1,5 +1,4 @@
 require "test_helper"
-require 'pry'
 
 describe Review do
   describe 'relations' do

@@ -30,8 +30,6 @@ class SessionsController < ApplicationController
         return
       end
     end
-    # If we get here, we have a valid user instance
-    # binding.pry
     session[:merchant_id] = @merchant.id
     redirect_to root_path
   end

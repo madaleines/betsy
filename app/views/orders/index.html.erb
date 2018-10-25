@@ -29,12 +29,11 @@
           </td>
           <td><%= order_item.product.id %></td>
           <td><%= order_item.product.name %></td>
-          <td><%= order_item.product.price %></td>
+          <td><%= number_to_currency(order_item.product.price) %></td>
           <td><%= order_item.status %></td>
         </tr>
         <% end %>
       </tbody>
-      >>>>>>> bootstrap-CSS
     </table>
   </div>
 </div>

@@ -149,7 +149,7 @@ describe OrderItemsController do
 
   describe "Destroy" do
     it "deletes an order item when status is pending" do
-      order_item = OrderItem.find_by(status: "pending")
+      order_item = order_items(:pending)
       order = order_item.order
 
       expect{
@@ -160,8 +160,8 @@ describe OrderItemsController do
       must_redirect_to cart_path
     end
 
-    it "does not delete order item if status not pending" do
-      order_item = OrderItem.first
+    it "does not delete order item if status is not pending" do
+      order_item = order_items(:paid)
       order = order_item.order
 
       order_item.status = "shipped"

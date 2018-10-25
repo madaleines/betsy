@@ -2,14 +2,16 @@
   <a class="navbar-brand" href="#"><h4>Your Dashboard - Welcome <%= @current_merchant.username %></h4></a>
 </nav>
 </br>
-<div>
-<button type="button" class="btn btn-info"> <%=link_to "New Product", new_merchant_product_path(@current_merchant.id)%>
-</button>
-</div>
+<div class="button-summary">
+
+  <div>
+    <button type="button" class="btn btn-info"> <%=link_to "New Product", new_merchant_product_path(@current_merchant.id)%>
+    </button>
+  </div>
 </br>
 <div>
-<button type="button" class="btn btn-info"> <%=link_to "Add Category", new_category_path%>
-</button>
+  <button type="button" class="btn btn-info"> <%=link_to "Add Category", new_category_path%>
+  </button>
 </div>
 
 <section class="merchant-detail-summary">
@@ -17,7 +19,7 @@
     <div class="card" style="width: 18rem;">
       <div class="card-header">
         <h4>Account Summary</h4>
-  </div>
+      </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">Name: <%= @current_merchant.username %></li>
         <li class="list-group-item">Joined site on: <%= @current_merchant.created_at.strftime("%B %d, %Y")%></li>
@@ -25,6 +27,7 @@
       </ul>
     </div>
   </div>
+</div>
 <hr />
   <table class="table">
     <h3>Orders</h3>

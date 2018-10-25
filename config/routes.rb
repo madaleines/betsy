@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # root 'products#index', as: 'root'
 
-  root 'products#root'
+  root 'products#root', as:'root'
 
   get "/auth/:provider/callback", to: "sessions#create", as: 'auth_callback'
 

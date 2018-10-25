@@ -1,8 +1,9 @@
 class ProductsController < ApplicationController
-  skip_before_action :require_login, only: [:index, :show]
+  skip_before_action :require_login, only: [:index, :show, :root]
 
   def root
-  end 
+  end
+
   def index
     merchant_params = params[:merchant_id]
     if merchant_params

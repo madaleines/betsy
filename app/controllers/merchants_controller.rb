@@ -11,9 +11,6 @@ class MerchantsController < ApplicationController
       @products.each do |product|
         @order_items << OrderItem.find_by( product_id: product.id )
       end
-
-      flash[:status] = :success
-      @revenue = @current_merchant.revenue
     end
   end
 

@@ -1,7 +1,7 @@
 <h1>Orders#edit</h1>
 <p>Find me in app/views/orders/edit.html.erb</p>
 
-<form_with model: @order, url: merchant_products_path do |f| %>
+<%= form_with model: @order, url: checkout_path do |f| %>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="cc_name">Name of Cardholder</label>

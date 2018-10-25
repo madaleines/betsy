@@ -18,13 +18,11 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @merchant = find_merchant
-    @product = @merchant.products.new
+    @product = @current_merchant.products.new
   end
 
   def create
-    @merchant = find_merchant
-    @product = create_product(product_params)
+    @product = @current_merchant.products.new(product_params)
     is_successful_save = @product.save
     is_successful_save ? product_created : cannot_create_product
   end
@@ -54,6 +52,7 @@ class ProductsController < ApplicationController
 
   def cannot_create_product
     flash.now[:error] = "Invalid product data"
+    flash.now[:error] = @product.errors.messages
     render :new, status: :bad_request
   end
 

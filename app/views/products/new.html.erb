@@ -1,38 +1,4 @@
-<h1>Products#new</h1>
-<section>
-  <%= form_with model: @product do |f| %>
-    <div class="form-group">
-      <%= f.label :category %>
-      <%= f.select :category, Product::CATEGORIES, {}, class: "form-control" %>
-    </div>
+<h2>Add Product</h2>
 
-    <div class="form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :merchant %>
-      <%= f.text_field :merchant, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :price %>
-      <%= f.text_field :price, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :quantity %>
-      <%= f.text_field :inventory, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :description %>
-      <%= f.text_area :description, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.submit class: "btn btn-primary" %>
-    </div>
-  <% end %>
-</section>
+<%= render partial: "add_edit_partials",
+locals: { action_name: "Add Product"} %>

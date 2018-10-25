@@ -168,37 +168,25 @@ describe OrdersController do
   end
   #
   #
-  # describe "destroy" do
-  #   it "can destroy an existing order" do
-  #     # Arrange
-  #     order = orders(:one)
-  #     # before_order_count = Book.count
-  #
-  #     # Act
-  #     expect {
-  #       delete order_path(order)
-  #     }.must_change('puts "inside the must_change argument"; Order.count', -1)
-  #
-  #     # Assert
-  #     must_respond_with :redirect
-  #     must_redirect_to orders_path
-  #
-  #     # expect(Book.count).must_equal(
-  #     #   before_order_count - 1,
-  #     #   "order count did not decrease"
-  #     # )
-  #   end
-  #
-  #   # it "responds with not_found if the order doesn't exist" do
-  #   #   id = bad_order_id
-  #   #   expect {
-  #   #     delete order_path(id)
-  #   #   }.wont_change('Book.count')
-  #   #
-  #   #   must_respond_with :not_found
-  #   # end
-  # end
+  describe "destroy" do
+    it "can clear the cart successfully" do
+      order = orders(:three)
+      before_order_items_count = order.order_items.count
 
+      expect {
+        delete order_path(order)
+      }.must_change('puts "inside the must_change argument"; OrderItem.count', -1)
+      must_redirect_to cart_path
+    end
 
+    # it "renders a bad request if the order is not found" do
+    #   order_three.destroy
+    #
+    #   expect {
+    #     delete order_path(order_three)
+    #   }.must_change('puts "inside the must_change argument"; OrderItem.count', -1)
+    #   must_respond_with :bad_request
+    # end
 
+  end
 end

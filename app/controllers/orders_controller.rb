@@ -51,9 +51,25 @@ class OrdersController < ApplicationController
   end
 
   def destroy #clear cart
+    @order = find_order
+    render_404 if @order.nil?
+    @order.order_items.destroy_all
+    # if @order.order_items.count.nil? <-- why this doesn't this work?
+    if @order.order_items.count == 0
+      flash[:success] = "Successfully emptied your Cart"
+      redirect_to cart_path
+    else
+      flash[:error] = "Could not clear the cart"
+      render_400
+    end
   end
 
   private
+
+  def emptied_cart_200
+    flash[:success] = "Successfully emptied your Cart"
+    redirect_to cart_path
+  end
 
   def redirect_no_items_in_cart
     flash[:error] = "There are no items to checkout"
@@ -73,6 +89,4 @@ class OrdersController < ApplicationController
   def billing_params
     params.require(:order).permit(:email, :mailing_address, :cc, :cc_name, :cc_expiration, :cvv, :zip)
   end
-
-
 end

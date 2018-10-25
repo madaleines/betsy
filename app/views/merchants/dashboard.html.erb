@@ -2,14 +2,13 @@
   <div class="dasboard-container">
 
     <h2>Merchant Summary:</h2>
-
     <h3>Name: <%= @merchant.username %></h3>
     <p>Joined site on: <%= @merchant.created_at.strftime("%B %d, %Y") %></p>
   </div>
 
-  <div class="links-bar">
-    <%= link_to "Add new product", new_merchant_product_path(@merchant.id), class: "new_product" %>
-    <%= link_to "Add new category", new_category_path, class: "new_category" %>
+  <span class="tags">
+    <%= link_to "Add new product", new_merchant_product_path(@merchant.id), class: "new_product" %></span>
+    <span class="span"><%= link_to "Add new category", new_category_path, class: "new_category" %></span>
   </div>
 </section>
 

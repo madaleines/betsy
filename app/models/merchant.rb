@@ -10,18 +10,17 @@ class Merchant < ApplicationRecord
   end
 
 
-  def self.revenue
+  def revenue
     revenue = 0.0
-
     self.products.each do |product|
-      product.each do |order_item|
+      product.order_items.each do |order_item|
         if order_item.status != 'pending'
-          revenue += order_item.product.price
+          revenue += (order_item.product.price * order_item.quantity)
         end
       end
     end
 
-    return revenue
+    return revenue.round(2)
   end
 
 end

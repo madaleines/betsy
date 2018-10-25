@@ -59,6 +59,7 @@
       <td scope="row"><%=product.name%></td>
       <td scope="row"><%=product.price%></td>
       <td scope="row"><%=product.inventory%></td>
+      </td>
       <td scope="row">
         <%if product.is_active == true%>
         <button type="button" class="btn btn-info"><%=link_to "Active", change_status_merchant_product_path(@current_merchant.id, product.id), method: :post%></button>

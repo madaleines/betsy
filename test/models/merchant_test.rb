@@ -10,6 +10,27 @@ describe Merchant do
     end
   end
 
+
+  describe 'revenue' do
+    let(:two) {merchants(:two)}
+    let(:four) {merchants(:four)}
+    let(:three) {merchants(:three)}
+
+    it 'calculates revenue for merchant with many products / order items' do
+      expect(two.revenue).must_equal 1114.00
+    end
+
+    it 'calculates revenue for merchant with no products' do
+      expect(four.revenue).must_equal 0.0
+    end
+
+    it 'calculates revenue for merchant with product / no order item ' do
+      expect(three.revenue).must_equal 0.0
+    end
+
+
+  end
+
   describe 'validations' do
     before do
       @merchant = Merchant.new(

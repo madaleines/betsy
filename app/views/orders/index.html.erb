@@ -24,7 +24,7 @@
         <td scope="row"><%= order_item.product.id %></td>
         <td scope="row"><%= order_item.product.name %></td>
         <td scope="row"><%= order_item.product.price %></td>
-        <td scope="row"><%= order_item.product.status %></td>
+        <td scope="row"><%= order_item.status %></td>
         <td scope="row"><button type="button" class="btn btn-info"><%=link_to "Edit", edit_merchant_product_path(@current_merchant.id, product.id)%></button></td>
       </tr>
       <%end%>

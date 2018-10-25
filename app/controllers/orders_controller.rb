@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   skip_before_action :require_login
   def index
     if @shopping_cart.order_items.empty?
-      flash[:alert] = "Your cart is empty"
+      flash.now[:alert] = "Your cart is empty"
     end
   end
 
@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
 
   def edit #checkout form
     if @shopping_cart.order_items.empty?
-      flash[:alert] = "Cart - empty"
+      flash.now[:alert] = "Cart - empty"
       redirect_to cart_path
     else
       return @shopping_cart

@@ -35,3 +35,9 @@ paid2:
   status: paid
   order: two
   product: puzzle
+
+pending2:
+  quantity: 5
+  status: pending
+  order: four
+  product: yoga

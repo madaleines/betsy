@@ -27,19 +27,19 @@ class OrdersController < ApplicationController
     @order = find_order
     if valid_shopping_cart?
 
-      @order.update_attributes(status: "paid")
-      @order.update_attributes(billing_params)
+      @order.update(status: "paid")
+      @order.update(billing_params)
 
       if @order.update(billing_params)
-        @order.order_items.each do
-          order_item.update_attributes(status: "paid")
+        @order.order_items.each do |order_item|
+          order_item.update(status: "paid")
         end
       end
 
       if @order.save
         @order.order_items.each do |order_item|
           product = Product.find(order_item.product_id)
-          product.change_inventory(item.quantity)
+          product.change_inventory(order_item.quantity)
         end
         redirect_to order_path(@order.id)
       else

@@ -2,33 +2,9 @@
 
 <div class="row p-5">
   <div class="col-md-12">
-
     <table class="table">
-      <h3>Products</h3>
       <thead>
         <tr>
-<<<<<<< HEAD
-          <th scope="col">Quantity</th>
-          <th scope="col">Product_ID</th>
-          <th scope="col">Item</th>
-          <th scope="col">Cost</th>
-          <th scope="col">Status</th>
-        </tr>
-      </thead>
-      <% total = 0 %>
-      <% @shopping_cart.order_items.each do |order_item| %>
-      <% product = Product.find_by(id: order_item.product_id) %>
-      <% total += product.price %>
-      <tr>
-        <td scope="row"><%= order_item.quantity %></td>
-        <td scope="row"><%= order_item.product.id %></td>
-        <td scope="row"><%= order_item.product.name %></td>
-        <td scope="row"><%= order_item.product.price %></td>
-        <td scope="row"><%= order_item.product.status %></td>
-        <td scope="row"><button type="button" class="btn btn-info"><%=link_to "Edit", edit_merchant_product_path(@current_merchant.id, product.id)%></button></td>
-      </tr>
-      <%end%>
-=======
           <th></th>
           <th class="border-0 font-weight-bold">Quantity</th>
           <th class="border-0 font-weight-bold">Product_ID</th>
@@ -58,9 +34,7 @@
         </tr>
         <% end %>
       </tbody>
->>>>>>> alg
     </table>
-
   </div>
 </div>
 
@@ -73,9 +47,9 @@
     <section class="remove">
       <%= link_to "Clear Cart", order_path(@shopping_cart.id), method: :delete, class: "remove-btn", data: {confirm: 'Are you sure you wan to clear your cart?' } %>
     </section>
-    
+
     <section>
-        <%= link_to "Checkout", checkout_path %>
+      <%= link_to "Checkout", checkout_path %>
     </section>
   </div>
 </div>

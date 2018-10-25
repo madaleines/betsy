@@ -54,8 +54,7 @@ class OrdersController < ApplicationController
     @order = find_order
     render_404 if @order.nil?
     @order.order_items.destroy_all
-    # if @order.order_items.count.nil? <-- why this doesn't this work?
-    if @order.order_items.count == 0
+    if @order.order_items.empty?
       flash[:success] = "Successfully emptied your Cart"
       redirect_to cart_path
     else

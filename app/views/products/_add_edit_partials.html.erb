@@ -28,8 +28,12 @@
 
 <div class="form-group">
   <%= f.label :category %>
-  <div class="form_checkboxes">
-    <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
+  <div class="form-checkboxes">
+    <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) do |c| %>
+    <%= c.label class:"label-checkbox" do%>
+    <%=c.check_box%>  <%=c.text%>
+    <%end%>
+    <%end%>
   </div>
 </div>
 

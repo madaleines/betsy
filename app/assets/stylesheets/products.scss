@@ -66,3 +66,16 @@
   justify-content: flex-end;
 
 }
+
+
+.form-checkboxes{
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+}
+
+.label-checkbox{
+  margin-left: 100px;
+}

@@ -48,7 +48,8 @@ describe ReviewsController do
           post product_reviews_path(plushie.id), params: good_data
         }.must_change('Review.count', +1)
 
-        must_redirect_to products_path(plushie.id)
+        must_redirect_to product_path(plushie.id)
+
       end
 
       it "can't submit review with invalid rating" do
@@ -74,7 +75,9 @@ describe ReviewsController do
           post product_reviews_path(plushie.id), params: good_data
         }.wont_change('Review.count')
 
-        must_respond_with :bad_request
+        must_respond_with :redirect
+        must_redirect_to dashboard_path
+
 
       end
     end
@@ -85,7 +88,7 @@ describe ReviewsController do
           post product_reviews_path(plushie.id), params: good_data
         }.must_change('Review.count', +1)
 
-        must_redirect_to products_path(plushie.id)
+        must_redirect_to product_path(plushie.id)
       end
 
       it "can't submit review with invalid rating" do

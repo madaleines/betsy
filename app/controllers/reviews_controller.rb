@@ -10,22 +10,22 @@ class ReviewsController < ApplicationController
     end
   end
 
+
   def create
     product = Product.find_by(id: params[:product_id])
 
     if @current_merchant == product.merchant
-      flash[:status] = :failure
-      flash[:result_text] = "You cannot submit a review for your own product: #{product.name}"
-      render :new, status: :bad_request
+      flash[:error] = "You cannot submit a review for your own product: #{product.name}"
+
+      redirect_to dashboard_path
+      return
     else
       @review = product.reviews.new(review_params)
       if @review.save
-        # flash[:status] = :success
-        flash[:result_text] = "Successfully submitted review for: #{product.name}"
+        flash[:success] = "Successfully submitted review for: #{product.name}"
         redirect_to product_path(product)
       else
-        flash[:status] = :failure
-        flash[:result_text] = "Could not submit review for: #{product.name}"
+        flash[:error] = "Your review for product #{product.name} was not successfully submitted"
         flash[:messages] = @review.errors.messages
         render :new, status: :bad_request
       end

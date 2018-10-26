@@ -81,10 +81,6 @@ class ProductsController < ApplicationController
     redirect_to product_path(@product.id)
   end
 
-  def create_product(product_params)
-    return Product.new(product_params)
-  end
-
   def product_params
     return params.require(:product).permit(
       :name,

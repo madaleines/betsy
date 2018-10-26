@@ -120,7 +120,7 @@ class OrderItemsController < ApplicationController
     product = find_order_item_product(product_id)
     quantity = params[:order_item][:quantity].to_i
     inventory = product.inventory
-    return quantity < inventory
+    return quantity <= inventory
   end
 
   def find_order_item_product(product_id)

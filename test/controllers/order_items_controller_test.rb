@@ -2,9 +2,30 @@ require "test_helper"
 
 describe OrderItemsController do
   let(:plushie) {products(:plushie)}
+  let(:plushie_merchant) {merchants(:one)}
+  let(:not_plushie_merchant) {merchants(:two)}
 
   describe "Create" do
-    it "it can create an Order Item (add item to cart)" do
+    it "it can create an Order Item (add item to cart) for a Guest user" do
+      product = plushie
+      qty_requested = 7
+      order_item_data = {
+        order_item: {
+          quantity: qty_requested,
+          product_id: product.id
+        }
+      }
+      expect {
+        post order_items_path, params: order_item_data
+      }.must_change('OrderItem.count', +1)
+
+      OrderItem.last.quantity.must_equal qty_requested
+      must_respond_with :redirect
+      must_redirect_to cart_path
+    end
+
+    it "it can create an Order Item (add item to cart) for a Merchant that doesn't have the product" do
+      login(not_plushie_merchant)
       product = plushie
       qty_requested = 7
       order_item_data = {
@@ -25,6 +46,7 @@ describe OrderItemsController do
     it "renders 404 not_found for a bogus order_item data when trying to add to cart" do
       order = Order.first
       product = plushie
+
       order_item_data = {
         order_item: {
           quantity: 0,
@@ -54,6 +76,67 @@ describe OrderItemsController do
         post order_items_path, params: order_item_data
       }.wont_change('OrderItem.count')
       must_redirect_to root_path
+    end
+
+    it "updates the qty requested if the order item is already in the cart for a Guest user" do
+      product = plushie
+      qty_requested = 7
+      order_item_data = {
+        order_item: {
+          quantity: qty_requested,
+          product_id: product.id
+        }
+      }
+
+      post order_items_path, params: order_item_data
+
+      expect {
+        post order_items_path, params: order_item_data
+      }.wont_change('OrderItem.count')
+
+      OrderItem.last.quantity.must_equal qty_requested * 2
+      must_respond_with :redirect
+      must_redirect_to cart_path
+    end
+
+    it "updates the qty requested if the order item is already in the cart for a merchant who doesn't own the product" do
+      login(not_plushie_merchant)
+      product = plushie
+      qty_requested = 7
+      order_item_data = {
+        order_item: {
+          quantity: qty_requested,
+          product_id: product.id
+        }
+      }
+
+      post order_items_path, params: order_item_data
+
+      expect {
+        post order_items_path, params: order_item_data
+      }.wont_change('OrderItem.count')
+
+      OrderItem.last.quantity.must_equal qty_requested * 2
+      must_respond_with :redirect
+      must_redirect_to cart_path
+    end
+
+    it "redirects the merchant if they try to purchase their own product" do
+      login(plushie_merchant)
+      product = plushie
+      qty_requested = 7
+      order_item_data = {
+        order_item: {
+          quantity: qty_requested,
+          product_id: product.id,
+        }
+      }
+      expect {
+        post order_items_path, params: order_item_data
+      }.wont_change('OrderItem.count')
+
+      must_respond_with :redirect
+      must_redirect_to dashboard_path
     end
   end
 

@@ -8,9 +8,9 @@ class ProductsController < ApplicationController
     merchant_params = params[:merchant_id]
     if merchant_params
       merchant = find_merchant
-      @products = merchant.products
+      @products = merchant.products.where(is_active: true)
     else
-      @products = Product.all
+      @products = Product.where(is_active: true)
       @shopping_cart = find_shopping_cart
     end
   end

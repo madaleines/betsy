@@ -14,27 +14,26 @@ class OrdersController < ApplicationController
 
 
   def edit #checkout form
-    if @shopping_cart.order_items.empty?
-      flash.now[:alert] = "Cart - empty"
-      redirect_to cart_path
+    if cart_has_no_items?
+      redirect_no_items_in_cart
+      return
     else
       return @shopping_cart
     end
   end
 
 
-  def update
+  def update #when all billing info is submitted correctly
     @order = find_order
     if valid_shopping_cart?
-
-      @order.update(status: "paid")
       @order.update(billing_params)
-
-      if @order.update(billing_params)
+      if @order.save
         @order.order_items.each do |order_item|
           order_item.update(status: "paid")
         end
       end
+
+      @order.update(status: "paid")
 
       if @order.save
         @order.order_items.each do |order_item|
@@ -80,7 +79,7 @@ class OrdersController < ApplicationController
 
 
   def cart_has_no_items?
-    return @shopping_cart.order_items.nil?
+    return @shopping_cart.order_items.empty?
   end
 
   def valid_shopping_cart?

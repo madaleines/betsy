@@ -7,7 +7,6 @@
         <tr>
           <th></th>
           <th class="border-0 font-weight-bold">Quantity</th>
-          <th class="border-0 font-weight-bold">Product_ID</th>
           <th class="border-0 font-weight-bold">Item</th>
           <th class="border-0 font-weight-bold">Cost</th>
           <th class="border-0 font-weight-bold">Status</th>
@@ -27,7 +26,6 @@
             <%= f.submit "Update Quantity", class: "button" %>
             <% end %>
           </td>
-          <td><%= order_item.product.id %></td>
           <td><%= order_item.product.name %></td>
           <td><%= number_to_currency(order_item.product.price) %></td>
           <td><%= order_item.status %></td>
@@ -49,7 +47,7 @@
     </section>
 
     <section>
-      <%= link_to "Checkout", checkout_path %>
+      <%= link_to "Checkout", checkout_path, class: "btn btn-primary" %>
     </section>
   </div>
 </div>

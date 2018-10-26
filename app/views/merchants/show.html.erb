@@ -57,8 +57,8 @@
       </thead>
       <%@products.each do |product| %>
       <td scope="row"><%=product.name%></td>
-      <td scope="row"><%=product.price%></td>
       <td scope="row"><%=product.inventory%></td>
+      <td scope="row"><%=product.price%></td>
       </td>
       <td scope="row">
         <%if product.is_active == true%>

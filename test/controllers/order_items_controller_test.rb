@@ -36,7 +36,7 @@ describe OrderItemsController do
         post order_items_path, params: order_item_data
       }.wont_change('OrderItem.count')
 
-      must_respond_with :bad_request
+      must_redirect_to root_path
     end
 
     it "renders a bad request if the quantity requested is more than the product inventory" do
@@ -53,7 +53,7 @@ describe OrderItemsController do
       expect {
         post order_items_path, params: order_item_data
       }.wont_change('OrderItem.count')
-      must_respond_with :bad_request
+      must_redirect_to root_path
     end
   end
 
@@ -82,7 +82,7 @@ describe OrderItemsController do
           quantity: 'four'
         }
       }
-      must_respond_with :bad_request
+      must_redirect_to root_path
       order_item.quantity.must_equal original_qty
     end
 
@@ -98,7 +98,7 @@ describe OrderItemsController do
       }
 
       order_item.quantity.must_equal original_qty
-      must_respond_with :bad_request
+      must_redirect_to root_path
     end
 
     it "renders a bad request if the quantity updated is good but the status is paid" do
@@ -113,7 +113,7 @@ describe OrderItemsController do
       }
 
       paid_order_item.quantity.must_equal original_qty
-      must_respond_with :bad_request
+      must_redirect_to root_path
     end
 
     it "renders a bad request if the quantity updated is good but the status is cancelled" do
@@ -128,7 +128,7 @@ describe OrderItemsController do
       }
 
       paid_order_item.quantity.must_equal original_qty
-      must_respond_with :bad_request
+      must_redirect_to root_path
     end
 
     it "renders a bad request if the quantity updated is good but the status is shipped" do
@@ -143,7 +143,7 @@ describe OrderItemsController do
       }
 
       paid_order_item.quantity.must_equal original_qty
-      must_respond_with :bad_request
+      must_redirect_to root_path
     end
   end
 
@@ -168,7 +168,7 @@ describe OrderItemsController do
         delete order_item_path(order_item.id)
       }.wont_change('order.order_items.count')
 
-      must_respond_with :bad_request
+      must_redirect_to root_path
     end
 
     it "does not delete order item if status is cancelled" do
@@ -179,7 +179,7 @@ describe OrderItemsController do
         delete order_item_path(order_item.id)
       }.wont_change('order.order_items.count')
 
-      must_respond_with :bad_request
+      must_redirect_to root_path
     end
 
     it "does not delete order item if status is shipped" do
@@ -190,7 +190,7 @@ describe OrderItemsController do
         delete order_item_path(order_item.id)
       }.wont_change('order.order_items.count')
 
-      must_respond_with :bad_request
+      must_redirect_to root_path
     end
   end
 end

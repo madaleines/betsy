@@ -2,7 +2,15 @@ class OrderItemsController < ApplicationController
   skip_before_action :require_login
 
   def create
-    product_id = params[:order_item][:product_id]
+    product_id = params[:order_item][:product_id].to_i
+
+    product = Product.find_by(id: product_id)
+
+    if @current_merchant == product.merchant
+      flash[:error] = "Cannot add your own product to the cart"
+      redirect_to dashboard_path
+      return
+    end
 
     @shopping_cart.order_items.each do |order_item|
       if order_item.product.id == product_id.to_i
@@ -16,8 +24,6 @@ class OrderItemsController < ApplicationController
         end
         return
       end
-
-
     end
 
     unless quantity_is_in_stock?(product_id)
@@ -67,7 +73,7 @@ class OrderItemsController < ApplicationController
 
   def cannot_update_paid_order_item
     flash[:error] = "Cannot update an order item that is not pending"
-    render_400
+    redirect_to root_path
   end
 
   def pending_status?
@@ -76,7 +82,7 @@ class OrderItemsController < ApplicationController
 
   def could_not_destroy
     flash[:failure] = "Could not delete item from cart due to status being \'#{@order_item.status}\'"
-    render_400
+    redirect_to root_path
   end
 
   def order_item_destroyed
@@ -87,7 +93,7 @@ class OrderItemsController < ApplicationController
 
   def could_not_update
     flash[:error] = @order_item.errors.messages
-    render_400
+    redirect_to root_path
   end
 
   def order_item_updated
@@ -98,7 +104,7 @@ class OrderItemsController < ApplicationController
   def could_not_add_to_cart
     flash[:failure] = "Could not add to cart"
     flash[:messages] = @order_item.errors.messages
-    render_400
+    redirect_to root_path
   end
 
   def added_to_cart
@@ -108,7 +114,7 @@ class OrderItemsController < ApplicationController
 
   def cannot_order_more_than_stock
     flash[:error] = "Cannot order more than inventory"
-    render_400
+    redirect_to root_path
   end
 
   def quantity_is_in_stock?(product_id)

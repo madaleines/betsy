@@ -26,7 +26,7 @@ class ReviewsController < ApplicationController
         redirect_to product_path(product)
       else
         flash[:error] = "Your review for product #{product.name} was not successfully submitted"
-        flash[:messages] = @review.errors.messages
+        # flash[:messages] = @review.errors.messages
         render :new, status: :bad_request
       end
     end

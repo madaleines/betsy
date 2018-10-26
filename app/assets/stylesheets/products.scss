@@ -66,13 +66,25 @@
 
 }
 
+.blockquote {
+  font-style: italic;
+  margin-left: -100px;
+  margin-right: -100px;
+}
+
+.blockquote p:before {
+  content: open-quote;
+}
+
+.blockquote p:after {
+  content: close-quote;
+}
 
 .form-checkboxes{
   height: 150px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-
 }
 
 .label-checkbox{

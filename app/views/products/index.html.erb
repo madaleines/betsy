@@ -6,13 +6,8 @@
   <h2 class="title-page"><%=@category.name%> Products</h2>
   <% else %>
 
-
-  <%= will_paginate @products %>
-  <h2 class="title-page">List of All Products</h2>
-
   <h2 class="title-page">All Products</h2>
   <% end %>
-
 
   <div class="flex-container">
     <% @products.each do |product| %>
@@ -25,6 +20,8 @@
     </div>
     <% end %>
   </div>
+
+  <%= will_paginate @products %>
 
 
 </div>

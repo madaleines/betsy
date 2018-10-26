@@ -64,7 +64,6 @@ class OrdersController < ApplicationController
     return
   end
 
-
   def cart_has_no_items?
     return @shopping_cart.order_items.empty?
   end

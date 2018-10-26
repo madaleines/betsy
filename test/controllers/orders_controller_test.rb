@@ -179,15 +179,5 @@ describe OrdersController do
       }.must_change('puts "inside the must_change argument"; OrderItem.count', -1)
       must_redirect_to cart_path
     end
-
-    # it "renders a bad request if the order is not found" do
-    #   order_three.destroy
-    #
-    #   expect {
-    #     delete order_path(order_three)
-    #   }.must_change('puts "inside the must_change argument"; OrderItem.count', -1)
-    #   must_respond_with :bad_request
-    # end
-
   end
 end

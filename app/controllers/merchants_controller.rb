@@ -4,8 +4,13 @@ class MerchantsController < ApplicationController
     @products = @current_merchant.products
     @order_items = []
     @products.each do |product|
-      @order_items << OrderItem.find_by( product_id: product.id )
-    end
+       all_items = OrderItem.where( product_id: product.id )
+       all_items.each do |order_item|
+         if order_item.status != 'pending'
+           @order_items << order_item
+         end
+       end
+     end
   end
 
 end

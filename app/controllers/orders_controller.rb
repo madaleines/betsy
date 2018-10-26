@@ -40,8 +40,6 @@ class OrdersController < ApplicationController
         create_shopping_cart
         redirect_to order_path(@order.id)
       else
-
-        flash[:error] = "Please fix the following"
         flash[:messages] = @order.errors.messages
         redirect_to checkout_path
       end

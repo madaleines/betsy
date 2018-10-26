@@ -77,16 +77,6 @@ class OrderItemsController < ApplicationController
     redirect_to dashboard_path
   end
 
-
-  def ship_order_item
-    @order_item.update(status: 'shipped')
-  end
-
-  def cancel_order_item
-    @order_item.update(status: 'cancelled')
-
-  end
-
   private
 
   def cannot_update_paid_order_item

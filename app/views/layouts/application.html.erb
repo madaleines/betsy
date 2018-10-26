@@ -31,67 +31,78 @@
           <%= link_to "Log Out", '/sessions/logout', method: "post" %></button>
           <% else %>
           <button type="button" class="btn btn-info"><%= link_to "Log In", '/auth/github' %>
-        </button>
-        <% end %>
+          </button>
+          <% end %>
+        </div>
+
+
+
+        <div class="braineaze">
+          <h1><%=link_to "Braineaze", root_path %></h1>
+        </div>
+
+        <div class="nav-option" id="products">
+          <%=link_to "Products", products_path %>
+        </div>
+
+        <div class="nav-option" id="category">
+          <class="dropdown">
+          <a href="#" data-toggle="dropdown" role="button" aria-haspopup="falsed" aria-expanded="false">Categories <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <% Category.all.each do |category| %>
+            <li><a href="/category/category.id"></a>
+              <%=link_to category.name, category_products_path(category.id) %>
+            </li>
+            <% end %>
+          </ul>
+        </class>
       </div>
 
-
-
-      <div class="braineaze">
-        <h1><%=link_to "Braineaze", root_path %></h1>
-      </div>
-
-      <div class="nav-option" id="products">
-        <%=link_to "Products", products_path %>
-      </div>
-
-      <div class="nav-option" id="category">
+      <div class="nav-option" id="merchants">
         <class="dropdown">
-        <a href="#" data-toggle="dropdown" role="button" aria-haspopup="falsed" aria-expanded="false">Categories <span class="caret"></span></a>
+        <a href="#" data-toggle="dropdown" role="button" aria-haspopup="falsed" aria-expanded="false">Merchants <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <% Category.all.each do |category| %>
+          <% Merchant.all.each do |merchant| %>
           <li><a href="/category/category.id"></a>
-            <%=link_to category.name, category_products_path(category.id) %>
+            <%=link_to merchant.username, merchant_products_path(merchant.id) %>
           </li>
           <% end %>
         </ul>
       </class>
     </div>
 
-    <div class="nav-option" id="merchants">
-      <class="dropdown">
-      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="falsed" aria-expanded="false">Merchants <span class="caret"></span></a>
-      <ul class="dropdown-menu">
-        <% Merchant.all.each do |merchant| %>
-        <li><a href="/category/category.id"></a>
-          <%=link_to merchant.username, merchant_products_path(merchant.id) %>
-        </li>
-        <% end %>
-      </ul>
-    </class>
-  </div>
+    <div class="nav-option" id="cart">
+      <%= @shopping_cart.order_items.length %>
+      <%= link_to image_tag("cart.png", :class => 'cart-photo', :alt => 'cart photo'), cart_path %>
 
-  <div class="nav-option" id="cart">
-    <%= @shopping_cart.order_items.length %>
-    <%= link_to image_tag("cart.png", :class => 'cart-photo', :alt => 'cart photo'), cart_path %>
-
-  </div>
-  <!-- <form class="form-inline my-2 my-lg-0">
-  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-</form> -->
+    </div>
+    <!-- <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form> -->
 </nav>
 </header>
 
-<section class="flash-messages">
-  <% flash.each do |key, message| %>
-  <% alert_class = key == "error" ? "danger" : key %>
-  <p class="alert alert-<%= alert_class %>">
-    <%= message %>
-  </p>
+<% flash.each do | name, message | %>
+<% if name == "error" %>
+<h4>Please check the following</h4>
+<dl>
+  <% flash[:error].each do |field, error_messages| %>
+  <dt><strong><%= field.upcase %></strong></dt>
+  <% if error_messages.class == Array %>
+  <% error_messages.each do |error_message| %>
+  <dd> >> <%= error_message %></dd>
   <% end %>
-</section>
-
+  <% else %>
+  <dd> >> <%= error_messages %></dd>
+  <% end %>
+</li>
+<% end %>
+</dl>
+<% else %>
+<h4><%= message %></h4>
+<% end %>
+<% end %>
 
 <main>
 

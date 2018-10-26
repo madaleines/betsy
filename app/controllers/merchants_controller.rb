@@ -8,7 +8,4 @@ class MerchantsController < ApplicationController
     end
   end
 
-  def index
-  end
-
 end

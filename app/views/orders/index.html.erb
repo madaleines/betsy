@@ -17,7 +17,7 @@
         <% total = 0 %>
         <% @shopping_cart.order_items.each do |order_item| %>
         <% product = Product.find_by(id: order_item.product_id) %>
-        <% total += product.price %>
+        <% total += (product.price * order_item.quantity) %>
         <tr>
           <td><section class="remove"><%= link_to "x", order_item_path(order_item.id), method: :delete, class: "remove-btn", data: {confirm: 'Are you sure you want remove this item from your cart?' } %></section>
           </td>

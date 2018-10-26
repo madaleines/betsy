@@ -8,9 +8,9 @@ class ProductsController < ApplicationController
     merchant_params = params[:merchant_id]
     if merchant_params
       merchant = find_merchant
-      @products = merchant.products
+      @products = merchant.products.where(is_active: true)
     else
-      @products = Product.all
+      @products = Product.where(is_active: true)
       @shopping_cart = find_shopping_cart
     end
   end
@@ -43,18 +43,16 @@ class ProductsController < ApplicationController
 
   def change_status
     @product = find_product
-    if @product.is_active == true
-      @product.update(is_active: false)
+
+    @product.is_active = !@product.is_active
+
+    if @product.save
+      flash[:success] = "Successfully changed the status of the #{@product.name}"
     else
-      @product.update(is_active: true)
+      flash[:error] = "Error accured when updating merchandise"
     end
 
     redirect_to dashboard_path
-    #
-    # flash[:status] = "I'm product #{@product.id}, my status is: #{@product.is_active}"
-    #
-    # if @product.update(product_params)
-    # end
   end
 
 
@@ -74,9 +72,7 @@ class ProductsController < ApplicationController
     flash.now[:error] = "Invalid product data"
 
     flash[:error] = @product.errors.messages
-    # @product.errors.each do |error|
-    #   flash.now[:error] = error
-    # end
+
     render :new, status: :bad_request
   end
 

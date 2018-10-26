@@ -69,8 +69,6 @@
 
 .blockquote {
   font-style: italic;
-  margin-left: -100px;
-  margin-right: -100px;
 }
 
 .blockquote p:before {
@@ -90,4 +88,21 @@
 
 .label-checkbox{
   margin-left: 100px;
+}
+
+.quote:before {
+  content: open-quote;
+}
+
+.quote:after {
+  content: close-quote;
+}
+
+#home-banner {
+  padding-top: 200px;
+}
+
+.text-info {
+  background-color: gray;
+  text-align: center;
 }

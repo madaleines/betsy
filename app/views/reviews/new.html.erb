@@ -1,4 +1,43 @@
-<h1>Reviews#new</h1>
-<p>Find me in app/views/reviews/new.html.erb</p>
+<%= form_with model: @review, url: product_reviews_path(@review.product.id) do |f| %>
 
-<h1>This is where Reviews will be made</h1>
+<h3>Add A New Review</h3>
+</br>
+<span class="rating">
+  <label>
+    <%= f.radio_button :rating, '1', :checked => 1 %>
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <%= f.radio_button :rating, '2', :checked => 2 %>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <%= f.radio_button :rating, '3', :checked => 3 %>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <%= f.radio_button :rating, '4', :checked => 4 %>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <%= f.radio_button :rating, '5', :checked => 5 %>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+</span>
+<div class="work-form">
+  <%= f.label :product_review %>
+  <%= f.text_area :description, :rows => 10, style: 'width:100%;' %>
+
+  <%= f.submit "submit", class: "btn btn-primary" %>
+  <% end %>
+</div>

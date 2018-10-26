@@ -230,6 +230,97 @@ describe OrderItemsController do
     end
   end
 
+  describe "Update Order Item Status" do
+    it "updates the status to shipped if it has the right merchant associated with the order item" do
+      paid_order_item = order_items(:paid)
+      merchant = paid_order_item.merchant
+      login(merchant)
+      paid_order_item.status.must_equal "paid"
+
+      patch update_order_item_status_path(paid_order_item.id), params: { status: "shipped" }
+
+      paid_order_item.reload
+      paid_order_item.status.must_equal "shipped"
+      must_redirect_to dashboard_path
+    end
+
+    it "updates the status to cancelled if it has the right merchant associated with the order item" do
+      paid_order_item = order_items(:paid)
+      merchant = paid_order_item.merchant
+      login(merchant)
+      paid_order_item.status.must_equal "paid"
+
+      patch update_order_item_status_path(paid_order_item.id), params: { status: "cancelled" }
+
+      paid_order_item.reload
+      paid_order_item.status.must_equal "cancelled"
+      must_redirect_to dashboard_path
+    end
+
+    it "does not update the status if a Merchant tries to update an order item to shipped that is not associated with them" do
+      paid_order_item = order_items(:paid)
+      merchant = plushie_merchant
+      login(merchant)
+      good_qty = paid_order_item.quantity
+      paid_order_item.status.must_equal "paid"
+
+      patch update_order_item_status_path(paid_order_item.id), params: { status: "shipped" }
+
+      paid_order_item.reload
+      paid_order_item.status.must_equal "paid"
+      must_redirect_to dashboard_path
+    end
+
+    it "does not update the status if a Merchant tries to update an order item to shipped that is not associated with them" do
+      paid_order_item = order_items(:paid)
+      merchant = plushie_merchant
+      login(merchant)
+      paid_order_item.status.must_equal "paid"
+
+      patch update_order_item_status_path(paid_order_item.id), params: { status: "cancelled" }
+
+      paid_order_item.reload
+      paid_order_item.status.must_equal "paid"
+      must_redirect_to dashboard_path
+    end
+
+    it "does not update the status if a guest user tries to change the status to shipped" do
+      paid_order_item = order_items(:paid)
+      paid_order_item.status.must_equal "paid"
+
+      patch update_order_item_status_path(paid_order_item.id), params: { status: "shipped" }
+
+      paid_order_item.reload
+      paid_order_item.status.must_equal "paid"
+      must_redirect_to dashboard_path
+
+    end
+
+    it "does not update the status if a guest user tries to change the status to cancelled" do
+      paid_order_item = order_items(:paid)
+      paid_order_item.status.must_equal "paid"
+
+      patch update_order_item_status_path(paid_order_item.id), params: { status: "cancelled" }
+
+      paid_order_item.reload
+      paid_order_item.status.must_equal "paid"
+      must_redirect_to dashboard_path
+    end
+
+    it "does not update the status for a bogus status with a logged in merchant who has the product" do
+      paid_order_item = order_items(:paid)
+      merchant = paid_order_item.merchant
+      login(merchant)
+      paid_order_item.status.must_equal "paid"
+
+      patch update_order_item_status_path(paid_order_item.id), params: { status: "bogus" }
+
+      paid_order_item.reload
+      paid_order_item.status.must_equal "paid"
+      must_redirect_to dashboard_path
+    end
+  end
+
   describe "Destroy" do
     it "deletes an order item when status is pending" do
       order_item = order_items(:pending)

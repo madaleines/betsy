@@ -8,7 +8,11 @@ class OrdersController < ApplicationController
   end
 
   def show
+
     @order = find_order
+    if @order.status == "cart"
+      redirect_to checkout_path
+    end
     render_404 if @order.nil?
   end
 

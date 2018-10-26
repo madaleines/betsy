@@ -23,7 +23,7 @@
           <td>
             <%= form_with model: order_item do |f| %>
             <%= f.select(:quantity, (1..order_item.product.inventory)) %>
-            <%= f.submit "Update Quantity", class: "button" %>
+            <%= f.submit "Update Quantity", class: 'btn btn-link' %>
             <% end %>
           </td>
           <td><%= order_item.product.name %></td>
@@ -47,7 +47,7 @@
     </section>
 
     <section>
-      <%= link_to "Checkout", checkout_path, class: "btn btn-primary" %>
+      <%= link_to "Checkout", checkout_path, class: "btn btn-info" %>
     </section>
   </div>
 </div>

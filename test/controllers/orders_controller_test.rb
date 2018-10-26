@@ -142,7 +142,7 @@ describe OrdersController do
 
     end
 
-    it "will render a bad request if there is missing data" do
+    it "will redirect with a bad request if there is missing data" do
       put order_path(@order.id), params:{
         order: {
           email: nil,
@@ -157,15 +157,15 @@ describe OrdersController do
 
       updated_order = Order.find_by(id: @order.id)
       updated_order.email.must_equal nil
-      updated_order.mailing_address.must_equal '2334 B Street'
+      updated_order.mailing_address.must_equal nil
       updated_order.cc.must_equal nil
-      updated_order.cc_name.must_equal 'Name'
+      updated_order.cc_name.must_equal nil
       updated_order.cc_expiration.must_equal nil
       updated_order.cvv.must_equal nil
       updated_order.zip.must_equal nil
       updated_order.status.must_equal 'cart'
 
-      must_respond_with :error
+      must_redirect_to checkout_path
     end
   end
 

@@ -8,7 +8,7 @@ describe OrderItemsController do
   describe "Create" do
     it "it can create an Order Item (add item to cart) for a Guest user" do
       product = plushie
-      qty_requested = 7
+      qty_requested = product.inventory
       order_item_data = {
         order_item: {
           quantity: qty_requested,
@@ -27,7 +27,7 @@ describe OrderItemsController do
     it "it can create an Order Item (add item to cart) for a Merchant that doesn't have the product" do
       login(not_plushie_merchant)
       product = plushie
-      qty_requested = 7
+      qty_requested = product.inventory
       order_item_data = {
         order_item: {
           quantity: qty_requested,

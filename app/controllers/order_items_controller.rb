@@ -3,7 +3,6 @@ class OrderItemsController < ApplicationController
 
   def create
     product_id = params[:order_item][:product_id].to_i
-
     product = Product.find_by(id: product_id)
 
     if @current_merchant == product.merchant
@@ -13,7 +12,7 @@ class OrderItemsController < ApplicationController
     end
 
     @shopping_cart.order_items.each do |order_item|
-      if order_item.product.id == product_id.to_i
+      if order_item.product.id == product_id
         old_qty = order_item.quantity.to_i
         requested_qty = params[:order_item][:quantity].to_i
         new_qty = old_qty + requested_qty

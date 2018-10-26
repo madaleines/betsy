@@ -1,4 +1,4 @@
-<%= form_with model: @product, url: merchant_products_path do |f| %>
+<%= form_with model: @product, url: product_path do |f| %>
 
 <div class="form-group">
   <%= f.label :name %>
@@ -28,7 +28,9 @@
 
 <div class="form-group">
   <%= f.label :category %>
-  <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
+  <div class="form_checkboxes">
+    <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
+  </div>
 </div>
 
 <div class="form-group">

@@ -10,9 +10,7 @@ class OrdersController < ApplicationController
   def show
 
     @order = find_order
-    if @order.status == "cart"
-      redirect_to checkout_path
-    end
+
     render_404 if @order.nil?
   end
 
@@ -28,21 +26,27 @@ class OrdersController < ApplicationController
   def update #when all billing info is submitted correctly
     @order = find_order
     if valid_shopping_cart?
-      @order.update(billing_params)
-      @order.update(status: "paid")
+      @order.update(status: "in progress")
 
-      if @order.save
+
+      if @order.update(billing_params)
         @order.order_items.each do |order_item|
           order_item.update(status: "paid")
           product = Product.find(order_item.product_id)
           product.change_inventory(order_item.quantity)
         end
+
+        @order.update(status: "paid")
         create_shopping_cart
         redirect_to order_path(@order.id)
       else
-        flash.now[:error] = @order.errors
-        render :edit, status: :error
+
+        flash[:error] = "Please fix the following"
+        flash[:messages] = @order.errors.messages
+        redirect_to checkout_path
       end
+
+
     end
   end
 

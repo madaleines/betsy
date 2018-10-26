@@ -14,7 +14,7 @@ class ProductsController < ApplicationController
       @category = find_category
       @products = @category.products.where(is_active: true)
     else
-      @products = Product.where(is_active: true).paginate(page: params[:page], per_page: 4)
+      @products = Product.where(is_active: true).paginate(page: params[:page], per_page: 6)
 
       @shopping_cart = find_shopping_cart
     end

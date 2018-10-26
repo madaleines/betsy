@@ -123,10 +123,15 @@ main{
 
 footer{
   display: flex;
+  flex-direction: column;
   width: 100%;
   padding: 20px;
   justify-content: center;
   align-items: center;
   background-color: rgb(38, 38, 38);
   color: rgb(223, 223, 223);
+}
+
+.footer {
+
 }

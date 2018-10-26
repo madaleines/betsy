@@ -7,6 +7,7 @@ plushie:
   inventory: 10
   merchant: one
   categories: toy
+  is_active: true
 
 puzzle:
   name: Brain Puzzle
@@ -15,6 +16,7 @@ puzzle:
   merchant: two
   inventory: 2
   categories: toy
+  is_active: true
 
 puddy:
   name: Brain Puddy
@@ -23,6 +25,7 @@ puddy:
   inventory: 5
   merchant: two
   categories: toy
+  is_active: true
 
 
 yoga:
@@ -32,3 +35,4 @@ yoga:
   inventory: 100
   merchant: three
   categories: meditation, apparel
+  is_active: true

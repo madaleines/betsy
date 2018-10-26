@@ -62,9 +62,9 @@
       </td>
       <td scope="row">
         <%if product.is_active == true%>
-        <button type="button" class="btn btn-info"><%=link_to "Active", change_status_merchant_product_path(@current_merchant.id, product.id), method: :post%></button>
+        <button type="button" class="btn btn-info"><%=link_to "Active", change_status_merchant_product_path(@current_merchant.id, product.id), method: :post %></button>
         <%elsif%>
-          <button type="button" class="btn btn-info"><%=link_to "Retired", change_status_merchant_product_path(@current_merchant.id, product.id), method: :post%></button>
+          <button type="button" class="btn btn-info"><%=link_to "Retired", change_status_merchant_product_path(@current_merchant.id, product.id), method: :post %></button>
           <%end%>
       </td>
       <td scope="row"><button type="button" class="btn btn-info"><%=link_to "Edit", edit_merchant_product_path(@current_merchant.id, product.id)%></button></td>

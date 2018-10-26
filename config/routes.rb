@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   resources :order_items, only: [:create, :update, :destroy]
 
+  patch '/order_item/:id/update_status', to: 'order_items#update_order_item_status', as: 'update_order_item_status'
+
   resources :orders, only: [:show, :create, :update, :destroy]
 
   get '/checkout', to: 'orders#edit', as: 'checkout'
@@ -31,8 +33,8 @@ Rails.application.routes.draw do
     end
   end
 
-    get '/dashboard', to: 'merchants#show', as: 'dashboard'
+  get '/dashboard', to: 'merchants#show', as: 'dashboard'
 
-    resources :sessions, only: [:new, :create]
-    post '/sessions/logout', to: 'sessions#logout', as: 'logout'
-  end
+  resources :sessions, only: [:new, :create]
+  post '/sessions/logout', to: 'sessions#logout', as: 'logout'
+end

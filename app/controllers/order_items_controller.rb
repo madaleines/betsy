@@ -59,6 +59,25 @@ class OrderItemsController < ApplicationController
     pending_status? ? order_item_destroyed : could_not_destroy
   end
 
+  def update_order_item_status
+    valid_statuses = ["shipped", "cancelled"]
+    order_item_status = params[:status]
+    @order_item = find_order_item
+
+    if @current_merchant != @order_item.merchant
+      flash[:alert] = "You do not have access to change the status of this order item"
+    end
+
+    if @order_item && valid_statuses.include?(order_item_status) && @order_item.merchant == @current_merchant
+        @order_item.update(status: order_item_status)
+        flash[:success] = "Successfully changed that order status"
+    else
+      flash[:alert] = "Something about that request doesn't exist"
+    end
+    redirect_to dashboard_path
+  end
+
+
   def ship_order_item
     @order_item.update(status: 'shipped')
   end

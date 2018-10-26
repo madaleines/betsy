@@ -56,6 +56,13 @@
       <td scope="row"><%=item.quantity%></td>
       <td scope="row">$<%=item.quantity * item.product.price%></td>
       <td scope="row"><%=item.status%></td>
+      <% if item.status == "paid" %>
+      <td scope="row">
+        <button type="button" class="btn btn-info">
+          <%=link_to "Ship", update_order_item_status_path(item.id, status: "shipped"), method: :patch %></button> <button type="button" class="btn btn-info"><%=link_to "Cancel", update_order_item_status_path(item.id, status: "cancelled"), method: :patch %>
+          </button>
+    </td>
+    <% end %>
     </tr>
     <%end%>
     <%end%>

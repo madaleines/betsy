@@ -1,17 +1,16 @@
 class OrdersController < ApplicationController
   skip_before_action :require_login
+
   def index
-    if @shopping_cart.order_items.empty?
+    if cart_has_no_items?
       flash.now[:alert] = "Your cart is empty"
     end
   end
-
 
   def show
     @order = find_order
     render_404 if @order.nil?
   end
-
 
   def edit #checkout form
     if cart_has_no_items?
@@ -22,29 +21,21 @@ class OrdersController < ApplicationController
     end
   end
 
-
   def update #when all billing info is submitted correctly
     @order = find_order
     if valid_shopping_cart?
       @order.update(billing_params)
-      if @order.save
-        @order.order_items.each do |order_item|
-          order_item.update(status: "paid")
-        end
-      end
-
       @order.update(status: "paid")
 
       if @order.save
         @order.order_items.each do |order_item|
+          order_item.update(status: "paid")
           product = Product.find(order_item.product_id)
           product.change_inventory(order_item.quantity)
         end
-
         create_shopping_cart
         redirect_to order_path(@order.id)
       else
-
         flash.now[:error] = @order.errors
         render :edit, status: :error
       end

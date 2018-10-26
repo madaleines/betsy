@@ -56,11 +56,7 @@ class OrdersController < ApplicationController
     render_404 if @order.nil?
     @order.order_items.destroy_all
     if @order.order_items.empty?
-      flash[:success] = "Successfully emptied your Cart"
-      redirect_to cart_path
-    else
-      flash[:error] = "Could not clear the cart"
-      render_400
+      emptied_cart_200
     end
   end
 

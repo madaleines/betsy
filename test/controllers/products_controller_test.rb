@@ -15,6 +15,7 @@ describe ProductsController do
       get products_path
       must_respond_with :success
     end
+
   end
 
   describe 'show' do

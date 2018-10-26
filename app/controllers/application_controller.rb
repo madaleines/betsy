@@ -36,6 +36,10 @@ class ApplicationController < ActionController::Base
     return Merchant.find_by(id: params[:merchant_id])
   end
 
+  def find_category
+    return Category.find_by(id: params[:category_id])
+  end
+
   def find_order_item
     return OrderItem.find_by(id: params[:id])
   end

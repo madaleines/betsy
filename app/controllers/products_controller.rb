@@ -6,9 +6,13 @@ class ProductsController < ApplicationController
 
   def index
     merchant_params = params[:merchant_id]
+    category_params = params[:category_id]
     if merchant_params
-      merchant = find_merchant
-      @products = merchant.products.where(is_active: true)
+      @merchant = find_merchant
+      @products = @merchant.products.where(is_active: true)
+    elsif category_params
+      @category = find_category
+      @products = @category.products.where(is_active: true)
     else
       @products = Product.where(is_active: true)
       @shopping_cart = find_shopping_cart

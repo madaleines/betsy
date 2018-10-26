@@ -47,8 +47,9 @@
       </tr>
     </thead>
     <tr>
-      <% if @order_items != []%>
+      <% if @order_items.include? OrderItem %>
       <%@order_items.each do |item| %>
+      <% if @order_items.status != 'pending' %>
       <td scope="row"><%=item.id%></td>
       <td scope="row"><%=item.created_at.strftime("%m/%d/%Y")  %></td>
       <td scope="row"><%=item.product.name%></td>
@@ -56,7 +57,8 @@
       <td scope="row">$<%=item.quantity * item.product.price%></td>
       <td scope="row"><%=item.status%></td>
       <%end%>
-      <% end %>
+      <%end%>
+      <%end%>
     </tr>
   </table>
 

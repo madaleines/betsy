@@ -15,6 +15,7 @@ describe ProductsController do
       get products_path
       must_respond_with :success
     end
+
   end
 
   describe 'show' do
@@ -151,6 +152,29 @@ describe ProductsController do
 
       unchanged_product.name.must_equal "Brain Puddy"
       must_respond_with :bad_request
+    end
+  end
+
+  describe 'change product status' do
+    it 'it should change the status with post request' do
+      login(one)
+
+      existing_product = products(:puddy)
+
+      post change_status_merchant_product_path(one.id, existing_product.id), params: {
+        product: {
+          name: "Brain Puddy",
+          price: 14,
+          description: "Description!",
+          inventory: 100,
+          is_active: false
+        }
+      }
+
+      updated_product = Product.find_by(id: existing_product.id)
+
+      updated_product.is_active.must_equal false
+      must_redirect_to dashboard_path
     end
   end
 end

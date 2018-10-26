@@ -76,6 +76,8 @@ describe OrdersController do
         }
       }
 
+      @order.reload
+
       updated_order = Order.find_by(id: @order.id)
       updated_order.email.must_equal "bbb@gmail.com"
       updated_order.mailing_address.must_equal "2334 B Street"
@@ -155,9 +157,9 @@ describe OrdersController do
 
       updated_order = Order.find_by(id: @order.id)
       updated_order.email.must_equal nil
-      updated_order.mailing_address.must_equal nil
+      updated_order.mailing_address.must_equal '2334 B Street'
       updated_order.cc.must_equal nil
-      updated_order.cc_name.must_equal nil
+      updated_order.cc_name.must_equal 'Name'
       updated_order.cc_expiration.must_equal nil
       updated_order.cvv.must_equal nil
       updated_order.zip.must_equal nil
@@ -166,8 +168,7 @@ describe OrdersController do
       must_respond_with :error
     end
   end
-  #
-  #
+
   describe "destroy" do
     it "can clear the cart successfully" do
       order = orders(:three)
@@ -178,15 +179,5 @@ describe OrdersController do
       }.must_change('puts "inside the must_change argument"; OrderItem.count', -1)
       must_redirect_to cart_path
     end
-
-    # it "renders a bad request if the order is not found" do
-    #   order_three.destroy
-    #
-    #   expect {
-    #     delete order_path(order_three)
-    #   }.must_change('puts "inside the must_change argument"; OrderItem.count', -1)
-    #   must_respond_with :bad_request
-    # end
-
   end
 end

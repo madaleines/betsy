@@ -31,55 +31,55 @@
           <%= link_to "Log Out", '/sessions/logout', method: "post" %></button>
           <% else %>
           <button type="button" class="btn btn-info"><%= link_to "Log In", '/auth/github' %>
-        </button>
-        <% end %>
+          </button>
+          <% end %>
+        </div>
+
+
+
+        <div class="braineaze">
+          <h1><%=link_to "Braineaze", root_path %></h1>
+        </div>
+
+        <div class="nav-option" id="products">
+          <%=link_to "Products", products_path %>
+        </div>
+
+        <div class="nav-option" id="category">
+          <class="dropdown">
+          <a href="#" data-toggle="dropdown" role="button" aria-haspopup="falsed" aria-expanded="false">Categories <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <% Category.all.each do |category| %>
+            <li><a href="/category/category.id"></a>
+              <%=link_to category.name, category_products_path(category.id) %>
+            </li>
+            <% end %>
+          </ul>
+        </class>
       </div>
 
-
-
-      <div class="braineaze">
-        <h1><%=link_to "Braineaze", root_path %></h1>
-      </div>
-
-      <div class="nav-option" id="products">
-        <%=link_to "Products", products_path %>
-      </div>
-
-      <div class="nav-option" id="category">
+      <div class="nav-option" id="merchants">
         <class="dropdown">
-        <a href="#" data-toggle="dropdown" role="button" aria-haspopup="falsed" aria-expanded="false">Categories <span class="caret"></span></a>
+        <a href="#" data-toggle="dropdown" role="button" aria-haspopup="falsed" aria-expanded="false">Merchants <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <% Category.all.each do |category| %>
+          <% Merchant.all.each do |merchant| %>
           <li><a href="/category/category.id"></a>
-            <%=link_to category.name, category_products_path(category.id) %>
+            <%=link_to merchant.username, merchant_products_path(merchant.id) %>
           </li>
           <% end %>
         </ul>
       </class>
     </div>
 
-    <div class="nav-option" id="merchants">
-      <class="dropdown">
-      <a href="#" data-toggle="dropdown" role="button" aria-haspopup="falsed" aria-expanded="false">Merchants <span class="caret"></span></a>
-      <ul class="dropdown-menu">
-        <% Merchant.all.each do |merchant| %>
-        <li><a href="/category/category.id"></a>
-          <%=link_to merchant.username, merchant_products_path(merchant.id) %>
-        </li>
-        <% end %>
-      </ul>
-    </class>
-  </div>
+    <div class="nav-option" id="cart">
+      <%= @shopping_cart.order_items.length %>
+      <%= link_to image_tag("cart.png", :class => 'cart-photo', :alt => 'cart photo'), cart_path %>
 
-  <div class="nav-option" id="cart">
-    <%= @shopping_cart.order_items.length %>
-    <%= link_to image_tag("cart.png", :class => 'cart-photo', :alt => 'cart photo'), cart_path %>
-
-  </div>
-  <!-- <form class="form-inline my-2 my-lg-0">
-  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-</form> -->
+    </div>
+    <!-- <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form> -->
 </nav>
 </header>
 
@@ -91,8 +91,6 @@
   </p>
   <% end %>
 </section>
-
-
 <main>
 
 

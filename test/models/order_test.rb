@@ -20,17 +20,7 @@ describe Order do
 
     it 'is valid when email, mailing, cc, cc_name, ccv and zip is present' do
       is_valid = @order.valid?
-
       expect( is_valid ).must_equal true
-    end
-
-    it 'is valid when email is unique' do
-      order1 = Order.last
-      order1.email = 'test@email.com'
-
-      is_valid = order1.valid?
-
-      expect ( is_valid ).must_equal true
     end
 
     it 'is invalid when email is missing' do
@@ -41,13 +31,6 @@ describe Order do
       expect( is_valid ).must_equal false
 
       expect( @order.errors.messages ).must_include :email
-    end
-
-    it 'is invalid when email is non-unique' do
-      @order.email = Order.first.email
-
-      is_valid = @order.valid?
-      expect( is_valid ).must_equal false
     end
 
     it 'is invalid when mailing address is missing' do
@@ -88,7 +71,7 @@ describe Order do
 
     it 'is invalid when zip is missing' do
       @order.zip = nil
-      
+
       is_valid = @order.valid?
 
       expect( is_valid ).must_equal false

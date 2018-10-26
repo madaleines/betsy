@@ -4,7 +4,7 @@ class Order < ApplicationRecord
   valid_status = %w(cart paid complete)
 
   validates :status, presence: true
-  validates :email, presence: true, uniqueness: true, unless: :is_cart?
+  validates :email, presence: true, unless: :is_cart?
   validates :mailing_address, presence: true, unless: :is_cart?
   validates :cc, presence: true, unless: :is_cart?
   validates :cc_name, presence: true, unless: :is_cart?

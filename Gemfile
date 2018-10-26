@@ -89,3 +89,5 @@ group :test do
   gem 'minitest-reporters'
   gem 'simplecov', require: false
 end
+
+gem 'will_paginate', "~> 3.0.4" 

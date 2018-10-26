@@ -1,7 +1,8 @@
 <h4>THANK YOU FOR SHOPPING AT BRAINEAZA!</br>YOUR ORDER IS COMPLETE</h4>
 
 <p>
-  We're currently processing your order. We will send you an email as soon as your order is shipped.
+  We're currently processing your order.
+  We will send you an email as soon as your order is shipped.
 </p>
 
 <h3>Order Details</h3>
@@ -43,10 +44,11 @@
         <tbody>
           <% subtotal = 0 %>
           <% total = 0 %>
+
           <% @order.order_items.each do |order_item| %>
-          <% total += subtotal %>
           <% product = order_item.product %>
-          <% subtotal = product.price * order_item.quantity %>
+          <% subtotal = (product.price * order_item.quantity) %>
+          <% total += subtotal %>
           <tr>
             <td class="col-md-9"><em><%= product.name %></em></h4></td>
             <td class="col-md-1" style="text-align: center"><%= order_item.quantity %></td>
@@ -54,10 +56,16 @@
             <td class="col-md-1 text-center">$<%= subtotal %></td>
           </tr>
           <% end %>
+
+          <tr>
+            <td class="text-right"><h5><strong>Shipping: </strong></h5></td>
+            <td class="text-center"><h5><strong>$ <%= subtotal * 0.09 %></strong></h5></td>
+          </tr>
           <tr>
             <td class="text-right"><h4><strong>Total: </strong></h4></td>
-            <td class="text-center text-danger"><h4><strong>$<%= total %></strong></h4></td>
+            <td class="text-center text-danger"><h4><strong>$<%= total +(subtotal * 0.09) %></strong></h4></td>
           </tr>
+
         </tbody>
       </table>
       <button type="button" class="btn btn-success btn-lg btn-block"><%= link_to 'Return Home', root_path, :class => "btn"%><span class="glyphicon glyphicon-chevron-right"></span>

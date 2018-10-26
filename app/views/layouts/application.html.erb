@@ -80,16 +80,27 @@
 </header>
 
 <section class="flash-messages">
-  <% flash.each do |key, message| %>
-  <% alert_class = key == "error" ? "danger" : key %>
-  <p class="alert alert-<%= alert_class %>">
-    <%= message %>
-  </p>
+  <% flash.each do | name, message | %>
+  <% if name == "messages" %>
+  <h4>Please check the following</h4>
+  <% flash[:messages].each do |field, error_messages| %>
+  <dt><strong><%= field.upcase %></strong></dt>
+  <% if error_messages.class == Array %>
+  <% error_messages.each do |error_message| %>
+  <dd> >> <%= error_message %></dd>
   <% end %>
+  <% else %>
+  <dd> >> <%= error_messages %></dd>
+  <% end %>
+</li>
+<% end %>
+<% else %>
+<h4><%= message %></h4>
+<% end %>
+<% end %>\
 </section>
-<main>
 
-  
+<main>
   <%= yield %>
 </main>
 
